@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"[]>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>CHAPTER 9 Using Arduino with PIC32 and ATtiny Atmel Chips</title>
+<link href="9781430239390.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<p class="ChapterNumber"><a id="Chap9" />CHAPTER 9</p>
+<p class="chapimage"><img src="images/frontdot.jpg" alt="image"/></p>
+<p class="ChapterTitle">Using Arduino with PIC32 and ATtiny Atmel Chips</p>
+<div>
+<p class="noindent">Transitioning from standard to custom Arduino hardware can save space and money. Custom boards can add new capabilities to projects through increased speed, memory, and pins, as well as new features. This chapter will look at chips and boards on a spectrum from the power and complexity of the Leonardo to the inexpensive simplicity of the ATtiny. It will examine the unique capabilities of the chipKIT environment based on the Microchip&#x2019;s PIC32 series micro-controller. Then the chapter will demonstrate some unique libraries and features of the chipKIT environment, including support for scheduling timers, which make object detection with Infra-Red (IR) simple. As an example using the Atmel ATtiny environment, you will program a secret knock to operate a servo motor, which will open and close a small wooden box.</p>
+<p id="Sec1" class="Heading1">Arduino and Nonstandard Environments</p>
+<p class="noindent">Arduino<a id="cXXX.341" /> is both a physical specification and a software abstraction layer. Since the Arduino API functions so effectively, it has been ported to many different platforms and microcontrollers. chipKIT<a id="cXXX.342" /> is one of the earliest of these platforms and the first one that supported compiling code for both itself and Arduino. Multiplatform Arduino means that that the Arduino environment can compile code for multiple families of different chips. The multiplatform IDE (MPIDE)<a id="cXXX.343" /> can compile Arduino code for Atmel chips and the multiple-platform PIC32.</p>
+<p class="indent">There is now a broad choice of Arduino-compatible options, including faster and slower chips, with a range of available numbers of pins, and a variety of other features. This spectrum of complexity results in a spectrum of price points. For example, the Arduino Due has an ARM Cortex 3 chip that enhances Arduino performance and has capabilities at similar levels to that of the chipKIT.</p>
+<p class="indent">These high-performance options work best for some purposes. For example, such an option would be ideal if you were trying to create a project that causes 26 small boxes to blink Morse code, listen with piezos, or unlock boxes. You could customize the projects to include a low-cost chip<a id="cXXX.344" /> that has a custom circuit board to make the project affordable. Using these additional environments through the Arduino API allows you to use a high-end prototype. With the Arduino advantage of quick code prototyping, you can make a smooth transition for porting a project from a standard Arduino Uno and put the project on a smaller and less expensive ATtiny family<a id="cXXX.45w" /> of chips.</p>
+<p class="indent">Lastly, I will be showing how to program smaller chips like the ATtiny85 from a standard Arduino. You will examine how to make the Arduino a programmer for the ATtiny85 chip&#x2014;a technique that can be used for the entire ATtiny family, and for many other chips. You will also use the MPIDE to create a PIC32 Arduino-inspired project.</p>
+<p id="Sec2" class="Heading1">The MPIDE and chipKIT PIC32<a id="cXXX.243a" /><a id="cXXX.63s" /></p>
+<p class="noindent">chipKIT is an Arduino-derived variation that uses significantly faster hardware and has much more memory. In this section, you will explore bigger, high-end options. The reference boards for the chipKIT environments are the Digilent chipKIT Uno32<a id="cXXX.345" /> (shown in <a href="#Fig1" id="_Fig1">Figure 9-1</a>) and the chipKIT Max32. The platform has been around long enough that there are chipKIT-compatible boards, such as the chipKIT FubarinoSD and chipKIT Fubarino Mini. These boards all fall in the same price range as the Arduino Uno and the Arduino Mega, but they have significantly improved performance. The Arduino Due board is comparable in speed.</p>
+<div class="Figure" id="Fig1">
+<p class="img"><img src="images/9781430239390_Fig09-01.jpg" alt="9781430239390_Fig09-01.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig1">Figure 9-1</a>. </span>Chipkit Reference Board the Uno32 by Digilent Inc </p>
+</div>
+<p class="indent">The chipKIT home page<a id="cXXX.346" /> is at <span class="FontName2"><a href="http://chipkit.net">http://chipkit.net</a></span>, and the documentation for the project is located at <span class="FontName2"><a href="http://chipkit.net/category/chipkit-projects">http://chipkit.net/category/chipkit-projects</a></span>. Support and discussion of the project is at the chipKIT forum, at <span class="FontName2"><a href="http://chipkit.org/forum">http://chipkit.org/forum</a></span>. Lastly, the MPIDE source code and bootloader are located at <span class="FontName2"><a href="https://github.com/chipKIT32/chipKIT32-MAX">https://github.com/chipKIT32/chipKIT32-MAX</a></span>. <a href="#Tab1" id="_Tab1">Table 9-1</a> gives a comparison of the two boards.</p>
+<div class="Table">
+<p class="TabCapt"><span class="CaptNr"><a id="Tab1" href="#_Tab1">Table 9-1</a>. </span>Comparison of the Built-In Features<a id="cXXX.347" /> of the chipKIT Max32 and the Arduino Mega </p>
+<table>
+<thead>
+<tr class="header">
+<th>Features</th>
+<th>chipKIT Max32</th>
+<th>Arduino Mega</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CPU performance</td>
+<td>80 MHz</td>
+<td>16 MHz</td>
+</tr>
+<tr>
+<td>Core</td>
+<td>32 bit</td>
+<td>8 bit</td>
+</tr>
+<tr>
+<td>Flash memory</td>
+<td>512 KB</td>
+<td>256 KB</td>
+</tr>
+<tr>
+<td>SRAM/program memory</td>
+<td>128 KB</td>
+<td>8 KB</td>
+</tr>
+<tr>
+<td>Digital I/O</td>
+<td>83/5 PWM</td>
+<td>54/14 PWM</td>
+</tr>
+<tr>
+<td>Analog I/O</td>
+<td>16</td>
+<td>16</td>
+</tr>
+<tr>
+<td>RTCC</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Ethernet</td>
+<td>Yes, with add-on shield</td>
+<td>No</td>
+</tr>
+<tr>
+<td>USB</td>
+<td>USB 2.0 FS, device/host, OTG</td>
+<td></td>
+</tr>
+<tr>
+<td>CAN controllers</td>
+<td>2</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Timers</td>
+<td>16/32 bit</td>
+<td>8/16 bit</td>
+</tr>
+<tr>
+<td>Comparators</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>I2C</td>
+<td>5</td>
+<td>1</td>
+</tr>
+<tr>
+<td>SPI</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>UART</td>
+<td>6, with IrDA</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="indent">Digilent has created additional libraries to take advantage of the unique hardware. In addition to the standard Arduino SPI<a id="cXXX.348" />, there are some improved SPI libraries, including Digilent SPI (DSPI)<a id="cXXX.349" /> and Open Source Serial Peripheral Interface<a id="cXXX.171a" /> hardware with SPI support. Software SPI (SoftSPI<a id="cXXX.350" />) is a software implementation of SPI that allows any pin to be used for SPI communication. Software Pulse Width Modulation Servo (SoftPWMServo)<a id="cXXX.351" /> ensures that every pin can be used. It also has improved timer support with the Core Timer Service, and a Task Management service. I will demo those features later in this section.</p>
+<div class="notepara">
+<p class="paraaftertitle1"><img src="images/sq.jpg" alt="image"/>&#160;<b>Note</b>&#160;&#160; The editor is a derivation of the ArduinoThis ChipKit Max32 board in <a href="#Tab1">Table 9-1</a> has many features which put it on the same playing field as the Arduino Due. Additional features like Ethernet, and Car Area Network(CAN) Bus allow for less expensive shields that bring out these features to pins on Ethernet, or CAN Bus shield. More chip details can be found at <span class="FontName2"><a href="http://www.chipkit.org/wiki/index.php?title=ChipKIT_Max32">http://www.chipkit.org/wiki/index.php?title=ChipKIT_Max32</a></span>.</p></div>
+<p class="indent">Another thing in common with the Arduino Due is power issues. There are many pins on the ChipKit Max32 that are 5v tolerant, but not all are. Here are some caveats when powering pins:</p>
+<ul class="bulleted">
+<li>The PIC32 MCUs<a id="cXXX.352" /> on these boards have an operational voltage of 3.3V. The ChipKit MAX32, UNO32, and u32 boards are 5V tolerant, meaning you can input 5V to get a digital or analog reading without burning out the chip. However, these chips only output a maximum of 3.3V. Some 5V components may not recognize 3.3V.</li>
+<li>The readings will be made by default in the range of 0&#x2013;3.3V instead of 0&#x2013;5V. So, you will have to change the values in your own code or libraries in order to obtain the correct range. This may include using a logic level converter<a id="cXXX.353" /> for a 5V device. However, many components are already 3.3V compatible, so, for example, you will not need a logic level converter for chipKIT or Arduino Due boards. The Arduino revision 3 shield specification includes an IOREF pin. If your code checks this pin value, you can enable the appropriate level converter for your board.</li>
+<li>For I2C, there needs to be external pull-up resistors. The PIC32 does not have internal pull-up resistors for every digital pin, so it is best to not use them. You can also design shields or breadboard projects by including the needed pull-up resistors, typically 2&#x2013;2.7k&#x03A9;. This helps make a shield or project compatible with the Arduino Leonardo, which also does not have pull-up resistors<a id="cXXX.354" /> on the I2C pins.</li>
+</ul>
+<div class="notepara">
+<p class="paraaftertitle1"><img src="images/sq.jpg" alt="image"/>&#160;<b>Note</b>&#160;&#160; The editor is a derivation of the Arduino IDE, and it acts and performs the same as the Arduino 1.0 editor. However, at the time of writing, it supports the Arduino 0023 core.</p></div>
+<p class="indent">Digilent Incorporated has created additional libraries to take advantage of the unique hardware. In addition to the standard Arduino SPI, there is Digilent Serial Peripheral Interface (DSPI) for hardware based SPI support. Additionally, there is an official Software SPI (SoftSPI) is a software implementation of SPI that allows any pin to be used for SPI communication. It is common when using shield to have a conflict with a pin that is already using SPI. Being able to use software create a new SPI pin gets around that conflict.</p>
+<p class="indent">Software Pulse Width Modulation Servo (SoftPWMServo) ensures that every pin can be used. The SoftPWMServo library allows for any pin on a ChipKit board to support servos.</p>
+<p class="indent">It also has improved timer support with the Core Timer Service, and a Task Management service. The Core Timer Service will let you work on timing issues with micro second resolution. Whereas the Task Management Service will let you work at millisecond resolution. We will use the Task Management Service to do object detection with in timed intervals that will not interfere with your code in the main loop. Also, it will not require polling the sensors in your loop code.</p>
+<div>
+<p id="Sec3" class="Heading2">Example: Object Detection using the Task Manager service</p>
+<p class="noindent">In this example, you will use one chipKIT Uno32, two IR LEDs, and one IR sensor. The example uses the ChipKit Task Manager to register two tasks that blink the IR LEDs at specified intervals. <a href="#Fig2" id="_Fig2">Figure 9-2</a> shows the project breadboard layout. The sensors are connected to pins 5, and 6. The IR sensor is connected to pin 2 which is an interrupt pin. This will allow the IR sensor to immediately trigger upon the detection of IR.</p>
+<div class="Figure" id="Fig2">
+<p class="img"><img src="images/9781430239390_Fig09-02.jpg" alt="9781430239390_Fig09-02.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig2">Figure 9-2</a>. </span>Uno32 IR LED sensor<a id="cXXX.355" /> and emmiter wiring example </p>
+</div>
+<p class="indent">The code in <a href="#list1" id="_list1">Listing 9-1</a> is loaded using MPIDE. The chipKIT Uno32 is both a listener and broadcaster. It blinks and receives information about whether or not reflections from the IR LEDs. The code is non-blocking, so you can simultaneously perform other actions while it is working. It is possible to operate a servo and respond to objects detected in the front, left, or right of the sensor.</p>
+<p class="noindent2"><a href="#_list1" id="list1"><b><i>Listing 9-1.</i></b></a>&#160;&#160;IR Object Detection<a id="cXXX.356" /> Using the Task Manager Code Example</p>
+<pre><span class="FontName2">/*</span><br /><span class="FontName2">* Object Detection with the Core Task Manager Service</span><br />&#160;<span class="FontName2">* Determine with one sensor which where an object is</span><br />&#160;<span class="FontName2">* 2 - 4 IR LEDs</span><br />&#160;<span class="FontName2">* 1 IR Sensor</span><br />&#160;<span class="FontName2">*/</span><br /><br /><span class="FontName2">//PIN_INT1 for the ChipKit UNO32 is Pin 2</span><br /><span class="FontName2">#define pinInt PIN_INT1</span><br /><br /><span class="FontName2">#define SENSOR1_PIN 2</span><br /><span class="FontName2">#define EMITTER1_PIN 5</span><br /><span class="FontName2">#define EMITTER2_PIN 6</span><br /><span class="FontName2">#define BEATS 6</span></pre>
+<p class="indent">In <a href="#list2" id="_list2">Listing 9-2</a> the interrupt pin is defined as PIN_INT1. This is a generic way to refer to interrupt 1. Depending on what kind of ChipKit you use these can map to different pins on the hardware. For a ChipKit Uno32 these map to pin 2. If you wanted to use a different interrupt you could use:</p>
+<p class="noindent2"><a href="#_list2" id="list2"><b><i>Listing 9-2.</i></b></a>&#160;&#160;define hardware values</p>
+<pre><span class="FontName2">PIN_INT0&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;38</span><br /><span class="FontName2">PIN_INT1&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;2</span><br /><span class="FontName2">PIN_INT2&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;7</span><br /><span class="FontName2">PIN_INT3&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;8</span><br /><span class="FontName2">PIN_INT4&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;35</span></pre>
+<p class="indent">When ever you switch to a different board you will want to double check which pins correspond to the correct interrupt.</p>
+<pre><span class="FontName2">int emmiter1_id;</span><br /><span class="FontName2">int emmiter2_id;</span><br /><br /><span class="FontName2">unsigned long blink1_var;</span><br /><span class="FontName2">unsigned long blink2_var;</span></pre>
+<p class="indent">In <a href="#list3" id="_list3">Listing 9-3</a> the the required ChipKit Task Manager variables are defined emmiter1_id, and emmiter2_id are the task identifier variable that are used to register the task. The blink1_var, and blink2_var are the the data variables that are passed into the task function and represent the current time information.</p>
+<p class="noindent2"><a href="#_list3" id="list3"><b><i>Listing 9-3.</i></b></a>&#160;&#160;ChipKit Task Manager Library require variables</p>
+<pre><span class="FontName2">volatile boolean emitter1State = LOW;</span><br /><span class="FontName2">volatile boolean emitter2State = LOW;</span><br /><span class="FontName2">volatile boolean prevEmitter1State = LOW;</span><br /><span class="FontName2">volatile boolean prevEmitter2State = LOW;</span><br /><br /><span class="FontName2">volatile boolean detected = LOW;</span><br /><span class="FontName2">volatile boolean e1detected = LOW;</span><br /><span class="FontName2">volatile boolean e2detected = LOW;</span><br /><br /><span class="FontName2">volatile unsigned long emit1Count = 0;</span><br /><span class="FontName2">volatile unsigned long emit2Count = 0;</span><br /><span class="FontName2">volatile unsigned long detectCount = 0;</span></pre>
+<p class="indent">The meta data about the task are defined. This includes detection count, current emitter status, previous emitter status, and which emitter was detected. These values will be adjusted in the task manger functions, and the when the detection interrupt is triggered.</p>
+<p class="noindent2"><b><i>Listing 9-4.</i></b>&#160;&#160;Emmiter data defined and initialized with default values</p>
+<pre><span class="FontName2">volatile int phaseA = 0;</span><br /><span class="FontName2">volatile int phaseB = 0;</span><br /><span class="FontName2">volatile int prevPhaseA = -1;</span><br /><span class="FontName2">volatile int prevPhaseB = -1;</span><br /><span class="FontName2">volatile int measureA = 0;</span><br /><span class="FontName2">volatile int measureB = 0;</span><br /><span class="FontName2">volatile int prevMeasureA = -1;</span><br /><span class="FontName2">volatile int prevMeasureB = -1;</span></pre>
+<p class="indent">A measure is defined as the basic container of a set number of intervals that can be thought of as beats per measure. As each of these beats is stepped through the phase of the measure is updated. The default configuration is 6 beats per measure. Every time a task is activated it increases the phase until it reaches the end of the measure and the measure and phases start over again.</p>
+<p class="noindent2"><b><i>Listing 9-5.</i></b>&#160;&#160;The measeure and the phase of the measure are defined and initialized</p>
+<pre><span class="FontName2">//Prototypes</span><br /><span class="FontName2">void blink_emitter1(int id, void * tptr);</span><br /><span class="FontName2">void blink_emitter2(int id, void * tptr);</span><br /><span class="FontName2">void readIRSensor();</span><br /><span class="FontName2">void blink(int);</span></pre>
+<p class="indent">In <a href="#list6" id="_list6">Listing 9-6</a> the prototypes are required because the functions are defined after the loop code. So the prototypes have to be listed.</p>
+<p class="noindent2"><a href="#_list6" id="list6"><b><i>Listing 9-6.</i></b></a>&#160;&#160;Prototypes of the functions used by the interrupt system, and the task manger code.</p>
+<pre><span class="FontName2">void setup() {</span><br />&#160;&#160;<span class="FontName2">Serial.begin(115200);</span><br />&#160;&#160;<span class="FontName2">delay(2000);</span><br />&#160;&#160;<span class="FontName2">// initialize the digital pin as an output.</span><br />&#160;&#160;<span class="FontName2">// Pin PIN_LED1 has an LED connected on most Arduino boards:</span><br />&#160;&#160;<span class="FontName2">pinMode(pinInt, INPUT);</span><br />&#160;&#160;<span class="FontName2">//debugging LED, shows when pulse found</span><br />&#160;&#160;<span class="FontName2">pinMode(PIN_LED1, OUTPUT);</span><br />&#160;&#160;<span class="FontName2">digitalWrite(PIN_LED1, HIGH);</span><br />&#160;&#160;<span class="FontName2">pinMode(SENSOR1_PIN, INPUT);</span><br />&#160;&#160;<span class="FontName2">pinMode(EMITTER1_PIN, OUTPUT);</span><br />&#160;&#160;<span class="FontName2">pinMode(EMITTER2_PIN, OUTPUT);</span><br /><br />&#160;&#160;<span class="FontName2">digitalWrite(EMITTER1_PIN, LOW);</span><br />&#160;&#160;<span class="FontName2">digitalWrite(EMITTER2_PIN, LOW);</span><br />&#160;&#160;<span class="FontName2">//blink before timers and interrups</span><br />&#160;&#160;<span class="FontName2">blinkAll(6);</span></pre>
+<p class="indent">In <a href="#list7" id="_list7">Listing 9-7</a> the code uses the defined hardware and configure it corectly for the starting state of the project. This includes a diagnostic called blinkAll. One you see all the LEDs blinking, the hardware is configured correctly and is ready to detect the IR pulses.</p>
+<p class="noindent2"><a href="#_list7" id="list7"><b><i>Listing 9-7.</i></b></a>&#160;&#160;Configuration code the hardware.</p>
+<pre>&#160;&#160;<span class="FontName2">attachInterrupt(SENSOR1_PIN, readIRSensor, RISING);</span><br />&#160;&#160;<span class="FontName2">emmiter1_id = createTask(blink_emitter1, 13, TASK_ENABLE, &#x0026;blink1_var);</span><br />&#160;&#160;<span class="FontName2">emmiter2_id = createTask(blink_emitter2, 13, TASK_ENABLE, &#x0026;blink2_var);</span><br /><br /><span class="FontName2">}</span></pre>
+<p class="indent">In <a href="#list8" id="_list8">Listing 9-8</a> the code attaches the interrupt to the pin it is checking to see if it changes. When the pin is in a rising state, meaning that it goes from a LOW state to a HIGH state perform a callback to the readIRSensor function. This guarantees that as soon as the sensor detects an IR pulse it triggers immediately without the need to constantly check in your loop code a pulse came in.</p>
+<p class="indent">The next section of code in <a href="#list8">Listing 9-8</a> uses the createTask function to set up the task of blinking led emmiter1. The task id is stored in emmiter1_id. Any time a manipulation of the task is required this id can be used to reference the task. In the function the first portion is the callback function blink_emmiter1. Blink_emmiter1 is called in a 13 millisecond interval. TASK_ENABLE forces the task start right away, and the task data is stored in blink1_var. The same logic applies for the second emitter. At this point the device is sensing and blinking with no code in the main loop used to control these events. This way your code is always remains specific to your goal, and only needs to respond to a detection of an IR pulse.</p>
+<p class="noindent2"><a href="#_list8" id="list8"><b><i>Listing 9-8.</i></b></a>&#160;&#160;Create and activate the interrupt, and the tasks that control the IR leds.</p>
+<pre><span class="FontName2">void loop() {</span><br />&#160;&#160;<span class="FontName2">digitalWrite(PIN_LED1, LOW);</span><br /><br />&#160;&#160;<span class="FontName2">if (detected) {</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">Serial.print(&quot;{ \&quot;IRDetect\&quot;: &quot;);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">Serial.print(detectCount);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">Serial.print(&quot; ,\&quot;measureA\&quot;: &quot;);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">Serial.print(measureA);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">Serial.print(&quot; ,\&quot;measureB\&quot;: &quot;);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">Serial.print(measureB);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">Serial.print(&quot; ,\&quot;phaseA\&quot;: &quot;);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">Serial.print(phaseA);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">Serial.print(&quot; ,\&quot;phaseB\&quot;: &quot;);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">Serial.print(phaseB);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">Serial.print(&quot; ,\&quot;Emmit1\&quot;: &quot;);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">Serial.print((int)emitter1State);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">Serial.print(&quot; ,\&quot;prevEmmit1\&quot;: &quot;);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">Serial.print((int)prevEmitter1State);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">Serial.print(&quot; ,\&quot;count\&quot;: &quot;);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">Serial.print(emit1Count);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">Serial.print(&quot; ,\&quot;Emmit2\&quot;: &quot;);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">Serial.print((int)emitter2State);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">Serial.print(&quot; ,\&quot;prevEmmit2\&quot;: &quot;);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">Serial.print((int)prevEmitter2State);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">Serial.print(&quot; ,\&quot;count\&quot;: &quot;);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">Serial.print(emit2Count);</span></pre>
+<p class="indent">The current statue of the system is reported on by using the serial output to show the status of the system in JSON format.</p>
+<p class="noindent2"><b><i>Listing 9-9.</i></b>&#160;&#160;The main loop reports on the status of the system in a JSON format via serial.</p>
+<pre>&#160;&#160;&#160;&#160;<span class="FontName2">if(emitter1State) {</span><br />&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">prevEmitter1State = emitter1State;</span><br />&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">Serial.print(&quot; ,\&quot;Obj\&quot;: \&quot;Right\&quot;&quot;);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">}</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">if (prevMeasureA == measureA) {</span><br />&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">if (e1detected &#x0026;&#x0026; e2detected)</span><br />&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">{</span><br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">Serial.print(&quot; ,\&quot;Obj\&quot;: \&quot;Front\&quot;&quot;);</span><br />&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">}</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">}</span><br />&#160;&#160; <span class="FontName2">if(emitter2State) {</span><br />&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">prevEmitter2State = emitter2State;</span><br />&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">Serial.print(&quot; ,\&quot;Obj\&quot;: \&quot;Left\&quot;&quot;);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">}</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">Serial.println(&quot;}&quot;);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">prevMeasureA = measureA;</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">prevMeasureB = measureB;</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">prevPhaseA = phaseA;</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">detected = false;</span><br />&#160;&#160;<span class="FontName2">}</span><br /><br /><span class="FontName2">}</span></pre>
+<p class="indent"><a href="#list10" id="_list10">Listing 9-10</a> shows the detection logic. If only emitter1 is detected in a measure there is an object on the left. If only emitter2 is detected in a measure then an object on the right is detected. If in the measure both emitter1, and emmiter2 are detected there is an object in front of the device.</p>
+<p class="noindent2"><a href="#_list10" id="list10"><b><i>Listing 9-10.</i></b></a>&#160;&#160;The detection logic is defined by what is detected in a single measure.</p>
+<pre><span class="FontName2">void readIRSensor() {</span><br />&#160;&#160;<span class="FontName2">digitalWrite(PIN_LED1, HIGH);</span><br />&#160;&#160;<span class="FontName2">if(emitter1State) {</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">emit1Count++;</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">detectCount++;</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">detected = true;</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">e1detected = true;</span><br />&#160;&#160;<span class="FontName2">}</span><br />&#160;&#160;<span class="FontName2">else if (emitter2State) {</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">emit2Count++;++;</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">detectCount++;</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">detected = true;</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">e2detected = true;</span><br />&#160;&#160;<span class="FontName2">}</span><br /><span class="FontName2">}</span></pre>
+<p class="noindent2"><b><i>Listing 9-11.</i></b>&#160;&#160;readIRsensor function is defined.</p>
+<pre><span class="FontName2">void blink_emitter1(int id, void * tptr) {</span><br />&#160;&#160;<span class="FontName2">if(phaseA &#x003E;= BEATS) {</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">phaseA = 0;</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">measureA++;</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">e1detected = false;</span><br />&#160;&#160;<span class="FontName2">}</span><br /><br />&#160;&#160;<span class="FontName2">if (phaseA== 1) {</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">emitter1State = true;</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">phaseA++;</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">digitalWrite(EMITTER1_PIN, emitter1State);</span><br />&#160;&#160;<span class="FontName2">}</span><br />&#160;&#160;<span class="FontName2">else&#160;&#160;{</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">emitter1State = false;</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">phaseA++;</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">digitalWrite(EMITTER1_PIN, emitter1State);</span><br /><br />&#160;&#160;<span class="FontName2">}</span><br /><span class="FontName2">}</span><br /><br /><span class="FontName2">void blink_emitter2(int id, void * tptr) {</span><br />&#160;&#160;<span class="FontName2">if(phaseB &#x003E;= BEATS) {</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">phaseB = 0;</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">measureB++;</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">e2detected = false;</span><br />&#160;&#160;<span class="FontName2">}</span><br />&#160;&#160;<span class="FontName2">if (phaseB == 3) {</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">emitter2State = true;</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">phaseB++;</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">digitalWrite(EMITTER2_PIN, emitter2State);</span><br />&#160;&#160;<span class="FontName2">}</span><br />&#160;&#160;<span class="FontName2">else</span><br />&#160;&#160;<span class="FontName2">{</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">emitter2State = false;</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">phaseB++;</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">digitalWrite(EMITTER2_PIN, emitter2State);</span><br />&#160;&#160;<span class="FontName2">}</span><br /><span class="FontName2">}</span></pre>
+<p class="noindent2"><b><i>Listing 9-12.</i></b>&#160;&#160;Blink_emitter1 and blink_emitter2 task are defined.</p>
+<pre><span class="FontName2">void blinkAll(int loops)</span><br /><span class="FontName2">{</span><br />&#160;&#160;<span class="FontName2">for (int ii = 0; ii &#x003C; loops; ii++)</span><br />&#160;&#160;<span class="FontName2">{</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">digitalWrite(PIN_LED1, HIGH);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">digitalWrite(EMITTER1_PIN, HIGH);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">digitalWrite(EMITTER2_PIN, HIGH);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">delay(250);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">digitalWrite(PIN_LED1, LOW);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">digitalWrite(EMITTER1_PIN, LOW);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">digitalWrite(EMITTER2_PIN, LOW);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">delay(250);</span><br />&#160;&#160;<span class="FontName2">}</span><br /><span class="FontName2">}</span></pre>
+<p class="indent">Blink all is used as diagnostic function</p>
+<p class="indent">The code sends timed infrared pulses that are then detected by an IR sensor, so you can debug it and determine which port is sending data. Connect the chipKIT Uno32 and open the serial monitor in the MPIDE. Then power up or connect the USB to the FubarinoSD, and it will start transmitting. You should now see frequency counts per second in your serial MPIDE monitor, and you can perform line-of-sight infrared object detection or detect remote beacon.</p>
+<p class="indent">In this project the code is depends very little on what occurs in the loop. The only loop code that is used is to make a decision about where the object is that was detected. Knowing the object position can cause your robot or device to respond in several different ways including avoidance or point towards it in case you were choosing to move a camera to look at what was detected. By using these advanced features of interrupts with the Core Task Manager, service complicated tasks become much easier.<a id="cXXX.357" /></p>
+</div>
+</div>
+<p id="Sec4" class="Heading1">Arduino Support for the ATtiny Family</p>
+<p class="noindent">There are two main ATtiny cores for Arduino. One is maintained by David Mellis at the Hi-Low Tech MIT web site (<span class="FontName2"><a href="http://hlt.media.mit.edu/?p=1695">http://hlt.media.mit.edu/?p=1695</a></span>), and the other is a Google Code project<a id="cXXX.358" /> called ATtiny core, at <span class="FontName2"><a href="http://code.google.com/p/arduino-tiny/">http://code.google.com/p/arduino-tiny/</a></span>. This chapter will use the ATtiny core project from Google Code, as it includes support for a wider array of chips, features, and pins.</p>
+<p class="indent">The ATtiny chips arrive from the factory with fuses set for less than 1 MHz, so you have to decide at what speed you want your chip to run. The ATtiny85 runs at 1 MHz, but it can be configured to run at 8 MHz, 16 MHz internally, or 20 MHz with a crystal or oscillator. The first step in programming these chips is to burn the fuse configuration to support the clock that you will use.</p>
+<div class="notepara">
+<p class="paraaftertitle1"><img src="images/sq.jpg" alt="image"/>&#160;<b>Note</b>&#160;&#160; If you don&#x2019;t burn the bootloader, or if you set it to the wrong speed, your chip will not perform at the expected speed.</p></div>
+<p class="indent">You can do this in the Arduino IDE by selecting the chip and the speed from the Tools menu<a id="cXXX.359" />, as shown in <a href="#Fig3" id="_Fig3">Figure 9-3</a>.</p>
+<div class="Figure" id="Fig3">
+<p class="img"><img src="images/9781430239390_Fig09-03.jpg" alt="9781430239390_Fig09-03.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig3">Figure 9-3</a>. </span>The Board option on the Tools menu </p>
+</div>
+<p class="indent">Next, select the <a id="cXXX.360" />Burn Bootloader option, as shown in <a href="#Fig4" id="_Fig4">Figure 9-4</a>. This will trigger Avrdude to program the correct options in your chip.</p>
+<div class="Figure" id="Fig4">
+<p class="img"><img src="images/9781430239390_Fig09-04.jpg" alt="9781430239390_Fig09-04.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig4">Figure 9-4</a>. </span>The Burn Bootloader option </p>
+</div>
+<p class="indent">While the Atmel family of chips is compatible with Arduino, its pin-numbering scheme is different. Let&#x2019;s look at the features and specifications of the ATtiny chips in <a href="#Tab2" id="_Tab2">Tables 9-2</a>, <a href="#Tab3" id="_Tab3">9-3</a>, and <a href="#Tab4" id="_Tab4">9-4</a>, paying particular attention to the pin numbering, as diagrammed in <a href="#Fig5" id="_Fig5">Figures 9-5</a>, <a href="#Fig6" id="_Fig6">9-6</a>, and <a href="#Fig7" id="_Fig7">9-7</a>.</p>
+<p class="indent">The Atmel family<a id="cXXX.361" /> consists of the following chips:</p>
+<ul class="bulleted">
+<li>ATtiny 85, 45, and 25</li>
+<li>ATtiny 84, 44, and 24</li>
+<li>ATtiny 4313 and 2313</li>
+</ul>
+<div>
+<p id="Sec5" class="Heading2">ATtiny 85/45/25<a id="cXXX.362" /></p>
+<p class="noindent"><a href="#Tab2">Table 9-2</a> shows the chip specifications for the ATtiny 85, 45, and 25.</p>
+<div class="Table">
+<p class="TabCapt"><span class="CaptNr"><a id="Tab2" href="#_Tab2">Table 9-2</a>. </span>Chip Specifications for the Arduino ATtiny 85/45/25 </p>
+<p class="img"><img src="images/Table9-2.jpg" alt="image" /></p>
+</div>
+<div class="Figure" id="Fig5">
+<p class="img"><img src="images/9781430239390_Fig09-05.jpg" alt="9781430239390_Fig09-05.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig5">Figure 9-5</a>. </span>Pin layout of the ATtiny 85/45/25 </p>
+</div>
+<p class="indent">Pin 7 supports I2C, and pin 5 supports SCL and SDA, as shown in <a href="#Fig3">Figure 9-3</a>. This support is maintained through the TinyWire library. The code can be found at <span class="FontName2"><a href="http://arduino.cc/playground/Code/USIi2c">http://arduino.cc/playground/Code/USIi2c</a></span>.</p>
+</div>
+<div>
+<p id="Sec6" class="Heading2">ATtiny 84/44/24<a id="cXXX.363" /></p>
+<p class="noindent"><a href="#Tab3">Table 9-3</a> shows the chip specifications for the ATtiny 84, 44, and 24.</p>
+<div class="Table">
+<p class="TabCapt"><span class="CaptNr"><a id="Tab3" href="#_Tab3">Table 9-3</a>. </span>Chip Specifications for the Arduino ATtiny 84/44/24 </p>
+<p class="img"><img src="images/Table9-3.jpg" alt="image" /></p>
+</div>
+<div class="Figure" id="Fig6">
+<p class="img"><img src="images/9781430239390_Fig09-06.jpg" alt="9781430239390_Fig09-06.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig6">Figure 9-6</a>. </span>Pin layout of the ATtiny 84/44/24 </p>
+</div>
+<p class="indent">I2C is supported on pin 7, and SDA and SCL are supported on pin 9, as shown in <a href="#Fig4">Figure 9-4</a>.</p>
+</div>
+<div>
+<p id="Sec7" class="Heading2">ATtiny 4313 and 2313<a id="cXXX.364" /></p>
+<p class="noindent"><a href="#Tab4">Table 9-4</a> shows the chip specifications for the ATtiny 4313 and 2313.</p>
+<div class="Table">
+<p class="TabCapt"><span class="CaptNr"><a id="Tab4" href="#_Tab4">Table 9-4</a>. </span>Chip Specifications for the ATtiny 4313 and 2313 </p>
+<p class="img"><img src="images/Table9-4.jpg" alt="image" /></p>
+</div>
+<div class="Figure" id="Fig7">
+<p class="img"><img src="images/9781430239390_Fig09-07.jpg" alt="9781430239390_Fig09-07.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig7">Figure 9-7</a>. </span>Pin layout of the ATtiny 4313 and 2313 </p>
+</div>
+<p class="indent">These chips do not have a standard serial interface, so the normal Arduino bootloader does not work with these chips. You must manually set the chip configuration in one step, and then you can program the chip using an in-system programmer. The protocol is SPI.</p>
+<p class="indent">Each of these chips has the following:</p>
+<ul class="bulleted">
+<li>MISO</li>
+<li>MOSI</li>
+<li>Vcc</li>
+<li>GND</li>
+<li>SCK</li>
+<li>RESET</li>
+</ul>
+</div>
+<p id="Sec8" class="Heading1">Using the Arduino as an ISP Programmer</p>
+<p class="noindent">An <i>in-system programmer</i><a id="cXXX.365" /><i>(ISP)</i><a id="cXXX.366" /> is a device that can program other chips. There are several system programmers available. I recommend the Adafruit USBTinyISP, which you can download at <span class="FontName2"><a href="https://www.adafruit.com/products/46">https://www.adafruit.com/products/46</a></span>. In this case, as shown in <a href="#Fig8" id="_Fig8">Figure 9-8</a>, you want to use the Arduino as an ISP programmer, which allows you to wire it directly, and to create a custom PCB, or to make a shield for quick programming.</p>
+<div class="Figure" id="Fig8">
+<p class="img"><img src="images/9781430239390_Fig09-08.jpg" alt="9781430239390_Fig09-08.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig8">Figure 9-8</a>. </span>The Arduino Uno as an ISP programmer </p>
+</div>
+<p class="indent">The ATtiny in the example is the ATtiny85. Other ATtiny chips can be programmed the same way as long as the correct ISP pins are mapped. The example in <a href="#Fig6">Figure 9-6</a> also shows a corresponding circuit board that you can create.</p>
+<p class="indent">Since an Arduino resets when connected via a serial port, you will need to disable the reset pin in order to avoid a reset when programming. This can be done in a couple of way&#x2014;you can either use a 10&#x03BC;F capacitor from the reset pin to the ground or a 124&#x03A9; resistor to pull reset high to the 5V pin.</p>
+<p class="indent">Analog pins are numbered from 1,2 and 3. They correspond to the pins 7, 3, and 2 on the chip, but are referenced in this way: ADC1 is 1, ADC 2 is 2, and ADC 3 is 3. Since they are already properly initialized, do not set the pin mode for analog pins. All the digital pins can be referenced via their pin number on the data sheet.</p>
+<div class="notepara">
+<p class="paraaftertitle1"><img src="images/sq.jpg" alt="image"/>&#160;<b>Note</b>&#160;&#160; It is possible to program an ATtiny that is configured for 1 MHz, as 8 MHz will cause the delay functions to be extra slow.</p></div>
+<p class="indent">It is also important to note that internal analog reference is usually 1.1, but it is possible to set it to other values too; however, you must not apply an external voltage to the AREF pin, or else you will short out the op amp in the ADC.</p>
+<p class="indent">Given these features, it is possible to program the ATtiny using an Arduino by configuring an Arduino Uno or another board with the Arduino ISP sketch and wiring the boards to each other, which I will demonstrate in the following example.</p>
+<p id="Sec9" class="Heading1">Project: Secret Knock Box<a id="cXXX.20f" /></p>
+<p class="noindent">In this example, you will use a secret-knock example to open a small box with a servo. The idea is to detect a knock and then trigger a servo to open the box. Then you can then use a double-knock to close the box. The box remains closed until the secret knock is identified. This technique has been used to open doors and boxes and to trigger events based on a knock code. I used them in my Morse&#x2019;s Secret Box project, where tapping Morse code opened the box. The laser-cut designs for these boxes can be found online at <span class="FontName2"><a href="http://github.com/ricklon/morsessecret">http://github.com/ricklon/morsessecret</a></span>. A custom circuit board for the project, called the ATtiny Servo<a id="cXXX.367" />, is available as well, at <span class="FontName2"><a href="https://github.com/ricklon/attinyservo">https://github.com/ricklon/attinyservo</a></span>.</p>
+<p class="indent">This project is typically done with a larger chip or a standard Arduino Uno. However if you were to make 20, 30, or even a thousand of these boxes the cost and complexity would be very high. This makes it impractical to sell a project for a profit, or efficiently reduce the complexity of project. It is a good idea to prototype on an Arduino Uno which on average costs $35.00 per unit. In this case, though, you want to use the ATtiny85, which costs around $1.29, or approximately $0.75 in quantities of 25.</p>
+<p class="indent">The options for this chip are somewhat limited, so if <span class="FontName2">Servo.h</span> is unavailable, there are other servo options available. However, because there is only one timer on the chip, there is a conflict with the Arduino standard Servo Library. Other servo options are available, but the very basic option is to operate the servo manually by programming the chip to send the servo pulse commands. This solution works well, and is modeled by this project.</p>
+<p class="indent">This chapter introduces a project that uses a knock sensor to tap a secret code. LEDs<a id="cXXX.368" /> are used to show a knock occurred, and was detected. When the correct code is sensed a command is sent to move a servo to open a box lid. An ATtiny85 is used because it has a small form factor, and the additional electronics can fit in extremely small spaces.</p>
+<div>
+<p id="Sec10" class="Heading2">What the Device Does</p>
+<p class="noindent">When you program a knock pattern into the device<a id="cXXX.369" />, the system listens for the knock, and the servo is triggered to open the box. Additionally, there is a programming mode where you can set the knock and use some LEDs for feedback on the programming process. This project transforms the code from just a stand alone sketch to a library that can be used in many projects.</p>
+</div>
+<div>
+<p id="Sec11" class="Heading2">Bill of Materials</p>
+<p class="noindent">For this project, you will need the following:</p>
+<ul class="bulleted">
+<li>Servo</li>
+<li>Piezo</li>
+<li>Two LEDs</li>
+<li>One button</li>
+<li>Two resistors (220k&#x03A9;)</li>
+<li>One 6M&#x03A9; resistor</li>
+</ul>
+<p class="indent">The project is small enough to be a simple do-it-yourself PCB or a breadboard, as in <a href="#Fig9" id="_Fig9">Figure 9-9</a>; it can also use dead bug&#x2013;style wiring.</p>
+<div class="Figure" id="Fig9">
+<p class="img"><img src="images/9781430239390_Fig09-09.jpg" alt="9781430239390_Fig09-09.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig9">Figure 9-9</a>. </span>Circuit diagram<a id="cXXX.370" /> of the knock box </p>
+</div>
+<p class="indent">The Arduino sketch<a id="cXXX.371" /> is called <span class="FontName2">KnockUnlock.ino</span>, and includes a <span class="FontName2">servo.h</span> library and a <span class="FontName2">SecretKnock.h</span> library. The <span class="FontName2">servo.h</span> library simply configures the servo to move at a specific pulse for a specified number of milliseconds. The <span class="FontName2">SecretKnock.h</span> library defines an object, which allows for the configuration of an initial secret knock and the appropriate feedback pins to reprogram the knock sequence.</p>
+<p class="indent"><a href="#list13" id="_list13">Listing 9-13</a> is the main sketch.</p>
+<p class="noindent2"><a href="#_list13" id="list13"><b><i>Listing 9-13.</i></b></a>&#160;&#160;Main Sketch of Secret Knock Box</p>
+<pre><span class="FontName2">#include &quot;SecretKnock.h&quot;</span><br /><span class="FontName2">#define SERVO_PIN 1</span><br /><br /><span class="FontName2">int initKnocks[MAX_KNOCKS]= { 50, 25, 25, 50, 100, 50, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};</span><br /><br /><span class="FontName2">SecretKnock sKnock;</span><br /><br /><span class="FontName2">void setup() {</span><br /><br /><span class="FontName2">sKnock.begin(initKnocks);</span><br />&#160;&#160;  <br /><span class="FontName2">}</span><br /><br /><span class="FontName2">void loop() {</span><br />&#160;&#160;  <br />&#160;&#160;<span class="FontName2">sKnock.checkKnock();</span><br /><br /><span class="FontName2">}</span></pre>
+<p class="indent">The current configuration detects a &#x201C;shave and a haircut, two bits&#x201D; type of knock. It sounds like &#x201C;dah, dit, dit, dah, dit, pause, dit, dit&#x201D;, and can be visualized like &#x201C;_.._. ..&#x201D; You can change this to any knock combination by defining the pauses in the antiknocks. The pause ratio is used to determine if there are any matching knocks.</p>
+<p class="indent">Most of the work is completed in the <span class="FontName2">SecretKnock</span> object<a id="cXXX.372" />. First, the pin configurations include the servo&#x2014;the green LED is pin 3, the red LED is pin 4, the piezo&#x2019;s knock sensor is analog pin 1, the program button is pin 0, and the servo pin is <span class="FontName2">#define SERVO_PIN 1</span>, which is digital pin 1.</p>
+<p class="indent">Then the secret knock properties<a id="cXXX.373" /> are defined, as in <a href="#list14" id="_list14">Listing 9-14</a>.</p>
+<p class="noindent2"><a href="#_list14" id="list14"><b><i>Listing 9-14.</i></b></a>&#160;&#160;Definging the Properties of the Secret Knock</p>
+<pre><span class="FontName2">threshold = 500;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; // Minimum signal from the piezo to register as a knock</span><br /><span class="FontName2">rejectValue = 25;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// If an individual knock is off by this percentage of a knock we don&#x0027;t unlock.</span><br /><span class="FontName2">averageRejectValue = 15;&#160;&#160; // If the average timing of the knocks is off by this percent we don&#x0027;t unlock.</span><br /><span class="FontName2">knockFadeTime = 200;&#160;&#160;&#160;&#160;&#160;&#160; // milliseconds we allow a knock to fade before we listen for another one. (Debounce timer.)</span><br /><span class="FontName2">lockTurnTime = 650;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// milliseconds that we run the motor to get it to go a half turn.</span><br /><span class="FontName2">lockMotor = 2;</span><br /><span class="FontName2">knockComplete = 1200;&#160;&#160;&#160;&#160;&#160;&#160;// Longest time to wait for a knock before we assume that it&#x0027;s finished.</span></pre>
+<p class="indent">Once this is complete, the code is ready to perform <span class="FontName2">checkKnock()</span> in the main <span class="FontName2">loop()</span> function. Once the first knock is detected, it will seek to match a knock pattern.</p>
+<p class="indent">The enclosure can be any kind of box that you want; you use the servo as a lock that opens when the secret knock triggers the move-servo code<a id="cXXX.374" />.</p>
+<p class="indent">You can program the code into the ATtiny85 using the technique demonstrated in <a href="#list13">Listing 9-13</a>, but be sure to disconnect the servo.</p>
+<p class="indent">The servo code, as shown in <a href="#list13">Listing 9-13</a>, is simplified to manually pulse the servo to make it move. This technique requires the chip to keep pulsing for the length of time it takes to move the servo. The result is that only one servo at a time can be active. Even if you were to configure multiple servos, you could only move one at a time.</p>
+<p class="indent">The key to reading the knock sensor is inside of the <span class="FontName2">checkServo()</span> function<a id="cXXX.375" /><a id="cXXX.376" />. This is <span class="FontName2">analogRead(knockSensor)</span>, which checks if the piezo is greater than the trigger threshold. If so, the code will start listening for a knock pattern.</p>
+<p class="indent">A knock pattern is recognized by the ratio of pauses within a certain tolerance. The code that makes that comparison appears in <a href="#list15" id="_list15">Listing 9-15</a>.</p>
+<p class="noindent2"><a href="#_list15" id="list15"><b><i>Listing 9-15.</i></b></a>&#160;&#160;The Code That Identifi<a id="cXXX.377" />es the Secret Knock</p>
+<pre><span class="FontName2">// Sees if our knock matches the secret.</span><br /><span class="FontName2">// returns true if it&#x0027;s a good knock, false if it&#x0027;s not.</span><br /><span class="FontName2">// to do: break it into smaller functions for readability.</span><br /><span class="FontName2">boolean SecretKnock::validateKnock()</span><br /><span class="FontName2">{</span><br />&#160;&#160;<span class="FontName2">int i=0;</span><br /><br />&#160;&#160;<span class="FontName2">// simplest check first: Did we get the right number of knocks?</span><br />&#160;&#160;<span class="FontName2">int currentKnockCount = 0;</span><br />&#160;&#160;<span class="FontName2">int secretKnockCount = 0;</span><br />&#160;&#160;<span class="FontName2">int maxKnockInterval = 0;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; // We use this later to normalize the times.</span><br /><br />&#160;&#160;<span class="FontName2">for (i=0;i&#x003C;MAX_KNOCKS;i++){</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">if (knockReadings[i] &#x003E; 0){</span><br />&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">currentKnockCount++;</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">}</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">if (secretCode[i] &#x003E; 0){&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; // todo: precalculate this.</span><br />&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">secretKnockCount++;</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">}</span><br /><br />&#160;&#160;&#160;&#160;<span class="FontName2">if (knockReadings[i] &#x003E; maxKnockInterval){&#160;&#160; // collect normalization data while we&#x0027;re looping.</span><br />&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">maxKnockInterval = knockReadings[i];</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">}</span><br />&#160;&#160;<span class="FontName2">}</span><br /><br />&#160;&#160;<span class="FontName2">// If we&#x0027;re recording a new knock, save the info and get out of here.</span><br />&#160;&#160;<span class="FontName2">if (programButtonPressed==true){</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">for (i=0;i&#x003C;MAX_KNOCKS;i++){ // normalize the times</span><br />&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">secretCode[i]= map(knockReadings[i],0, maxKnockInterval, 0, 100);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">}</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">// And flash the lights in the recorded pattern to let us know it&#x0027;s been programmed.</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">digitalWrite(greenLED, LOW);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">digitalWrite(redLED, LOW);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">delay(1000);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">digitalWrite(greenLED, HIGH);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">digitalWrite(redLED, HIGH);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">delay(50);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">for (i = 0; i &#x003C; MAX_KNOCKS ; i++){</span><br />&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">digitalWrite(greenLED, LOW);</span><br />&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">digitalWrite(redLED, LOW);</span><br />&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">// only turn it on if there&#x0027;s a delay</span><br />&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">if (secretCode[i] &#x003E; 0){</span><br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">delay( map(secretCode[i],0, 100, 0, maxKnockInterval)); // Expand the time back out to what it was, roughly.</span><br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">digitalWrite(greenLED, HIGH);</span><br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">digitalWrite(redLED, HIGH);</span><br />&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">}</span><br />&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">delay(50);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">}</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">return false;&#160;&#160;&#160;&#160; // We don&#x0027;t unlock the door when we are recording a new knock.</span><br />&#160;&#160;<span class="FontName2">}</span><br /><br />&#160;&#160;<span class="FontName2">if (currentKnockCount != secretKnockCount){</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">return false;</span><br />&#160;&#160;<span class="FontName2">}</span></pre>
+<p class="indent"><a href="#list16" id="_list16">Listing 9-16</a> compares the relative intervals of the knocks, not the absolute time between them. So, for example, the door should open regardless of whether you carry out the pulsing pattern slowly or quickly, as long as the pattern is correct. This makes the timing less tricky, which, while making it less secure, can also make the box less picky about your tempo, which may be slightly off.</p>
+<p class="noindent2"><a href="#_list16" id="list16"><b><i>Listing 9-16.</i></b></a>&#160;&#160;Code Comparing<a id="cXXX.378" /> the Intervals of Knocks</p>
+<pre>&#160;&#160;<span class="FontName2">int totaltimeDifferences=0;</span><br />&#160;&#160;<span class="FontName2">int timeDiff=0;</span><br />&#160;&#160;<span class="FontName2">for (i=0;i&#x003C;MAX_KNOCKS;i++){ // Normalize the times</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">knockReadings[i]= map(knockReadings[i],0, maxKnockInterval, 0, 100);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">timeDiff = abs(knockReadings[i]-secretCode[i]);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">if (timeDiff &#x003E; rejectValue){ // Individual value too far out of whack</span><br />&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">return false;</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">}</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">totaltimeDifferences += timeDiff;</span><br />&#160;&#160;<span class="FontName2">}</span><br />&#160;&#160;<span class="FontName2">// It can also fail if the whole thing is too inaccurate.</span><br />&#160;&#160;<span class="FontName2">if (totaltimeDifferences/secretKnockCount&#x003E;averageRejectValue){</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">return false;</span><br />&#160;&#160;<span class="FontName2">}</span><br /><br />&#160;&#160;<span class="FontName2">return true;</span><br /><br /><span class="FontName2">}</span></pre>
+<p class="indent">The code in <a href="#list16">Listing 9-16</a> uses the knock reading array to hold the pattern of knock pauses.</p>
+</div>
+<p id="Sec12" class="Heading1">Summary</p>
+<p class="noindent">Transitioning from standard Arduino to a professional approach is a big step. Knowing how to use a high-speed, 32-bit, and feature-rich MCU is critical in moving toward creating high-end projects for video, audio, and peer-to-peer communication. Additionally, working with the low-end Atmel chips cuts costs and allows you to work on projects with multiple small parts. For example, you can create a set of Arduinos, using the ATtiny85, that blinks a single code per block. It is much cheaper to use the ATtiny85, and the form factor is small enough to keep the project relatively small.</p>
+</body>
+</html>

@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ncx PUBLIC "-//NISO//DTD ncx 2005-1//EN" "http://www.daisy.org/z3986/2005/ncx-2005-1.dtd">
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">
+<head>
+<meta name="dtb:uid" content="URN:ISBN:978-1-4302-3939-0" />
+<meta name="dtb:depth" content="2" />
+<meta name="dtb:totalPageCount" content="0"/>
+</head>
+<docTitle>
+<text>Pro Arduino</text>
+</docTitle>
+<navMap>
+<navPoint id="navpoint-1" playOrder="1"><navLabel><text>Cover</text></navLabel><content src="9781430239390_Cover.xhtml" /></navPoint>
+<navPoint id="navpoint-2" playOrder="2"><navLabel><text>Title</text></navLabel><content src="9781430239390_Title.xhtml" /></navPoint>
+<navPoint id="navpoint-3" playOrder="3"><navLabel><text>Copyright</text></navLabel><content src="9781430239390_Copyright.xhtml" /></navPoint>
+<navPoint id="navpoint-4" playOrder="4"><navLabel><text>Dedication</text></navLabel><content src="9781430239390_Dedication.xhtml" /></navPoint>
+<navPoint id="navpoint-5" playOrder="5"><navLabel><text>Contents at a Glance</text></navLabel><content src="9781430239390_Contents_at_a_Glance.xhtml" /></navPoint>
+<navPoint id="navpoint-6" playOrder="6"><navLabel><text>Contents</text></navLabel><content src="9781430239390_Contents.xhtml" /></navPoint>
+<navPoint id="navpoint-7" playOrder="7"><navLabel><text>About the Authors</text></navLabel><content src="9781430239390_About_the_Authors.xhtml" /></navPoint>
+<navPoint id="navpoint-8" playOrder="8"><navLabel><text>About the Technical Reviewer</text></navLabel><content src="9781430239390_About_the_Technical_Reviewer.xhtml" /></navPoint>
+<navPoint id="navpoint-9" playOrder="9"><navLabel><text>Acknowledgments</text></navLabel><content src="9781430239390_Acknowledgments.xhtml" /></navPoint>
+<navPoint id="navpoint-10" playOrder="10"><navLabel><text>Introduction</text></navLabel><content src="9781430239390_Introduction.xhtml" /></navPoint>
+<navPoint id="navpoint-11" playOrder="11"><navLabel><text>Chapter 1: Arduino 1.0.4 Core Changes</text></navLabel><content src="9781430239390_Ch01.xhtml" />
+<navPoint id="navpoint-12" playOrder="12"><navLabel><text>Changes to the Arduino IDE</text></navLabel><content src="9781430239390_Ch01.xhtml#Sec1" /></navPoint>
+<navPoint id="navpoint-13" playOrder="13"><navLabel><text>Changes to Sketches</text></navLabel><content src="9781430239390_Ch01.xhtml#Sec2" /></navPoint>
+<navPoint id="navpoint-14" playOrder="14"><navLabel><text>API Updates</text></navLabel><content src="9781430239390_Ch01.xhtml#Sec3" />
+<navPoint id="navpoint-15" playOrder="15"><navLabel><text>pinMode</text></navLabel><content src="9781430239390_Ch01.xhtml#Sec4" /></navPoint>
+<navPoint id="navpoint-16" playOrder="16"><navLabel><text>Return Types</text></navLabel><content src="9781430239390_Ch01.xhtml#Sec5" /></navPoint>
+<navPoint id="navpoint-17" playOrder="17"><navLabel><text>uint_8</text></navLabel><content src="9781430239390_Ch01.xhtml#Sec6" /></navPoint></navPoint>
+<navPoint id="navpoint-18" playOrder="18"><navLabel><text>Arduino API Core 1.0.4</text></navLabel><content src="9781430239390_Ch01.xhtml#Sec7" />
+<navPoint id="navpoint-19" playOrder="19"><navLabel><text>Arduino.h</text></navLabel><content src="9781430239390_Ch01.xhtml#Sec8" /></navPoint>
+<navPoint id="navpoint-20" playOrder="20"><navLabel><text>Updated Serial Object</text></navLabel><content src="9781430239390_Ch01.xhtml#Sec9" /></navPoint>
+<navPoint id="navpoint-21" playOrder="21"><navLabel><text>Updated Stream Class</text></navLabel><content src="9781430239390_Ch01.xhtml#Sec10" /></navPoint>
+<navPoint id="navpoint-22" playOrder="22"><navLabel><text>Print</text></navLabel><content src="9781430239390_Ch01.xhtml#Sec13" /></navPoint>
+<navPoint id="navpoint-23" playOrder="23"><navLabel><text>New Printable Class</text></navLabel><content src="9781430239390_Ch01.xhtml#Sec14" /></navPoint>
+<navPoint id="navpoint-24" playOrder="24"><navLabel><text>Updated String Library</text></navLabel><content src="9781430239390_Ch01.xhtml#Sec15" /></navPoint>
+<navPoint id="navpoint-25" playOrder="25"><navLabel><text>Wire Library Updates</text></navLabel><content src="9781430239390_Ch01.xhtml#Sec16" /></navPoint>
+<navPoint id="navpoint-26" playOrder="26"><navLabel><text>HardwareSerial Updates</text></navLabel><content src="9781430239390_Ch01.xhtml#Sec17" /></navPoint></navPoint>
+<navPoint id="navpoint-27" playOrder="27"><navLabel><text>Physical Board Updates and USB Compatibility</text></navLabel><content src="9781430239390_Ch01.xhtml#Sec18" />
+<navPoint id="navpoint-28" playOrder="28"><navLabel><text>Avrdude Update</text></navLabel><content src="9781430239390_Ch01.xhtml#Sec19" /></navPoint>
+<navPoint id="navpoint-29" playOrder="29"><navLabel><text>The New Arduino Leonardo Board</text></navLabel><content src="9781430239390_Ch01.xhtml#Sec20" /></navPoint>
+<navPoint id="navpoint-30" playOrder="30"><navLabel><text>Board Variants</text></navLabel><content src="9781430239390_Ch01.xhtml#Sec21" /></navPoint>
+<navPoint id="navpoint-31" playOrder="31"><navLabel><text>Uploader Options Renamed to Programmers</text></navLabel><content src="9781430239390_Ch01.xhtml#Sec24" /></navPoint>
+<navPoint id="navpoint-32" playOrder="32"><navLabel><text>New Bootloaders</text></navLabel><content src="9781430239390_Ch01.xhtml#Sec25" /></navPoint>
+<navPoint id="navpoint-33" playOrder="33"><navLabel><text>USB Firmware for 16u2</text></navLabel><content src="9781430239390_Ch01.xhtml#Sec26" /></navPoint></navPoint>
+<navPoint id="navpoint-34" playOrder="34"><navLabel><text>Summary</text></navLabel><content src="9781430239390_Ch01.xhtml#Sec27" /></navPoint></navPoint>
+<navPoint id="navpoint-35" playOrder="35"><navLabel><text>Chapter 2: Arduino Development and Social Coding</text></navLabel><content src="9781430239390_Ch02.xhtml" />
+<navPoint id="navpoint-36" playOrder="36"><navLabel><text>Components of Social Coding and Project Management</text></navLabel><content src="9781430239390_Ch02.xhtml#Sec1" />
+<navPoint id="navpoint-37" playOrder="37"><navLabel><text>What Is a Project and How Is It Organized?</text></navLabel><content src="9781430239390_Ch02.xhtml#Sec2" /></navPoint>
+<navPoint id="navpoint-38" playOrder="38"><navLabel><text>Overview of Version Control</text></navLabel><content src="9781430239390_Ch02.xhtml#Sec3" /></navPoint>
+<navPoint id="navpoint-39" playOrder="39"><navLabel><text>Overview of Issue Tracking</text></navLabel><content src="9781430239390_Ch02.xhtml#Sec4" /></navPoint>
+<navPoint id="navpoint-40" playOrder="40"><navLabel><text>Documentation</text></navLabel><content src="9781430239390_Ch02.xhtml#Sec5" /></navPoint></navPoint>
+<navPoint id="navpoint-41" playOrder="41"><navLabel><text>Project Management for Social Coding</text></navLabel><content src="9781430239390_Ch02.xhtml#Sec6" />
+<navPoint id="navpoint-42" playOrder="42"><navLabel><text>Version Control with Git and GitHub</text></navLabel><content src="9781430239390_Ch02.xhtml#Sec7" /></navPoint>
+<navPoint id="navpoint-43" playOrder="43"><navLabel><text>What Is Git?</text></navLabel><content src="9781430239390_Ch02.xhtml#Sec8" /></navPoint>
+<navPoint id="navpoint-44" playOrder="44"><navLabel><text>Installing Git</text></navLabel><content src="9781430239390_Ch02.xhtml#Sec9" /></navPoint>
+<navPoint id="navpoint-45" playOrder="45"><navLabel><text>GitHub Tools</text></navLabel><content src="9781430239390_Ch02.xhtml#Sec10" /></navPoint></navPoint>
+<navPoint id="navpoint-46" playOrder="46"><navLabel><text>Version Control, Basic Workflow</text></navLabel><content src="9781430239390_Ch02.xhtml#Sec11" />
+<navPoint id="navpoint-47" playOrder="47"><navLabel><text>Creating Your Own Project</text></navLabel><content src="9781430239390_Ch02.xhtml#Sec12" /></navPoint>
+<navPoint id="navpoint-48" playOrder="48"><navLabel><text>Editing Code and Checking for Changes</text></navLabel><content src="9781430239390_Ch02.xhtml#Sec13" /></navPoint>
+<navPoint id="navpoint-49" playOrder="49"><navLabel><text>Work process</text></navLabel><content src="9781430239390_Ch02.xhtml#Sec14" /></navPoint>
+<navPoint id="navpoint-50" playOrder="50"><navLabel><text>Workflow Summary: Creating Your Own Project</text></navLabel><content src="9781430239390_Ch02.xhtml#Sec17" /></navPoint>
+<navPoint id="navpoint-51" playOrder="51"><navLabel><text>Workflow Summary: Forking Another Project</text></navLabel><content src="9781430239390_Ch02.xhtml#Sec18" /></navPoint>
+<navPoint id="navpoint-52" playOrder="52"><navLabel><text>Creating a Pull Request</text></navLabel><content src="9781430239390_Ch02.xhtml#Sec19" /></navPoint>
+<navPoint id="navpoint-53" playOrder="53"><navLabel><text>Creating a Pull Request</text></navLabel><content src="9781430239390_Ch02.xhtml#Sec20" /></navPoint>
+<navPoint id="navpoint-54" playOrder="54"><navLabel><text>How To Merge a Pull Request</text></navLabel><content src="9781430239390_Ch02.xhtml#Sec21" /></navPoint>
+<navPoint id="navpoint-55" playOrder="55"><navLabel><text>What is issue management?</text></navLabel><content src="9781430239390_Ch02.xhtml#Sec22" /></navPoint>
+<navPoint id="navpoint-56" playOrder="56"><navLabel><text>Issue management with Github</text></navLabel><content src="9781430239390_Ch02.xhtml#Sec23" /></navPoint>
+<navPoint id="navpoint-57" playOrder="57"><navLabel><text>Connecting Version Control with Issue Management</text></navLabel><content src="9781430239390_Ch02.xhtml#Sec24" /></navPoint></navPoint>
+<navPoint id="navpoint-58" playOrder="58"><navLabel><text>Documentation</text></navLabel><content src="9781430239390_Ch02.xhtml#Sec25" />
+<navPoint id="navpoint-59" playOrder="59"><navLabel><text>Github wiki</text></navLabel><content src="9781430239390_Ch02.xhtml#Sec26" /></navPoint>
+<navPoint id="navpoint-60" playOrder="60"><navLabel><text>Creating Pages</text></navLabel><content src="9781430239390_Ch02.xhtml#Sec27" /></navPoint>
+<navPoint id="navpoint-61" playOrder="61"><navLabel><text>Using Markdown</text></navLabel><content src="9781430239390_Ch02.xhtml#Sec28" /></navPoint></navPoint>
+<navPoint id="navpoint-62" playOrder="62"><navLabel><text>Contributing to Arduino Development</text></navLabel><content src="9781430239390_Ch02.xhtml#Sec37" />
+<navPoint id="navpoint-63" playOrder="63"><navLabel><text>Forking Your Own Copy of Arduino</text></navLabel><content src="9781430239390_Ch02.xhtml#Sec38" /></navPoint></navPoint>
+<navPoint id="navpoint-64" playOrder="64"><navLabel><text>How to build the Arduino IDE from source</text></navLabel><content src="9781430239390_Ch02.xhtml#Sec39" /></navPoint>
+<navPoint id="navpoint-65" playOrder="65"><navLabel><text>Community Resources</text></navLabel><content src="9781430239390_Ch02.xhtml#Sec40" /></navPoint>
+<navPoint id="navpoint-66" playOrder="66"><navLabel><text>Summary</text></navLabel><content src="9781430239390_Ch02.xhtml#Sec41" /></navPoint></navPoint>
+<navPoint id="navpoint-67" playOrder="67"><navLabel><text>Chapter 3: openFrameworks and Arduino</text></navLabel><content src="9781430239390_Ch03.xhtml" />
+<navPoint id="navpoint-68" playOrder="68"><navLabel><text>Getting Started</text></navLabel><content src="9781430239390_Ch03.xhtml#Sec1" /></navPoint>
+<navPoint id="navpoint-69" playOrder="69"><navLabel><text>Arduino Code</text></navLabel><content src="9781430239390_Ch03.xhtml#Sec2" />
+<navPoint id="navpoint-70" playOrder="70"><navLabel><text>Verifying the Code</text></navLabel><content src="9781430239390_Ch03.xhtml#Sec3" /></navPoint>
+<navPoint id="navpoint-71" playOrder="71"><navLabel><text>Arduino Serial Functions</text></navLabel><content src="9781430239390_Ch03.xhtml#Sec4" /></navPoint></navPoint>
+<navPoint id="navpoint-72" playOrder="72"><navLabel><text>openFrameworks Setup</text></navLabel><content src="9781430239390_Ch03.xhtml#Sec5" />
+<navPoint id="navpoint-73" playOrder="73"><navLabel><text>Connecting to the Arduino from openFrameworks</text></navLabel><content src="9781430239390_Ch03.xhtml#Sec6" /></navPoint>
+<navPoint id="navpoint-74" playOrder="74"><navLabel><text>Verifying the Code</text></navLabel><content src="9781430239390_Ch03.xhtml#Sec7" /></navPoint>
+<navPoint id="navpoint-75" playOrder="75"><navLabel><text>openFrameworks Serial Functions</text></navLabel><content src="9781430239390_Ch03.xhtml#Sec8" /></navPoint></navPoint>
+<navPoint id="navpoint-76" playOrder="76"><navLabel><text>Coding Once Using Firmata and ofArduino</text></navLabel><content src="9781430239390_Ch03.xhtml#Sec9" />
+<navPoint id="navpoint-77" playOrder="77"><navLabel><text>Setting Up Firmata</text></navLabel><content src="9781430239390_Ch03.xhtml#Sec10" /></navPoint>
+<navPoint id="navpoint-78" playOrder="78"><navLabel><text>Controlling the Arduino with openFrameworks</text></navLabel><content src="9781430239390_Ch03.xhtml#Sec11" /></navPoint>
+<navPoint id="navpoint-79" playOrder="79"><navLabel><text>Verifying the Code</text></navLabel><content src="9781430239390_Ch03.xhtml#Sec12" /></navPoint>
+<navPoint id="navpoint-80" playOrder="80"><navLabel><text>Key Constants Used by ofArduino</text></navLabel><content src="9781430239390_Ch03.xhtml#Sec13" /></navPoint>
+<navPoint id="navpoint-81" playOrder="81"><navLabel><text>ofArduino Reference of Class Functions</text></navLabel><content src="9781430239390_Ch03.xhtml#Sec14" /></navPoint></navPoint>
+<navPoint id="navpoint-82" playOrder="82"><navLabel><text>Expanding on the Idea</text></navLabel><content src="9781430239390_Ch03.xhtml#Sec15" />
+<navPoint id="navpoint-83" playOrder="83"><navLabel><text>Changing Code</text></navLabel><content src="9781430239390_Ch03.xhtml#Sec16" /></navPoint>
+<navPoint id="navpoint-84" playOrder="84"><navLabel><text>Verifying the Code</text></navLabel><content src="9781430239390_Ch03.xhtml#Sec17" /></navPoint></navPoint>
+<navPoint id="navpoint-85" playOrder="85"><navLabel><text>More Ideas to Work With</text></navLabel><content src="9781430239390_Ch03.xhtml#Sec18" /></navPoint>
+<navPoint id="navpoint-86" playOrder="86"><navLabel><text>Summary</text></navLabel><content src="9781430239390_Ch03.xhtml#Sec19" /></navPoint></navPoint>
+<navPoint id="navpoint-87" playOrder="87"><navLabel><text>Chapter 4: Android ADK</text></navLabel><content src="9781430239390_Ch04.xhtml" />
+<navPoint id="navpoint-88" playOrder="88"><navLabel><text>Android Devices</text></navLabel><content src="9781430239390_Ch04.xhtml#Sec1" /></navPoint>
+<navPoint id="navpoint-89" playOrder="89"><navLabel><text>What to Check For</text></navLabel><content src="9781430239390_Ch04.xhtml#Sec2" /></navPoint>
+<navPoint id="navpoint-90" playOrder="90"><navLabel><text>Known Working Devices</text></navLabel><content src="9781430239390_Ch04.xhtml#Sec3" /></navPoint>
+<navPoint id="navpoint-91" playOrder="91"><navLabel><text>Modding</text></navLabel><content src="9781430239390_Ch04.xhtml#Sec4" /></navPoint>
+<navPoint id="navpoint-92" playOrder="92"><navLabel><text>Arduino IDE Setup</text></navLabel><content src="9781430239390_Ch04.xhtml#Sec5" />
+<navPoint id="navpoint-93" playOrder="93"><navLabel><text>Android Application Creation</text></navLabel><content src="9781430239390_Ch04.xhtml#Sec6" /></navPoint>
+<navPoint id="navpoint-94" playOrder="94"><navLabel><text>The Arduino Sketch</text></navLabel><content src="9781430239390_Ch04.xhtml#Sec7" /></navPoint>
+<navPoint id="navpoint-95" playOrder="95"><navLabel><text>The Android ADK Application</text></navLabel><content src="9781430239390_Ch04.xhtml#Sec8" /></navPoint></navPoint>
+<navPoint id="navpoint-96" playOrder="96"><navLabel><text>Completing the Framework</text></navLabel><content src="9781430239390_Ch04.xhtml#Sec15" />
+<navPoint id="navpoint-97" playOrder="97"><navLabel><text>Completing the Application</text></navLabel><content src="9781430239390_Ch04.xhtml#Sec16" /></navPoint>
+<navPoint id="navpoint-98" playOrder="98"><navLabel><text>Arduino</text></navLabel><content src="9781430239390_Ch04.xhtml#Sec17" /></navPoint>
+<navPoint id="navpoint-99" playOrder="99"><navLabel><text>Verifying the Code</text></navLabel><content src="9781430239390_Ch04.xhtml#Sec18" /></navPoint></navPoint>
+<navPoint id="navpoint-100" playOrder="100"><navLabel><text>SPI and ADK</text></navLabel><content src="9781430239390_Ch04.xhtml#Sec19" /></navPoint>
+<navPoint id="navpoint-101" playOrder="101"><navLabel><text>Summary</text></navLabel><content src="9781430239390_Ch04.xhtml#Sec20" /></navPoint></navPoint>
+<navPoint id="navpoint-102" playOrder="102"><navLabel><text>Chapter 5: XBees</text></navLabel><content src="9781430239390_Ch05.xhtml" />
+<navPoint id="navpoint-103" playOrder="103"><navLabel><text>Buying XBees</text></navLabel><content src="9781430239390_Ch05.xhtml#Sec1" /></navPoint>
+<navPoint id="navpoint-104" playOrder="104"><navLabel><text>Simple Setup</text></navLabel><content src="9781430239390_Ch05.xhtml#Sec2" /></navPoint>
+<navPoint id="navpoint-105" playOrder="105"><navLabel><text>Transparent (AT Command) Mode</text></navLabel><content src="9781430239390_Ch05.xhtml#Sec3" />
+<navPoint id="navpoint-106" playOrder="106"><navLabel><text>Module Configuration</text></navLabel><content src="9781430239390_Ch05.xhtml#Sec4" /></navPoint>
+<navPoint id="navpoint-107" playOrder="107"><navLabel><text>Arduino Setup</text></navLabel><content src="9781430239390_Ch05.xhtml#Sec5" /></navPoint>
+<navPoint id="navpoint-108" playOrder="108"><navLabel><text>Verifying the Code</text></navLabel><content src="9781430239390_Ch05.xhtml#Sec6" /></navPoint></navPoint>
+<navPoint id="navpoint-109" playOrder="109"><navLabel><text>API Mode</text></navLabel><content src="9781430239390_Ch05.xhtml#Sec7" />
+<navPoint id="navpoint-110" playOrder="110"><navLabel><text>Module Configuration</text></navLabel><content src="9781430239390_Ch05.xhtml#Sec8" /></navPoint>
+<navPoint id="navpoint-111" playOrder="111"><navLabel><text>API Packet Construction</text></navLabel><content src="9781430239390_Ch05.xhtml#Sec9" /></navPoint>
+<navPoint id="navpoint-112" playOrder="112"><navLabel><text>Sending Commands</text></navLabel><content src="9781430239390_Ch05.xhtml#Sec10" /></navPoint>
+<navPoint id="navpoint-113" playOrder="113"><navLabel><text>Sending Data</text></navLabel><content src="9781430239390_Ch05.xhtml#Sec11" /></navPoint></navPoint>
+<navPoint id="navpoint-114" playOrder="114"><navLabel><text>Request Packets</text></navLabel><content src="9781430239390_Ch05.xhtml#Sec12" /></navPoint>
+<navPoint id="navpoint-115" playOrder="115"><navLabel><text>Reply Packets</text></navLabel><content src="9781430239390_Ch05.xhtml#Sec13" /></navPoint>
+<navPoint id="navpoint-116" playOrder="116"><navLabel><text>Arduino Data Echo</text></navLabel><content src="9781430239390_Ch05.xhtml#Sec14" /></navPoint>
+<navPoint id="navpoint-117" playOrder="117"><navLabel><text>Endpoint Firmware</text></navLabel><content src="9781430239390_Ch05.xhtml#Sec15" /></navPoint>
+<navPoint id="navpoint-118" playOrder="118"><navLabel><text>Summary</text></navLabel><content src="9781430239390_Ch05.xhtml#Sec16" /></navPoint></navPoint>
+<navPoint id="navpoint-119" playOrder="119"><navLabel><text>Chapter 6: Simulating Sensors</text></navLabel><content src="9781430239390_Ch06.xhtml" />
+<navPoint id="navpoint-120" playOrder="120"><navLabel><text>Analog Sensors</text></navLabel><content src="9781430239390_Ch06.xhtml#Sec1" />
+<navPoint id="navpoint-121" playOrder="121"><navLabel><text>Analog Sensor Reader</text></navLabel><content src="9781430239390_Ch06.xhtml#Sec2" /></navPoint>
+<navPoint id="navpoint-122" playOrder="122"><navLabel><text>RC Low-Pass Filter</text></navLabel><content src="9781430239390_Ch06.xhtml#Sec3" /></navPoint>
+<navPoint id="navpoint-123" playOrder="123"><navLabel><text>Verifying the Code</text></navLabel><content src="9781430239390_Ch06.xhtml#Sec4" /></navPoint>
+<navPoint id="navpoint-124" playOrder="124"><navLabel><text>Resistor Ladder</text></navLabel><content src="9781430239390_Ch06.xhtml#Sec5" /></navPoint>
+<navPoint id="navpoint-125" playOrder="125"><navLabel><text>Verifying the Code</text></navLabel><content src="9781430239390_Ch06.xhtml#Sec6" /></navPoint></navPoint>
+<navPoint id="navpoint-126" playOrder="126"><navLabel><text>Digital Sensors</text></navLabel><content src="9781430239390_Ch06.xhtml#Sec7" />
+<navPoint id="navpoint-127" playOrder="127"><navLabel><text>PWM</text></navLabel><content src="9781430239390_Ch06.xhtml#Sec8" /></navPoint>
+<navPoint id="navpoint-128" playOrder="128"><navLabel><text>Gray Code</text></navLabel><content src="9781430239390_Ch06.xhtml#Sec9" /></navPoint></navPoint>
+<navPoint id="navpoint-129" playOrder="129"><navLabel><text>Serial Sensors</text></navLabel><content src="9781430239390_Ch06.xhtml#Sec12" />
+<navPoint id="navpoint-130" playOrder="130"><navLabel><text>Outputting Serial Data</text></navLabel><content src="9781430239390_Ch06.xhtml#Sec13" /></navPoint>
+<navPoint id="navpoint-131" playOrder="131"><navLabel><text>Verifying the Code</text></navLabel><content src="9781430239390_Ch06.xhtml#Sec14" /></navPoint></navPoint>
+<navPoint id="navpoint-132" playOrder="132"><navLabel><text>I2C</text></navLabel><content src="9781430239390_Ch06.xhtml#Sec15" />
+<navPoint id="navpoint-133" playOrder="133"><navLabel><text>The TWCR Register</text></navLabel><content src="9781430239390_Ch06.xhtml#Sec16" /></navPoint>
+<navPoint id="navpoint-134" playOrder="134"><navLabel><text>The TWAR Register</text></navLabel><content src="9781430239390_Ch06.xhtml#Sec17" /></navPoint>
+<navPoint id="navpoint-135" playOrder="135"><navLabel><text>The TWDR Register</text></navLabel><content src="9781430239390_Ch06.xhtml#Sec18" /></navPoint>
+<navPoint id="navpoint-136" playOrder="136"><navLabel><text>The TWSR Register</text></navLabel><content src="9781430239390_Ch06.xhtml#Sec19" /></navPoint>
+<navPoint id="navpoint-137" playOrder="137"><navLabel><text>Outputting I2C Data</text></navLabel><content src="9781430239390_Ch06.xhtml#Sec20" /></navPoint>
+<navPoint id="navpoint-138" playOrder="138"><navLabel><text>Verifying the Code</text></navLabel><content src="9781430239390_Ch06.xhtml#Sec21" /></navPoint></navPoint>
+<navPoint id="navpoint-139" playOrder="139"><navLabel><text>Summary</text></navLabel><content src="9781430239390_Ch06.xhtml#Sec22" /></navPoint></navPoint>
+<navPoint id="navpoint-140" playOrder="140"><navLabel><text>Chapter 7: PID Controllers</text></navLabel><content src="9781430239390_Ch07.xhtml" />
+<navPoint id="navpoint-141" playOrder="141"><navLabel><text>The Mathematics</text></navLabel><content src="9781430239390_Ch07.xhtml#Sec1" />
+<navPoint id="navpoint-142" playOrder="142"><navLabel><text>The Proportional Statement</text></navLabel><content src="9781430239390_Ch07.xhtml#Sec2" /></navPoint>
+<navPoint id="navpoint-143" playOrder="143"><navLabel><text>The Integral Statement</text></navLabel><content src="9781430239390_Ch07.xhtml#Sec3" /></navPoint>
+<navPoint id="navpoint-144" playOrder="144"><navLabel><text>The Derivative Statement</text></navLabel><content src="9781430239390_Ch07.xhtml#Sec4" /></navPoint>
+<navPoint id="navpoint-145" playOrder="145"><navLabel><text>Adding It All Up</text></navLabel><content src="9781430239390_Ch07.xhtml#Sec5" /></navPoint>
+<navPoint id="navpoint-146" playOrder="146"><navLabel><text>Time</text></navLabel><content src="9781430239390_Ch07.xhtml#Sec6" /></navPoint></navPoint>
+<navPoint id="navpoint-147" playOrder="147"><navLabel><text>PID Controller Setup</text></navLabel><content src="9781430239390_Ch07.xhtml#Sec7" />
+<navPoint id="navpoint-148" playOrder="148"><navLabel><text>Wiring the Hardware</text></navLabel><content src="9781430239390_Ch07.xhtml#Sec8" /></navPoint>
+<navPoint id="navpoint-149" playOrder="149"><navLabel><text>Verifying the Code</text></navLabel><content src="9781430239390_Ch07.xhtml#Sec9" /></navPoint></navPoint>
+<navPoint id="navpoint-150" playOrder="150"><navLabel><text>PID Tuner</text></navLabel><content src="9781430239390_Ch07.xhtml#Sec10" /></navPoint>
+<navPoint id="navpoint-151" playOrder="151"><navLabel><text>Comparing PID, DEAD BAND, and ON/OFF Controllers</text></navLabel><content src="9781430239390_Ch07.xhtml#Sec11" /></navPoint>
+<navPoint id="navpoint-152" playOrder="152"><navLabel><text>PID Can Control</text></navLabel><content src="9781430239390_Ch07.xhtml#Sec12" />
+<navPoint id="navpoint-153" playOrder="153"><navLabel><text>Tuning</text></navLabel><content src="9781430239390_Ch07.xhtml#Sec13" /></navPoint>
+<navPoint id="navpoint-154" playOrder="154"><navLabel><text>PID Library</text></navLabel><content src="9781430239390_Ch07.xhtml#Sec14" /></navPoint>
+<navPoint id="navpoint-155" playOrder="155"><navLabel><text>PID Library Functions</text></navLabel><content src="9781430239390_Ch07.xhtml#Sec15" /></navPoint></navPoint>
+<navPoint id="navpoint-156" playOrder="156"><navLabel><text>Other Resources</text></navLabel><content src="9781430239390_Ch07.xhtml#Sec16" /></navPoint>
+<navPoint id="navpoint-157" playOrder="157"><navLabel><text>Summary</text></navLabel><content src="9781430239390_Ch07.xhtml#Sec17" /></navPoint></navPoint>
+<navPoint id="navpoint-158" playOrder="158"><navLabel><text>Chapter 8: Android Sensor Networks</text></navLabel><content src="9781430239390_Ch08.xhtml" />
+<navPoint id="navpoint-159" playOrder="159"><navLabel><text>Setting Up a Sensor Network</text></navLabel><content src="9781430239390_Ch08.xhtml#Sec1" /></navPoint>
+<navPoint id="navpoint-160" playOrder="160"><navLabel><text>openFrameworks</text></navLabel><content src="9781430239390_Ch08.xhtml#Sec2" /></navPoint>
+<navPoint id="navpoint-161" playOrder="161"><navLabel><text>The Arduino</text></navLabel><content src="9781430239390_Ch08.xhtml#Sec3" /></navPoint>
+<navPoint id="navpoint-162" playOrder="162"><navLabel><text>The Android Application</text></navLabel><content src="9781430239390_Ch08.xhtml#Sec4" /></navPoint>
+<navPoint id="navpoint-163" playOrder="163"><navLabel><text>Summary</text></navLabel><content src="9781430239390_Ch08.xhtml#Sec5" /></navPoint></navPoint>
+<navPoint id="navpoint-164" playOrder="164"><navLabel><text>Chapter 9: Using Arduino with PIC32 and ATtiny Atmel Chips</text></navLabel><content src="9781430239390_Ch09.xhtml" />
+<navPoint id="navpoint-165" playOrder="165"><navLabel><text>Arduino and Nonstandard Environments</text></navLabel><content src="9781430239390_Ch09.xhtml#Sec1" /></navPoint>
+<navPoint id="navpoint-166" playOrder="166"><navLabel><text>The MPIDE and chipKIT PIC32</text></navLabel><content src="9781430239390_Ch09.xhtml#Sec2" />
+<navPoint id="navpoint-167" playOrder="167"><navLabel><text>Example: Object Detection using the Task Manager service</text></navLabel><content src="9781430239390_Ch09.xhtml#Sec3" /></navPoint></navPoint>
+<navPoint id="navpoint-168" playOrder="168"><navLabel><text>Arduino Support for the ATtiny Family</text></navLabel><content src="9781430239390_Ch09.xhtml#Sec4" />
+<navPoint id="navpoint-169" playOrder="169"><navLabel><text>ATtiny 85/45/25</text></navLabel><content src="9781430239390_Ch09.xhtml#Sec5" /></navPoint>
+<navPoint id="navpoint-170" playOrder="170"><navLabel><text>ATtiny 84/44/24</text></navLabel><content src="9781430239390_Ch09.xhtml#Sec6" /></navPoint>
+<navPoint id="navpoint-171" playOrder="171"><navLabel><text>ATtiny 4313 and 2313</text></navLabel><content src="9781430239390_Ch09.xhtml#Sec7" /></navPoint></navPoint>
+<navPoint id="navpoint-172" playOrder="172"><navLabel><text>Using the Arduino as an ISP Programmer</text></navLabel><content src="9781430239390_Ch09.xhtml#Sec8" /></navPoint>
+<navPoint id="navpoint-173" playOrder="173"><navLabel><text>Project: Secret Knock Box</text></navLabel><content src="9781430239390_Ch09.xhtml#Sec9" />
+<navPoint id="navpoint-174" playOrder="174"><navLabel><text>What the Device Does</text></navLabel><content src="9781430239390_Ch09.xhtml#Sec10" /></navPoint>
+<navPoint id="navpoint-175" playOrder="175"><navLabel><text>Bill of Materials</text></navLabel><content src="9781430239390_Ch09.xhtml#Sec11" /></navPoint></navPoint>
+<navPoint id="navpoint-176" playOrder="176"><navLabel><text>Summary</text></navLabel><content src="9781430239390_Ch09.xhtml#Sec12" /></navPoint></navPoint>
+<navPoint id="navpoint-177" playOrder="177"><navLabel><text>Chapter 10: Multiprocessing: Linking the Arduino for More Power</text></navLabel><content src="9781430239390_Ch10.xhtml" />
+<navPoint id="navpoint-178" playOrder="178"><navLabel><text>I2C</text></navLabel><content src="9781430239390_Ch10.xhtml#Sec1" /></navPoint>
+<navPoint id="navpoint-179" playOrder="179"><navLabel><text>Serial Peripheral Interface</text></navLabel><content src="9781430239390_Ch10.xhtml#Sec2" /></navPoint>
+<navPoint id="navpoint-180" playOrder="180"><navLabel><text>Connecting Two Devices</text></navLabel><content src="9781430239390_Ch10.xhtml#Sec3" />
+<navPoint id="navpoint-181" playOrder="181"><navLabel><text>Setting Up a Master SPI Device</text></navLabel><content src="9781430239390_Ch10.xhtml#Sec4" /></navPoint>
+<navPoint id="navpoint-182" playOrder="182"><navLabel><text>Verifying the Code</text></navLabel><content src="9781430239390_Ch10.xhtml#Sec5" /></navPoint>
+<navPoint id="navpoint-183" playOrder="183"><navLabel><text>Interrupting Vectors</text></navLabel><content src="9781430239390_Ch10.xhtml#Sec6" /></navPoint>
+<navPoint id="navpoint-184" playOrder="184"><navLabel><text>SPI by the Registers</text></navLabel><content src="9781430239390_Ch10.xhtml#Sec7" /></navPoint>
+<navPoint id="navpoint-185" playOrder="185"><navLabel><text>Verifying the Code</text></navLabel><content src="9781430239390_Ch10.xhtml#Sec8" /></navPoint>
+<navPoint id="navpoint-186" playOrder="186"><navLabel><text>Multiple Slaves</text></navLabel><content src="9781430239390_Ch10.xhtml#Sec9" /></navPoint>
+<navPoint id="navpoint-187" playOrder="187"><navLabel><text>Master in Register</text></navLabel><content src="9781430239390_Ch10.xhtml#Sec10" /></navPoint>
+<navPoint id="navpoint-188" playOrder="188"><navLabel><text>Verifying the Code</text></navLabel><content src="9781430239390_Ch10.xhtml#Sec11" /></navPoint></navPoint>
+<navPoint id="navpoint-189" playOrder="189"><navLabel><text>Symmetric Architecture Bipolar Bus</text></navLabel><content src="9781430239390_Ch10.xhtml#Sec12" />
+<navPoint id="navpoint-190" playOrder="190"><navLabel><text>SABB by the Code</text></navLabel><content src="9781430239390_Ch10.xhtml#Sec13" /></navPoint>
+<navPoint id="navpoint-191" playOrder="191"><navLabel><text>Verifying the Code</text></navLabel><content src="9781430239390_Ch10.xhtml#Sec14" /></navPoint>
+<navPoint id="navpoint-192" playOrder="192"><navLabel><text>Connecting SABB to SPI</text></navLabel><content src="9781430239390_Ch10.xhtml#Sec15" /></navPoint></navPoint>
+<navPoint id="navpoint-193" playOrder="193"><navLabel><text>Conversion to Mega</text></navLabel><content src="9781430239390_Ch10.xhtml#Sec16" /></navPoint>
+<navPoint id="navpoint-194" playOrder="194"><navLabel><text>Physical Best Practices</text></navLabel><content src="9781430239390_Ch10.xhtml#Sec17" /></navPoint>
+<navPoint id="navpoint-195" playOrder="195"><navLabel><text>Summary</text></navLabel><content src="9781430239390_Ch10.xhtml#Sec18" /></navPoint></navPoint>
+<navPoint id="navpoint-196" playOrder="196"><navLabel><text>Chapter 11: Game Development with Arduino</text></navLabel><content src="9781430239390_Ch11.xhtml" />
+<navPoint id="navpoint-197" playOrder="197"><navLabel><text>Games Suitable for the Arduino</text></navLabel><content src="9781430239390_Ch11.xhtml#Sec1" /></navPoint>
+<navPoint id="navpoint-198" playOrder="198"><navLabel><text>A Simple Game</text></navLabel><content src="9781430239390_Ch11.xhtml#Sec2" />
+<navPoint id="navpoint-199" playOrder="199"><navLabel><text>Proof of Concept</text></navLabel><content src="9781430239390_Ch11.xhtml#Sec3" /></navPoint>
+<navPoint id="navpoint-200" playOrder="200"><navLabel><text>Coding Stop It</text></navLabel><content src="9781430239390_Ch11.xhtml#Sec4" /></navPoint>
+<navPoint id="navpoint-201" playOrder="201"><navLabel><text>Verifying the Code</text></navLabel><content src="9781430239390_Ch11.xhtml#Sec5" /></navPoint>
+<navPoint id="navpoint-202" playOrder="202"><navLabel><text>Dirty Little Tricks,</text></navLabel><content src="9781430239390_Ch11.xhtml#Sec6" /></navPoint></navPoint>
+<navPoint id="navpoint-203" playOrder="203"><navLabel><text>Adding Better Displays and Graphics</text></navLabel><content src="9781430239390_Ch11.xhtml#Sec7" />
+<navPoint id="navpoint-204" playOrder="204"><navLabel><text>Gameduino Library</text></navLabel><content src="9781430239390_Ch11.xhtml#Sec8" /></navPoint>
+<navPoint id="navpoint-205" playOrder="205"><navLabel><text>A New Stop It</text></navLabel><content src="9781430239390_Ch11.xhtml#Sec9" /></navPoint>
+<navPoint id="navpoint-206" playOrder="206"><navLabel><text>Art</text></navLabel><content src="9781430239390_Ch11.xhtml#Sec10" /></navPoint>
+<navPoint id="navpoint-207" playOrder="207"><navLabel><text>Coding Stack It</text></navLabel><content src="9781430239390_Ch11.xhtml#Sec11" /></navPoint>
+<navPoint id="navpoint-208" playOrder="208"><navLabel><text>Verifying the Code</text></navLabel><content src="9781430239390_Ch11.xhtml#Sec12" /></navPoint>
+<navPoint id="navpoint-209" playOrder="209"><navLabel><text>Making Sounds</text></navLabel><content src="9781430239390_Ch11.xhtml#Sec13" /></navPoint>
+<navPoint id="navpoint-210" playOrder="210"><navLabel><text>Adding a Bit of Splash</text></navLabel><content src="9781430239390_Ch11.xhtml#Sec14" /></navPoint>
+<navPoint id="navpoint-211" playOrder="211"><navLabel><text>Programming the Game to Play Itself</text></navLabel><content src="9781430239390_Ch11.xhtml#Sec15" /></navPoint>
+<navPoint id="navpoint-212" playOrder="212"><navLabel><text>The Finishing Polish</text></navLabel><content src="9781430239390_Ch11.xhtml#Sec16" /></navPoint>
+<navPoint id="navpoint-213" playOrder="213"><navLabel><text>Arcade and Game Resources</text></navLabel><content src="9781430239390_Ch11.xhtml#Sec17" /></navPoint></navPoint>
+<navPoint id="navpoint-214" playOrder="214"><navLabel><text>Summary</text></navLabel><content src="9781430239390_Ch11.xhtml#Sec18" /></navPoint></navPoint>
+<navPoint id="navpoint-215" playOrder="215"><navLabel><text>Chapter 12: Writing Your Own Arduino Libraries</text></navLabel><content src="9781430239390_Ch12.xhtml" />
+<navPoint id="navpoint-216" playOrder="216"><navLabel><text>What you need to know to write your own libraries</text></navLabel><content src="9781430239390_Ch12.xhtml#Sec1" />
+<navPoint id="navpoint-217" playOrder="217"><navLabel><text>Creating a simple library</text></navLabel><content src="9781430239390_Ch12.xhtml#Sec2" /></navPoint></navPoint>
+<navPoint id="navpoint-218" playOrder="218"><navLabel><text>Making a Motor Library</text></navLabel><content src="9781430239390_Ch12.xhtml#Sec3" /></navPoint>
+<navPoint id="navpoint-219" playOrder="219"><navLabel><text>The anatomy of an Arduino library folder</text></navLabel><content src="9781430239390_Ch12.xhtml#Sec4" />
+<navPoint id="navpoint-220" playOrder="220"><navLabel><text>Examples Folder</text></navLabel><content src="9781430239390_Ch12.xhtml#Sec5" /></navPoint>
+<navPoint id="navpoint-221" playOrder="221"><navLabel><text>License</text></navLabel><content src="9781430239390_Ch12.xhtml#Sec6" /></navPoint>
+<navPoint id="navpoint-222" playOrder="222"><navLabel><text>keywords.txt</text></navLabel><content src="9781430239390_Ch12.xhtml#Sec7" /></navPoint>
+<navPoint id="navpoint-223" playOrder="223"><navLabel><text>Installing Arduino Libraries</text></navLabel><content src="9781430239390_Ch12.xhtml#Sec8" /></navPoint>
+<navPoint id="navpoint-224" playOrder="224"><navLabel><text>Using Arduino Libraries</text></navLabel><content src="9781430239390_Ch12.xhtml#Sec9" /></navPoint></navPoint>
+<navPoint id="navpoint-225" playOrder="225"><navLabel><text>Arduino Objects and Library Conventions</text></navLabel><content src="9781430239390_Ch12.xhtml#Sec10" /></navPoint>
+<navPoint id="navpoint-226" playOrder="226"><navLabel><text>Summary</text></navLabel><content src="9781430239390_Ch12.xhtml#Sec11" /></navPoint></navPoint>
+<navPoint id="navpoint-227" playOrder="227"><navLabel><text>Chapter 13: Arduino Test Suite</text></navLabel><content src="9781430239390_Ch13.xhtml" />
+<navPoint id="navpoint-228" playOrder="228"><navLabel><text>Installing the Arduino Test Suite</text></navLabel><content src="9781430239390_Ch13.xhtml#Sec1" /></navPoint>
+<navPoint id="navpoint-229" playOrder="229"><navLabel><text>Getting Started with Testing</text></navLabel><content src="9781430239390_Ch13.xhtml#Sec2" /></navPoint>
+<navPoint id="navpoint-230" playOrder="230"><navLabel><text>Arduino Test Result Format</text></navLabel><content src="9781430239390_Ch13.xhtml#Sec3" />
+<navPoint id="navpoint-231" playOrder="231"><navLabel><text>Test Result Section Format Details</text></navLabel><content src="9781430239390_Ch13.xhtml#Sec4" /></navPoint></navPoint>
+<navPoint id="navpoint-232" playOrder="232"><navLabel><text>Arduino Test Suite Basic Functions</text></navLabel><content src="9781430239390_Ch13.xhtml#Sec8" />
+<navPoint id="navpoint-233" playOrder="233"><navLabel><text>ATS_begin</text></navLabel><content src="9781430239390_Ch13.xhtml#Sec9" /></navPoint>
+<navPoint id="navpoint-234" playOrder="234"><navLabel><text>ATS_PrintTestStatus</text></navLabel><content src="9781430239390_Ch13.xhtml#Sec10" /></navPoint>
+<navPoint id="navpoint-235" playOrder="235"><navLabel><text>ATS_end</text></navLabel><content src="9781430239390_Ch13.xhtml#Sec11" /></navPoint>
+<navPoint id="navpoint-236" playOrder="236"><navLabel><text>Using the Basic Functions</text></navLabel><content src="9781430239390_Ch13.xhtml#Sec12" /></navPoint></navPoint>
+<navPoint id="navpoint-237" playOrder="237"><navLabel><text>Arduino Test Suite Built-In Tests</text></navLabel><content src="9781430239390_Ch13.xhtml#Sec13" /></navPoint>
+<navPoint id="navpoint-238" playOrder="238"><navLabel><text>Strategies for Testing Your Own Arduino Derivative</text></navLabel><content src="9781430239390_Ch13.xhtml#Sec14" /></navPoint>
+<navPoint id="navpoint-239" playOrder="239"><navLabel><text>Memory Testing</text></navLabel><content src="9781430239390_Ch13.xhtml#Sec15" />
+<navPoint id="navpoint-240" playOrder="240"><navLabel><text>Example: Testing for a Memory Leak</text></navLabel><content src="9781430239390_Ch13.xhtml#Sec16" /></navPoint></navPoint>
+<navPoint id="navpoint-241" playOrder="241"><navLabel><text>Testing Libraries</text></navLabel><content src="9781430239390_Ch13.xhtml#Sec17" />
+<navPoint id="navpoint-242" playOrder="242"><navLabel><text>SPI.transfer() Test</text></navLabel><content src="9781430239390_Ch13.xhtml#Sec18" /></navPoint>
+<navPoint id="navpoint-243" playOrder="243"><navLabel><text>setBitOrder() Test</text></navLabel><content src="9781430239390_Ch13.xhtml#Sec19" /></navPoint>
+<navPoint id="navpoint-244" playOrder="244"><navLabel><text>setClockDivider() Test</text></navLabel><content src="9781430239390_Ch13.xhtml#Sec20" /></navPoint>
+<navPoint id="navpoint-245" playOrder="245"><navLabel><text>setDataMode() Test</text></navLabel><content src="9781430239390_Ch13.xhtml#Sec21" /></navPoint>
+<navPoint id="navpoint-246" playOrder="246"><navLabel><text>SPI Test Results</text></navLabel><content src="9781430239390_Ch13.xhtml#Sec22" /></navPoint></navPoint>
+<navPoint id="navpoint-247" playOrder="247"><navLabel><text>Summary</text></navLabel><content src="9781430239390_Ch13.xhtml#Sec23" /></navPoint></navPoint>
+<navPoint id="navpoint-248" playOrder="248"><navLabel><text>Index</text></navLabel><content src="9781430239390_Index.xhtml" /></navPoint>
+</navMap>
+</ncx>

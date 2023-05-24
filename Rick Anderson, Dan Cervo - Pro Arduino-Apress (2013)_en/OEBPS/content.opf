@@ -1,0 +1,212 @@
+<?xml version="1.0"  encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="2.0" unique-identifier="p9781430239390">
+<metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+<dc:creator opf:role="aut" opf:file-as="Anderson, Rick &amp; Cervo, Dan">Rick Anderson</dc:creator>
+<dc:creator opf:role="aut">Dan Cervo</dc:creator>
+<dc:title>Pro Arduino</dc:title>
+<dc:language>en</dc:language>
+<dc:publisher>Apress</dc:publisher>
+<dc:identifier id="p9781430239390">URN:ISBN:978-1-4302-3939-0</dc:identifier>
+<dc:source>URN:ISBN:978-1-4302-3939-0</dc:source>
+<dc:type>Text</dc:type>
+<dc:format/>
+<dc:rights>All rights reserved</dc:rights>
+<meta name="cover" content="my_cover_image"/>
+<opf:meta name="calibre:title_sort" content="Pro Arduino"/>
+<opf:meta name="calibre:rating" content="0"/>
+<dc:identifier opf:scheme="ISBN">9781430239390</dc:identifier>
+<dc:subject>Computers</dc:subject>
+<dc:subject>General</dc:subject>
+<dc:subject>Hardware</dc:subject>
+<dc:subject>Technology &amp; Engineering</dc:subject>
+<dc:subject>Robotics</dc:subject>
+<dc:description>&lt;p class="description"&gt;So, you've created a few projects with Arduino, and now it's time to kick it up a notch. Where do you go next? With Pro Arduino, you'll learn about new tools, techniques, and frameworks to make even more ground-breaking, eye-popping projects. You'll discover how to make Arduino-based gadgets and robots interact with your mobile phone. You'll learn all about the changes in Arduino 1.0, you'll create amazing output with openFrameworks, and you'll learn how to make games with the Gameduino. You'll also learn advanced topics, such as modifying the Arduino to work with non-standard Atmel chips and Microchip's PIC32.Rick Anderson, an experienced Arduino developer and instructor, and Dan Cervo, an experienced Arduino gadgeteer, will give you a guided tour of advanced Arduino capabilities. If it can be done with an Arduino, you'll learn about it here.  What you’ll learn How to modify the Arduino to work with other chips  How to simulate sensors for testing and debugging  How to set up advanced XBee networks  How to write Arduino libraries and share them with the Arduino community  How to get started with the Android accessory development kit  How to create games with hardware or with Gameduino  How to connect your Android phone to an Arduino sensor network Who this book is for  Arduino fans, technogeeks, and electronic artists who want to take their skills to the next level.  Table of Contents  Arduino 1.0 Core updates and libraries   Contributing to Arduino Development   Openframeworks and Arduino  Android ADK   Xbees   Simulating Sensors with Hardware   PID Controllers   Sensor network for Android using Arduino   Arduino to support non-standard Atmel Chips and PIC32   Multiprocessing: Linking the Arduino for more power   Game development with Arduino  Arduino libraries: How to help others use your code   Arduino Test Suite: create and run tests for your project for your software&lt;/p&gt;</dc:description>
+<dc:date>2013-06-12T04:00:00+00:00</dc:date>
+<opf:meta name="calibre:user_categories" content="{}"/>
+</metadata>
+<manifest>
+<item id="stylesheet" href="9781430239390.css" media-type="text/css"/>
+<item id="page" href="page-template.xpgt" media-type="application/vnd.adobe-page-template+xml"/>
+<item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>
+<item id="cover" href="9781430239390_Cover.xhtml" media-type="application/xhtml+xml"/>
+<item id="body1" href="9781430239390_Title.xhtml" media-type="application/xhtml+xml"/>
+<item id="body2" href="9781430239390_Copyright.xhtml" media-type="application/xhtml+xml"/>
+<item id="body3" href="9781430239390_Dedication.xhtml" media-type="application/xhtml+xml"/>
+<item id="body4" href="9781430239390_Contents_at_a_Glance.xhtml" media-type="application/xhtml+xml"/>
+<item id="body5" href="9781430239390_Contents.xhtml" media-type="application/xhtml+xml"/>
+<item id="body6" href="9781430239390_About_the_Authors.xhtml" media-type="application/xhtml+xml"/>
+<item id="body7" href="9781430239390_About_the_Technical_Reviewer.xhtml" media-type="application/xhtml+xml"/>
+<item id="body8" href="9781430239390_Acknowledgments.xhtml" media-type="application/xhtml+xml"/>
+<item id="body9" href="9781430239390_Introduction.xhtml" media-type="application/xhtml+xml"/>
+<item id="body10" href="9781430239390_Ch01.xhtml" media-type="application/xhtml+xml"/>
+<item id="body11" href="9781430239390_Ch02.xhtml" media-type="application/xhtml+xml"/>
+<item id="body12" href="9781430239390_Ch03.xhtml" media-type="application/xhtml+xml"/>
+<item id="body13" href="9781430239390_Ch04.xhtml" media-type="application/xhtml+xml"/>
+<item id="body14" href="9781430239390_Ch05.xhtml" media-type="application/xhtml+xml"/>
+<item id="body15" href="9781430239390_Ch06.xhtml" media-type="application/xhtml+xml"/>
+<item id="body16" href="9781430239390_Ch07.xhtml" media-type="application/xhtml+xml"/>
+<item id="body17" href="9781430239390_Ch08.xhtml" media-type="application/xhtml+xml"/>
+<item id="body18" href="9781430239390_Ch09.xhtml" media-type="application/xhtml+xml"/>
+<item id="body19" href="9781430239390_Ch10.xhtml" media-type="application/xhtml+xml"/>
+<item id="body20" href="9781430239390_Ch11.xhtml" media-type="application/xhtml+xml"/>
+<item id="body21" href="9781430239390_Ch12.xhtml" media-type="application/xhtml+xml"/>
+<item id="body22" href="9781430239390_Ch13.xhtml" media-type="application/xhtml+xml"/>
+<item id="body23" href="9781430239390_Index.xhtml" media-type="application/xhtml+xml"/>
+<item id="image1" href="images/9781430239390_Fig01-01.jpg" media-type="image/jpeg"/>
+<item id="image2" href="images/9781430239390_Fig01-02.jpg" media-type="image/jpeg"/>
+<item id="image3" href="images/9781430239390_Fig01-03.jpg" media-type="image/jpeg"/>
+<item id="image4" href="images/9781430239390_Fig01-04.jpg" media-type="image/jpeg"/>
+<item id="image5" href="images/9781430239390_Fig02-01.jpg" media-type="image/jpeg"/>
+<item id="image6" href="images/9781430239390_Fig02-02.jpg" media-type="image/jpeg"/>
+<item id="image7" href="images/9781430239390_Fig02-03.jpg" media-type="image/jpeg"/>
+<item id="image8" href="images/9781430239390_Fig02-04.jpg" media-type="image/jpeg"/>
+<item id="image9" href="images/9781430239390_Fig02-05.jpg" media-type="image/jpeg"/>
+<item id="image10" href="images/9781430239390_Fig02-06.jpg" media-type="image/jpeg"/>
+<item id="image11" href="images/9781430239390_Fig02-07.jpg" media-type="image/jpeg"/>
+<item id="image12" href="images/9781430239390_Fig02-08.jpg" media-type="image/jpeg"/>
+<item id="image13" href="images/9781430239390_Fig02-09.jpg" media-type="image/jpeg"/>
+<item id="image14" href="images/9781430239390_Fig02-10.jpg" media-type="image/jpeg"/>
+<item id="image15" href="images/9781430239390_Fig02-11.jpg" media-type="image/jpeg"/>
+<item id="image16" href="images/9781430239390_Fig02-12.jpg" media-type="image/jpeg"/>
+<item id="image17" href="images/9781430239390_Fig02-13.jpg" media-type="image/jpeg"/>
+<item id="image18" href="images/9781430239390_Fig02-14.jpg" media-type="image/jpeg"/>
+<item id="image19" href="images/9781430239390_Fig02-15.jpg" media-type="image/jpeg"/>
+<item id="image20" href="images/9781430239390_Fig02-16.jpg" media-type="image/jpeg"/>
+<item id="image21" href="images/9781430239390_Fig02-17.jpg" media-type="image/jpeg"/>
+<item id="image22" href="images/9781430239390_Fig02-18.jpg" media-type="image/jpeg"/>
+<item id="image23" href="images/9781430239390_Fig02-19.jpg" media-type="image/jpeg"/>
+<item id="image24" href="images/9781430239390_Fig02-20.jpg" media-type="image/jpeg"/>
+<item id="image25" href="images/9781430239390_Fig02-21.jpg" media-type="image/jpeg"/>
+<item id="image26" href="images/9781430239390_Fig02-22.jpg" media-type="image/jpeg"/>
+<item id="image27" href="images/9781430239390_Fig02-23.jpg" media-type="image/jpeg"/>
+<item id="image28" href="images/9781430239390_Fig02-24.jpg" media-type="image/jpeg"/>
+<item id="image29" href="images/9781430239390_Fig02-25.jpg" media-type="image/jpeg"/>
+<item id="image30" href="images/9781430239390_Fig02-26.jpg" media-type="image/jpeg"/>
+<item id="image31" href="images/9781430239390_Fig02-27.jpg" media-type="image/jpeg"/>
+<item id="image32" href="images/9781430239390_Fig02-28.jpg" media-type="image/jpeg"/>
+<item id="image33" href="images/9781430239390_Fig03-01.jpg" media-type="image/jpeg"/>
+<item id="image34" href="images/9781430239390_Fig03-02.jpg" media-type="image/jpeg"/>
+<item id="image35" href="images/9781430239390_Fig03-03.jpg" media-type="image/jpeg"/>
+<item id="image36" href="images/9781430239390_Fig03-04.jpg" media-type="image/jpeg"/>
+<item id="image37" href="images/9781430239390_Fig03-05.jpg" media-type="image/jpeg"/>
+<item id="image38" href="images/9781430239390_Fig03-06.jpg" media-type="image/jpeg"/>
+<item id="image39" href="images/9781430239390_Fig04-01.jpg" media-type="image/jpeg"/>
+<item id="image40" href="images/9781430239390_Fig04-02.jpg" media-type="image/jpeg"/>
+<item id="image41" href="images/9781430239390_Fig04-03.jpg" media-type="image/jpeg"/>
+<item id="image42" href="images/9781430239390_Fig04-04.jpg" media-type="image/jpeg"/>
+<item id="image43" href="images/9781430239390_Fig04-05.jpg" media-type="image/jpeg"/>
+<item id="image44" href="images/9781430239390_Fig04-06.jpg" media-type="image/jpeg"/>
+<item id="image45" href="images/9781430239390_Fig04-07.jpg" media-type="image/jpeg"/>
+<item id="image46" href="images/9781430239390_Fig05-01.jpg" media-type="image/jpeg"/>
+<item id="image47" href="images/9781430239390_Fig05-02.jpg" media-type="image/jpeg"/>
+<item id="image48" href="images/9781430239390_Fig05-03.jpg" media-type="image/jpeg"/>
+<item id="image49" href="images/9781430239390_Fig05-04.jpg" media-type="image/jpeg"/>
+<item id="image50" href="images/9781430239390_Fig06-01.jpg" media-type="image/jpeg"/>
+<item id="image51" href="images/9781430239390_Fig06-02.jpg" media-type="image/jpeg"/>
+<item id="image52" href="images/9781430239390_Fig06-03.jpg" media-type="image/jpeg"/>
+<item id="image53" href="images/9781430239390_Fig06-04.jpg" media-type="image/jpeg"/>
+<item id="image54" href="images/9781430239390_Fig06-05.jpg" media-type="image/jpeg"/>
+<item id="image55" href="images/9781430239390_Fig06-06.jpg" media-type="image/jpeg"/>
+<item id="image56" href="images/9781430239390_Fig06-07.jpg" media-type="image/jpeg"/>
+<item id="image57" href="images/9781430239390_Fig07-01.jpg" media-type="image/jpeg"/>
+<item id="image58" href="images/9781430239390_Fig07-02.jpg" media-type="image/jpeg"/>
+<item id="image59" href="images/9781430239390_Fig07-03.jpg" media-type="image/jpeg"/>
+<item id="image60" href="images/9781430239390_Fig07-04.jpg" media-type="image/jpeg"/>
+<item id="image61" href="images/9781430239390_Fig07-05.jpg" media-type="image/jpeg"/>
+<item id="image62" href="images/9781430239390_Fig07-06.jpg" media-type="image/jpeg"/>
+<item id="image63" href="images/9781430239390_Fig07-07.jpg" media-type="image/jpeg"/>
+<item id="image64" href="images/9781430239390_Fig08-01.jpg" media-type="image/jpeg"/>
+<item id="image65" href="images/9781430239390_Fig08-02.jpg" media-type="image/jpeg"/>
+<item id="image66" href="images/9781430239390_Fig08-03.jpg" media-type="image/jpeg"/>
+<item id="image67" href="images/9781430239390_Fig09-01.jpg" media-type="image/jpeg"/>
+<item id="image68" href="images/9781430239390_Fig09-02.jpg" media-type="image/jpeg"/>
+<item id="image69" href="images/9781430239390_Fig09-03.jpg" media-type="image/jpeg"/>
+<item id="image70" href="images/9781430239390_Fig09-04.jpg" media-type="image/jpeg"/>
+<item id="image71" href="images/9781430239390_Fig09-05.jpg" media-type="image/jpeg"/>
+<item id="image72" href="images/9781430239390_Fig09-06.jpg" media-type="image/jpeg"/>
+<item id="image73" href="images/9781430239390_Fig09-07.jpg" media-type="image/jpeg"/>
+<item id="image74" href="images/9781430239390_Fig09-08.jpg" media-type="image/jpeg"/>
+<item id="image75" href="images/9781430239390_Fig09-09.jpg" media-type="image/jpeg"/>
+<item id="image76" href="images/9781430239390_Fig10-01.jpg" media-type="image/jpeg"/>
+<item id="image77" href="images/9781430239390_Fig10-02.jpg" media-type="image/jpeg"/>
+<item id="image78" href="images/9781430239390_Fig10-03.jpg" media-type="image/jpeg"/>
+<item id="image79" href="images/9781430239390_Fig10-04.jpg" media-type="image/jpeg"/>
+<item id="image80" href="images/9781430239390_Fig10-05.jpg" media-type="image/jpeg"/>
+<item id="image81" href="images/9781430239390_Fig11-01.jpg" media-type="image/jpeg"/>
+<item id="image82" href="images/9781430239390_Fig11-02.jpg" media-type="image/jpeg"/>
+<item id="image83" href="images/9781430239390_Fig11-03.jpg" media-type="image/jpeg"/>
+<item id="image84" href="images/9781430239390_Fig11-04.jpg" media-type="image/jpeg"/>
+<item id="image85" href="images/9781430239390_Fig11-05.jpg" media-type="image/jpeg"/>
+<item id="image86" href="images/9781430239390_Fig11-06.jpg" media-type="image/jpeg"/>
+<item id="image87" href="images/9781430239390_Fig11-07.jpg" media-type="image/jpeg"/>
+<item id="image88" href="images/9781430239390_Fig12-01.jpg" media-type="image/jpeg"/>
+<item id="image89" href="images/9781430239390_Fig12-02.jpg" media-type="image/jpeg"/>
+<item id="image90" href="images/9781430239390_Fig12-03.jpg" media-type="image/jpeg"/>
+<item id="image91" href="images/9781430239390_Fig12-04.jpg" media-type="image/jpeg"/>
+<item id="image92" href="images/9781430239390_Fig13-01.jpg" media-type="image/jpeg"/>
+<item id="image93" href="images/9781430239390_Fig13-02.jpg" media-type="image/jpeg"/>
+<item id="image94" href="images/9781430239390_Fig13-03.jpg" media-type="image/jpeg"/>
+<item id="image95" href="images/9781430239390_Fig13-04.jpg" media-type="image/jpeg"/>
+<item id="image96" href="images/9781430239390_Fig13-05.jpg" media-type="image/jpeg"/>
+<item id="image97" href="images/9781430239390_Fig15-01.jpg" media-type="image/jpeg"/>
+<item id="image98" href="images/9781430239390_Fig15-02.jpg" media-type="image/jpeg"/>
+<item id="image99" href="images/9781430239390_Fig15-03.jpg" media-type="image/jpeg"/>
+<item id="image100" href="images/9781430239390_Fig15-04.jpg" media-type="image/jpeg"/>
+<item id="image101" href="images/9781430239390_Fig15-05.jpg" media-type="image/jpeg"/>
+<item id="image102" href="images/9781430239390_Fig15-06.jpg" media-type="image/jpeg"/>
+<item id="image103" href="images/9781430239390_unFig02-01.jpg" media-type="image/jpeg"/>
+<item id="image104" href="images/9781430239390_unFM-01.jpg" media-type="image/jpeg"/>
+<item id="image105" href="images/9781430239390_unFM-02.jpg" media-type="image/jpeg"/>
+<item id="image106" href="images/arrow.jpg" media-type="image/jpeg"/>
+<item id="image107" href="images/FM-00.jpg" media-type="image/jpeg"/>
+<item id="image108" href="images/FM-01.jpg" media-type="image/jpeg"/>
+<item id="image109" href="images/frontdot.jpg" media-type="image/jpeg"/>
+<item id="image110" href="images/sq.jpg" media-type="image/jpeg"/>
+<item id="image111" href="images/sq1.jpg" media-type="image/jpeg"/>
+<item id="image112" href="images/square1.jpg" media-type="image/jpeg"/>
+<item id="image113" href="images/Table10-11.jpg" media-type="image/jpeg"/>
+<item id="image114" href="images/Table10-12.jpg" media-type="image/jpeg"/>
+<item id="image115" href="images/Table10-3.jpg" media-type="image/jpeg"/>
+<item id="image116" href="images/Table10-4.jpg" media-type="image/jpeg"/>
+<item id="image117" href="images/Table10-7.jpg" media-type="image/jpeg"/>
+<item id="image118" href="images/Table10-8.jpg" media-type="image/jpeg"/>
+<item id="image119" href="images/Table10-9.jpg" media-type="image/jpeg"/>
+<item id="image120" href="images/Table5-1.jpg" media-type="image/jpeg"/>
+<item id="image121" href="images/Table5-2(a).jpg" media-type="image/jpeg"/>
+<item id="image122" href="images/Table5-2(b).jpg" media-type="image/jpeg"/>
+<item id="image123" href="images/Table9-2.jpg" media-type="image/jpeg"/>
+<item id="image124" href="images/Table9-3.jpg" media-type="image/jpeg"/>
+<item id="image125" href="images/Table9-4.jpg" media-type="image/jpeg"/>
+<item id="my_cover_image" href="images/cover.jpg" media-type="image/jpeg"/>
+</manifest>
+<spine toc="ncx">
+<itemref idref="cover" linear="no"/>
+<itemref idref="body1" linear="yes"/>
+<itemref idref="body2" linear="yes"/>
+<itemref idref="body3" linear="yes"/>
+<itemref idref="body4" linear="yes"/>
+<itemref idref="body5" linear="yes"/>
+<itemref idref="body6" linear="yes"/>
+<itemref idref="body7" linear="yes"/>
+<itemref idref="body8" linear="yes"/>
+<itemref idref="body9" linear="yes"/>
+<itemref idref="body10" linear="yes"/>
+<itemref idref="body11" linear="yes"/>
+<itemref idref="body12" linear="yes"/>
+<itemref idref="body13" linear="yes"/>
+<itemref idref="body14" linear="yes"/>
+<itemref idref="body15" linear="yes"/>
+<itemref idref="body16" linear="yes"/>
+<itemref idref="body17" linear="yes"/>
+<itemref idref="body18" linear="yes"/>
+<itemref idref="body19" linear="yes"/>
+<itemref idref="body20" linear="yes"/>
+<itemref idref="body21" linear="yes"/>
+<itemref idref="body22" linear="yes"/>
+<itemref idref="body23" linear="yes"/>
+</spine>
+<guide>
+<reference type="cover" title="Cover Image" href="9781430239390_Cover.xhtml"/>
+<reference type="toc" title="Contents" href="9781430239390_Contents.xhtml"/>
+</guide>
+</package>

@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"[]>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>CHAPTER 2 Arduino Development and Social Coding</title>
+<link href="9781430239390.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<p class="ChapterNumber"><a id="Chap2" />CHAPTER 2</p>
+<p class="chapimage"><img src="images/frontdot.jpg" alt="image"/></p>
+<p class="ChapterTitle">Arduino Development and Social Coding</p>
+<div>
+<p class="noindent">Improve the world through sharing your code. Participating in a community of coders brings professionalism to your hobby. The Arduino world is a community that values the free flow of knowledge and recognizes the benefit of the community to problem solving.</p>
+<p class="indent">While sharing code might seem to be an unsolvable puzzle at first, many tools have been used to accomplish the task of code collaboration. In this chapter, you will learn to use the online code-sharing community called GitHub. Along the way, this chapter will also explore how the Arduino<a id="cXXX.37" /> open source community uses modern social-coding<a id="cXXX.15a" /> practices to contribute to projects.</p>
+<p class="indent"><i>Social coding</i><a id="cXXX.38" /> is the idea that any code you create begins with and contributes to the work of a community of coders and active users who want to assist you as well as to improve their own projects.</p>
+<p class="indent">Arduino is a fast-changing platform, and its development and best practices are set not by industry standards alone, but also by the emergent interaction between industry makers and an open source community of software and hardware hackers. How you participate in the open source community demonstrates how you are a <i>professional</i>. In the field of Arduino and open hardware, <i>pro</i> means using emergent techniques in social-coding communities, alongside making and testing in open, entrepreneurial communities. Open hardware, like open source software, even if created by a single person, is used and lives on in communities of use. So contribute your Arduino IDE source code for the good of the world and move along.</p>
+<p class="indent">Because Arduino is open source, it is always under revision by its community of developers. Your code can undergo quite a bit change when starting a project, and when people begin to work collaboratively with you. The fast pace of change in a project needs to be matched by fast updates to the documentation. You and your collaborators will all need to have the same shared idea, and learn to describe that shared concept via documentation in a collaborative wiki environment. Even if you work alone, documenting your process will enable you to quickly return to projects once set aside, keep track of multiple projects at a time, or publish the software to run a kit you want to sell. To document your project, you need to know how to create pages, and edit a project Wiki using the Markdown syntax. This will be covered in the Documentation section of this chapter.</p>
+<p id="Sec1" class="Heading1">Components of Social Coding and Project Management</p>
+<p class="noindent">Project description, issue management<a id="cXXX.15b" />, code version control<a id="cXXX.15e" />, and documentation<a id="cXXX.15c" /> are the main components of social coding and project management. We will dig into each one, including a description of what each is and how you manage it through GitHub. Instead of these features all being hosted in different systems, they can all be found on GitHub. Centralizing these features in one place helps your community of users and developers keep up to date with the project and automatically watch for changes. The project repositories you host at GitHub can be created as public or private repositories. You choose whether you are hosting a private project for a small team, or a public open source project. On GitHub, you can host as many public open source repositories as you like, but you have to pay for the ability to have a private project.</p>
+<p class="indent">The first example in this chapter will be a Hello World GitHub example that you can use as a template for structuring typical projects. All the examples for the book will be organized in a GitHub project repository: <span class="FontName2"><a href="http://github.com/proard">http://github.com/proard</a></span>. As we learn the tool, you will be able to not only get your own copy of the code for the book, but you will be able to submit your changes back to the main project.</p>
+<div>
+<p id="Sec2" class="Heading2">What Is a Project and How Is It Organized?</p>
+<p class="noindent">A project is the story of what you are working on, and then the hardware and code that make your physical project blink, move, or communicate. You can&#x2019;t put physical electronics on your site, so you have to put the description of the electronics. For our purposes, these files will count as code. <a id="cXXX.39" /> and how is it defined?</p>
+<p class="indent">The basic unit of a project is the <i>code repository</i>. This is where the code lives. Every project is required to have a name and a description. A readme file is strongly encouraged as well, as it is commonly used as a quick starting point for people to pick up key concepts and examples of your project. When you use a social-coding tool like GitHub, it derives a starter page for the project and generates the project&#x2019;s own unique URL, so users of the project can find it the project page easily. Hosting a project so that it is public and findable is a good start, but you want to encourage even more usage and participation. When someone watches, stars, or joins a project, GitHub tracks the changes in the repository. These changes are then emailed to them, or listed as part of their main page in GitHub.</p>
+<p class="indent">There are two common patterns for project directory layouts. If you are creating a plain Arduino sketch, then the folder and the sketch name are the same. So, a sketch called <i>HelloGithub.ino</i> would be placed in a directory called <i>HelloGithub</i>. As seen in <a href="#Fig1" id="_Fig1">Figure 2-1</a> for HelloGithub.</p>
+<div class="Figure" id="Fig1">
+<p class="img"><img src="images/9781430239390_Fig02-01.jpg" alt="9781430239390_Fig02-01.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig1">Figure 2-1</a>. </span>Example HelloGithub directory layout from Arduino sketches folder </p>
+</div>
+<p class="indent">That directory would be the repository name. This way, when the project is cloned or downloaded from GitHub, it unpacks as a valid sketch and then can be easily placed in your Arduino <i>sketches</i> folder as in <a href="#Fig1">Figure 2-1</a>.</p>
+<p class="indent">The second pattern is for hosting Arduino libraries you create. In <a href="9781430239390_Ch13.xhtml">Chapter 13</a> we go over the details for writing libraries. In this case there is a pattern to create a repository for the Arduino library you are writing. If you were to write a library called &#x201C;HelloLibrary&#x201D; you would call your repository HelloLibrary. The repository name would automatically be the directory name that the holds the typical files in an Arduino library. However, the name of the project and the directory should not include a &#x201C;_&#x201D; because Arduino doesn&#x2019;t allow that in a library name. That way you do not have to change file names when you want to download or clone the library into the Arduino <i>sketches libraries</i> folder, like in <a href="#Fig2" id="_Fig2">Figure 2-2</a>.</p>
+<div class="Figure" id="Fig2">
+<p class="img"><img src="images/9781430239390_Fig02-02.jpg" alt="9781430239390_Fig02-02.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig2">Figure 2-2</a>. </span>Example HelloLibrary directory layout </p>
+</div>
+<p class="indent">The Hello Library directory layout contains the required header file, implementation file, and the common sub directories for examples, documentation, and utility code.</p>
+<p class="indent">Once the code is in GitHub it can be accessed in several ways from your GitHub project page. <a href="#Fig3" id="_Fig3">Figure 2-3</a>, the GitHub menu bar, shows that you can download a zip file of the project. &#x201C;Clone in Mac&#x201D; triggers the GitHub GUI tool to clone or copy the project to your local computer. This option is also available for Windows and Linux.</p>
+<div class="Figure" id="Fig3">
+<p class="img"><img src="images/9781430239390_Fig02-03.jpg" alt="9781430239390_Fig02-03.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig3">Figure 2-3</a>. </span>GitHub access repository options </p>
+</div>
+<p class="indent"><a href="#Fig3">Figure 2-3</a> also shows you can also do a manual copy or clone of the project via secure Hypertext Transport Protocol (HTTPS), or secure shell (SSH). When you use these secure protocols GitHub will allow you to not just read data from the project, but write your changes back to the project securely. Finally, each of these techniques will allow for your sketches to be in your Arduino sketch folder or in you Arduino sketch libraries folder, where you can use or edit your project code.</p>
+<p class="indent">In Arduino 1.0.5, there is now a new &#x201C;Add Library&#x201D; feature used to install your zipped library projects. This feature allows you to download the zip archive version of the project directly from GitHub, and it will extract, then install, the project into your user sketches libraries folder for you. This is very convenient for those developing Arduino libraries.</p>
+<p class="indent">Many projects use GitHub for project and code management. There are many projects organized in this fashion. The Arduino project and examples in this chapter are using the same principles.</p>
+<ul class="bulleted">
+<li><i>Arduino (</i><span class="FontName2"><a href="http://github.com/arduino/arduino">http://github.com/arduino/arduino</a></span><i>)</i>: The Arduino IDE source code.</li>
+<li><i>ProArduino TiltSpirit (</i><span class="FontName2"><a href="http://github.com/proard/tiltspirit">http://github.com/proard/tiltspirit</a></span><i>)</i>: A simple Arduino game with LCD and tilt sensors.</li>
+<li><i>ProArduino HelloGithub (</i><span class="FontName2"><a href="http://github.com/proard/HelloGithub">http://github.com/proard/HelloGithub</a></span><i>)</i>: The example Hello World GitHub for Pro Arduino.</li>
+</ul>
+<p class="indent">From these project repositories you can find out the source code status, the current issues, and documentation wiki for a project. Each example represents a project that you can use or help with.</p>
+</div>
+<div>
+<p id="Sec3" class="Heading2">Overview<a id="cXXX.17a" /> of Version Control<a id="cXXX.40" /></p>
+<p class="noindent">In the code repository is the source code for the project. This code will change depending on project progress, features, and issues. A project that is alive changes and is revised regularly. Version control provides a method for multiple people to use, and edit the code simultaneously, and allows you to track the beginning and growth of a project over time. The basic unit of change in version control is the <i>commit</i>, which contains the list of all modified files, plus the code changes inside of them. In our case, version control can be thought of as a list of changes that are committed to the project by yourself or by other collaborators.</p>
+</div>
+<div>
+<p id="Sec4" class="Heading2">Overview of Issue Tracking<a id="cXXX.41" /></p>
+<p class="noindent">Issues are the features, bugs, and change requests for a project. A new project has goals and requirements. These are translated into issues for which the code delivers the functionally. Tracking issues can be quite difficult. For small projects that are about tiny tasks, a programmer can simply remember what needs to be done, but when a project takes you a couple days or more, your community starts giving you feedback and people start wanting to help you. In these cases, issue-tracking becomes critical. When you track issues, you keep a written list of new features and improvements. This public list is critical, in that users of your software can add feature requests or describe a problem in detail. A way to handle this is to assign a unique number, description, and category to each issue; this number can then be tracked from when a new issue is reported to when the issue is closed. Even more importantly, the code changes related to the issue need to be collected together. Every code commit should have a message describing the collection of changes. This way there is accountability for who made the changes and when the changes were made, and you will have a good chance of figuring out why the changes were made the way they were. In order to ensure that the code and issue are hyperlinked together, many users write something like, &#x201C;This was fixed by <i>#issue_number</i>.&#x201D; The good news with GitHub is that every code commit can be connected to the issue it resolves.</p>
+<p class="indent">When working with issues it is typical to take the following steps.</p>
+<ol class="OrderedList">
+<li>Look for the issue in the issue list.</li>
+<li>If it does not exist, file a new issue, including a concise subject, a description that includes a way to reproduce the problem, and, if possible, a source code example or test that fails due to the noted issue. Then the issue number is generated.</li>
+<li>People watching and maintaining the project will get an automatic e-mail when you generate your issue. If you need to discuss the issue, you can send an e-mail to the develop list with the issue number and a hyperlink to the issue.</li>
+<li>Someone may claim an issue, or you can assign it to a programmer, and that connection between issue and programmer can be seen in the issue list. If not claimed, you can update the code yourself to address the issue, and then create an official request that your code fix be added to the main project. This request is officially called a &#x201C;pull request.&#x201D;</li>
+<li>Once the issue is confirmed fixed, the issue can be marked &#x201C;closed&#x201D; using either the commit, pull request, or issue manager interface.</li>
+<li>If for some reason the issue is not truly resolved, you can reopen it.</li>
+</ol>
+<p class="indent">This pattern helps everyone coordinate their work strategies, and divide up the effort of fixing project issues as well as project feature goals.</p>
+</div>
+<div>
+<p id="Sec5" class="Heading2">Documentation</p>
+<p class="noindent">Project documentation is the identity of your wiki project. It is where code experts, and people who are not source code experts and only want to use the project, go to find out what your project is about. It is like a Wikipedia entry for your project. In fact, the type of documentation we will be looking at is wiki documentation. We will use GitHub&#x2019;s wiki documentation to provide a statement of purpose; a description of assembly; a link to step-by-step images of the project; and a link to the schematics, Eagle, or Fritzing files to the printed circuit boards. Sometimes people check only the wiki documentation and never see the source.</p>
+<p class="indent">The GitHub wiki uses what is called <i>Markdown</i> formatting in order to display the text of the pages. The details of Markdown syntax are found at <span class="FontName2"><a href="https://help.github.com/articles/github-flavored-markdown">https://help.github.com/articles/github-flavored-markdown</a></span>. These pages can be edited online in the wiki interface. Additionally, other people can use the wiki and help you keep information about your project up to date.</p>
+</div>
+</div>
+<p id="Sec6" class="Heading1">Project Management for Social Coding</p>
+<p class="noindent">In this section, I describe one way to set up your development environment using the version control system Git and the online code-sharing repository GitHub. Git is the distributed version control software that GitHub uses as a basis for their social code management website.</p>
+<div>
+<p id="Sec7" class="Heading2">Version Control with Git and GitHub</p>
+<p class="noindent">This section will provide one way to set up your development environment using Git and GitHub. It will drill into the details of how to perform project management in a social-coding world. GitHub at its core is the code repository that allows for version control.</p>
+<p class="indent"><i>Version control</i>, or <i>revision control</i>,<a id="cXXX.42" /> tracks every change made to software, including who made the change and when it occurred. This allows for multiple people to work on software simultaneously and merge the changes into the master code base. The tool at the heart of this is Git.</p>
+</div>
+<div>
+<p id="Sec8" class="Heading2">What Is Git<a id="cXXX.43" />?</p>
+<p class="noindent">Git is a powerful version control system that is used with many open source projects, including Linux Kernel, which has thousands of contributors and projects. Among the projects tracked with Git are Arduino software projects and projects from Adafruit Industries. The Git tool, which is a version control system that is completely distributed, allows for a massive amount of code hacking by multiple developers across the world. Everyone with a copy of the repository has a complete copy of the entire project with its entire revision control history. What is really unique with this is that developers are encouraged to fork the project and make their own changes to it.</p>
+<p class="indent">Each copy of the software is either a clone or a fork. A <i>clone</i> is a copy of the master online repository on <span class="FontName2"><a href="http://github.com/proard/hellogithub">http://github.com/proard/hellogithub</a></span>; you will use a clone of your project locally on your computer.&#160;&#160;A <i>fork</i> is an online official copy of the repository, one that you maintain on your own GitHub account, at <span class="FontName2"><a href="http://github.com/youraccount/hellogithub">http://github.com/youraccount/hellogithub</a></span>. Git allows for a highly trackable and secure communication process between repositories. You can send cryptographically signed changes between you local repository and your remote repository. This supports secure development and accountability for who, where, when, and what changed.</p>
+<p class="indent">Here, I will cover the basic starting commands and the preferred development process supported by the Arduino community. GitHub provides a nice starting guide at <span class="FontName2"><a href="http://help.github.com">http://help.github.com</a></span>, as well. The steps presented here will be similar to those from the guide, but they will be geared toward starting your own Arduino projects.</p>
+</div>
+<div>
+<p id="Sec9" class="Heading2">Installing Git<a id="cXXX.44" /></p>
+<p class="noindent">First, you must install Git locally and create an account on GitHub. Check out the &#x201C;Get Started&#x201D; section on GitHub, at <span class="FontName2"><a href="https://help.github.com/articles/set-up-git">https://help.github.com/articles/set-up-git</a></span>. The command-line version of Git can be obtained from <span class="FontName2"><a href="http://gitscm.org/">http://gitscm.org/</a></span> and should be installed as you would any software. I recommend selecting the shell options for Windows. The Git shell makes it easy to access Git on the command line. There is also a GitHub GUI tool for managing Git repositories which is helpful, but not a replacement for all of the features that come with the Git command line software.</p>
+<p class="indent">One additional feature of Git is that it is cryptographically signed, and every commit and change clearly trackable, and makes programmers accountable for the changes they make. You will need to configure a unique key for your system. To get started, you&#x2019;ll need to do the following:</p>
+<ul class="bulleted1">
+<li>1.&#160;&#160;Install Git.</li>
+<li>2.&#160;&#160;Create GitHub account at <span class="FontName2"><a href="http://github.com">http://github.com</a></span>.</li>
+<li>3.&#160;&#160;Generate a key pair to authorize your commits.</li>
+</ul>
+<ul class="bulletedin">
+<li>Mac OS X: Go to <span class="FontName2"><a href="https://help.github.com/articles/generating-ssh-keys#platform-mac">https://help.github.com/articles/generating-ssh-keys#platform-mac</a></span></li>
+<li>Linux: Go to <span class="FontName2"><a href="https://help.github.com/articles/generating-ssh-keys#platform-linux">https://help.github.com/articles/generating-ssh-keys#platform-linux</a></span></li>
+<li>Windows: Go to <span class="FontName2"><a href="https://help.github.com/articles/generating-ssh-keys#platform-windows">https://help.github.com/articles/generating-ssh-keys#platform-windows</a></span></li>
+</ul>
+<ul class="bulleted1">
+<li>4.&#160;&#160;Set your user and e-mail in Git at <span class="FontName2"><a href="http://help.github.com/git-email-settings">http://help.github.com/git-email-settings</a></span>.</li>
+</ul>
+<p class="noindent">Here is the command-line option for setting your global user information:</p>
+<pre><span class="FontName2">$ git config --global user.name &quot;Your Name&quot;</span><br /><span class="FontName2">$ git config --global user.email</span><span class="FontName2"><a href="mailto:you@example.com">you@example.com</a></span></pre>
+<p class="indent">With these settings in place, your system is ready to start working with the Git repositories, and GitHub. Your system will now properly indicate the code changes you make, and the changes you submit will be cryptographically accountable. This makes working with GitHub seemless.</p>\
+</div>
+<div>
+<p id="Sec10" class="Heading2">GitHub Tools</p>
+<p class="noindent">Now that you have Git installed, and a GitHub account, you have your own area for repositories and account management on GitHub. I prefer to install the Git command line software prior to the GitHub GUI tools. That way, there is a command-line tool and GUI access for your project files. This lets you experience the best of both worlds.</p>
+<p class="indent"><a href="#Fig4" id="_Fig4">Figure 2-4</a> shows the GitHub GUI configured to display projects on the local system. This shows your repositories and what organizations they belong to, as well as their overall status. It is possible to drill down into each project and examine individual files. Importantly, the Git GUI will generate the security keys for you.</p>
+<div class="Figure" id="Fig4">
+<p class="img"><img src="images/9781430239390_Fig02-04.jpg" alt="9781430239390_Fig02-04.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig4">Figure 2-4</a>. </span>GitHub GUI on Mac OS X </p>
+</div>
+<p class="indent">You are now up and running with GitHub. GitHub GUI will list your repositories on GitHub and synchronize changes from both your local repositories and your GitHub repositories. It provides a nice level of convenience, but learning the command line version of Git will offer better access to the revision control features, and showing the code differences between versions.</p>
+</div>
+<div>
+<p id="Sec11" class="Heading1">Version Control, Basic Workflow</p>
+<p class="noindent">In this section we introduce a basic work process for version control. This starts with creating your own example project in GitHub<a id="cXXX.21b" />, then expands to working with projects other people have created, and then reviews the necessary Git commands that allow you to manage a version controlled project. This includes finding out what changed, and moving your code from your local repository to your remote repository on GitHub. It is possible to have more than one remote repository, but for this chapter your repository on GitHub will be the remote repository we use.</p>
+<div>
+<p id="Sec12" class="Heading2">Creating Your Own Project<a id="cXXX.21a" /></p>
+<p class="noindent">Go to GitHub and select &#x201C;New repository.&#x201D; Call the repository HelloGithub. Then fill in the new repository information, as shown in <a href="#Fig5" id="_Fig5">Figure 2-5</a>. Once finished, select &#x201C;Create repository.&#x201D;</p>
+<div class="Figure" id="Fig5">
+<p class="img"><img src="images/9781430239390_Fig02-05.jpg" alt="9781430239390_Fig02-05.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig5">Figure 2-5</a>. </span>HelloGithub project configuration page </p>
+</div>
+<p class="indent">You want to indicate that this is an Arduino project. All Arduino projects are by default C++ projects. Select the .gitignore option for C++. This automatically keeps Git from tracking temp files and extraneous files common to C++ and text editors. Once you have selected &#x201C;create repository,&#x201D; you are presented with the default view of the project. the interface should look like <a href="#Fig6" id="_Fig6">Figure 2-6</a>. This view shows you the source code for your project, and links to the many features of GitHub.</p>
+<div class="Figure" id="Fig6">
+<p class="img"><img src="images/9781430239390_Fig02-06.jpg" alt="9781430239390_Fig02-06.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig6">Figure 2-6</a>. </span>Initial project page after creation </p>
+</div>
+<p class="indent">An initial Readme.md file is created, but you will have to manually edit the <span class="FontName2">Readme.md</span> file with a description of your project, and how you would like people to configure the hardware, and modify the code to support different configuration for usage. This edit can be done after you clone your repository to your local machine, or can be done by live editing the file directly on GitHub. GitHub has a feature where you can browse your source code online and select a file for editing. When you save a change it will be saved as a standard code commit. Just click on the file &#x201C;README.md&#x201D; in <a href="#Fig6">Figure 2-6</a> to try it.</p>
+</div>
+<p class="indent">From <a href="#Fig6">Figure 2-6</a> you can clone the project locally. By cloning the project, you are in fact downloading the repository from GitHub using the &#x201C;git clone&#x201D; command. This is your copy of the entire repository on your local computer. Cloning can be done with the GitHub GUI application or on the command line, as follows:</p>
+<pre><span class="FontName2">$ git clone</span><span class="FontName2"><a href="mailto:git@github.com:username/HelloGithub.git">git@github.com:username/HelloGithub.git</a></span></pre>
+<p class="indent">In this case the &#x201C;username&#x201D; is your username on GitHub, and the command will copy all the files and version control information to your local machine. This is your local repository; all changes stay in the local cloned repository until you push your changes back to your original online repository on GitHub. &#x201C;Origin&#x201D; is the official name for your repository on GitHub. Your local code changes do not automatically move to the &#x201C;origin.&#x201D; You will have to &#x201C;push&#x201D; your change to your origin. Also, changes that you edit online directly to your GitHub project or if new code is merged into your GitHub project from other code contributors. Those changes have to be &#x201C;pulled&#x201D; to your local repository.</p>
+</div>
+<div>
+<p id="Sec13" class="Heading2">Editing Code and Checking for Changes</p>
+<p class="noindent">Once you now have a complete copy, or local clone, of your project, the process of working with and modifying code begins. Through the work process you will manage the changes to the project, and eventually send those changes back to your remote repository at GitHub. You will need to know how to check to your project for changes, commit those changes, and send them back to you GitHub repository. Then you will want to be able to get new changes form your GitHub repository and add them to your local repository.</p>
+<p class="indent">Code can be changed in many ways:</p>
+<pre><span class="FontName2">User git clone <a href="mailto:git@github.com:username/HelloGithub.git">git@github.com:username/HelloGithub.git</a></span></pre>
+</div>
+<div>
+<p id="Sec14" class="Heading2">Work process<a id="cXXX.45" /></p>
+<p class="noindent">Make changes to code:</p>
+<ul class="bulleted">
+<li>Use the Arduino IDE to edit a sketch like <span class="FontName2">HelloGithub.ino</span>.</li>
+<li>Add or delete files.</li>
+<li>Move files to various places in the project.</li>
+<li>Edit files in libraries with your favorite text editor.</li>
+</ul>
+<div>
+<p id="Sec15" class="Heading3">View changes</p>
+<p class="noindent">When you do make changes, you will want to know how to review them. Any time a change is saved, you can issue the following commands to check your work:</p>
+<pre><span class="FontName2">$ git diff</span></pre>
+<p class="indent">Or show a summary of changes with:</p>
+<pre><span class="FontName2">$ git diff --stat</span></pre>
+</div>
+<div>
+<p id="Sec16" class="Heading3">Saving and committing changes</p>
+<p class="noindent">Once you are ready to commit to the changes you made, you can now commit these changes to your local code repository. Only staged changes are committed without the &#x201C;<span class="FontName2">-a</span>&#x201D;, to commit all changes, use &#x201C;<span class="FontName2">-a&#x201D;</span>, like so:</p>
+<pre><span class="FontName2">$ git commit &#x2013;a &#x2013;m &quot;Changed the files and fixed issue #1&quot;</span></pre>
+<p class="indent">To commit only certain changed files list the named files, use the following:</p>
+<pre><span class="FontName2">$ git commit HelloGithub.ino &quot;Update HelloGithub.ino and changed blink rate for issue #1&quot;</span></pre>
+<p class="indent">Each of these commits are are identified by SHA-1 hash that represents all the changes in the commit. These commits are saved code transferred from one repositoy or another. Also, you can check out different commits and recreate the exact file structure and changes in their code. &#x201C;<span class="FontName2">HEAD</span>&#x201D; is an alias for the latest commit you have made. The indicator &#x201C;<span class="FontName2">&#x223C;1</span>&#x201D; is the equivalent of &#x201C;<span class="FontName2">-1</span>&#x201D;; they can be combined to read &#x201C;<span class="FontName2">HEAD&#x223C;1</span>&#x201D;. It&#x2019;s also possible to say &#x201C;<span class="FontName2">HEAD&#x223C;2</span>&#x201D; which is two commits back from <span class="FontName2">HEAD</span>. For instance, if you want to check out the previous commit you could issue the following command:</p>
+<pre><span class="FontName2">$git checkout HEAD&#x223C;1</span></pre>
+<p class="indent">Once that checkout succeeds, the code and files match that exact commit. If you look at the file system, you will see your old files and old changes, but all will precisely match the first commit back form &#x201C;<span class="FontName2">HEAD</span>&#x201D;. The syntax &#x201C;<span class="FontName2">HEAD</span>&#x201D; and &#x201C;<span class="FontName2">^</span>&#x201D; can be used with the <span class="FontName2">diff</span> command as well. To return to your latest status, issue the command:</p>
+<pre><span class="FontName2">$git checkout HEAD</span></pre>
+<p class="indent">Now your files and code match the official version.</p>
+<p class="indent">One extremely useful use case is to check out just one file. You may have make changes you are not happy with, and you will want to only grab an early version or the current version of file. You can use:</p>
+<pre><span class="FontName2">$git checkout &#x2013; filename</span></pre>
+<p class="indent">This immediately checks out the previous version of the file. You can checkout the file from two versions ago by using &#x201C;HEAD&#x223C;2&#x201D;</p>
+<pre><span class="FontName2">$git checkout HEAD&#x223C;2 filename</span></pre>
+<p class="indent">If the file didn&#x2019;t exists two version back it will complain file is not part of the commit.</p>
+<p class="indent">You can also checkout what is called a branch:</p>
+<pre><span class="FontName2">$git branch HelloBranch</span></pre>
+<p class="indent">This command automatically creates a branch called &#x201C;HelloBranch&#x201D;, but does not switch to it.</p>
+<pre><span class="FontName2">$git checkout HelloBranch</span></pre>
+<p class="indent">This command will check out that branch. If you want to return to your &#x201C;master&#x201D; branch you can use:</p>
+<pre><span class="FontName2">$git checkout master</span></pre>
+<p class="indent">At some point you will want to know what branches you have. The command is:</p>
+<pre><span class="FontName2">$git branch</span></pre>
+<p class="indent">The result will list all the branches in your repository.</p>
+<p class="indent">In our examples we don&#x2019;t cover branching, but you should learn about branching as you use GitHub. A branch allows you to test out new ideas,&#160;&#160;create different versions of your project, or fix code without making changes in your master branch. In this chapter, I only cover making changes to your &#x201C;master&#x201D; branch.</p>
+<p class="noindenttext"><b>Move changes to your GitHub repository</b></p>
+<p class="noindenttext1">Now that the changes are committed to the local repository, you need to push them to your GitHub repository, which you can do by using the following command:</p>
+<pre><span class="FontName2">$ git push</span></pre>
+<p class="indent">If you are working on multiple machines, or multiple people are working with you, then your project on GitHub could have changed. You may have even accepted a &#x201C;pull request&#x201D;. In this case, you will want to bring those changes, or collection of commits, to your local repository. One method is to &#x201C;fetch&#x201D; the changes from GitHub. This grabs the changes as a set, but does not merge them into your code automatically. The command would be as follows:</p>
+<pre><span class="FontName2">$ git fetch</span></pre>
+<p class="indent">At this point, you have all the changes from the GitHub repository. You do not have to <span class="FontName2">fetch</span> until something changes on Github again. At this point you can use &#x201C;<span class="FontName2">git diff</span>&#x201D; and examine the changes that were made on the server from a local copy. Once you are ready, merge the changes from fetch into your local repository. This is the merge command:</p>
+<pre><span class="FontName2">$ git merge master</span></pre>
+<p class="indent">The &#x201C;<span class="FontName2">master</span>&#x201D; key term is for the master branch of the code that was fetched. Most changes can be merged without a conflict. The <span class="FontName2">pull</span> command combines the <span class="FontName2">fetch</span> of changes with a <span class="FontName2">merge</span>. This is a very convenient way to get changes from your GitHub repository. The full command is:</p>
+<pre><span class="FontName2">$ git pull</span></pre>
+<p class="indent">Once you have successfully pulled your changes to from your GitHub repository. You can immediately begin editing, changing code, and working on your project. As needed, use the above commands to help you complete these common tasks. The options I have outlined are just for getting started with Git; it is a very complex and powerful tool. This chapter should get you started, but for more detail on the commands, see the Apress book called <i>Pro Git</i>, which can help you dig in deeper.</p>
+</div>
+</div>
+<div>
+<p id="Sec17" class="Heading2">Workflow Summary: Creating Your Own Project</p>
+<p class="noindent">We walked through the creation of the HelloGitHub project to demonstrate GitHub&#x2019;s commands, but there is a pattern in the steps we took. Follow these same steps for any project you create and you have workflow that ensures version control for one or multiple creators. Summarizing the steps we already took, we see the common steps for working on any project:</p>
+<ol class="OrderedList">
+<li>Create the project on GitHub.</li>
+<li>Clone the project to your local machine.</li>
+<li>Make changes to the code.</li>
+<li>Add or remove files.</li>
+<li>Commit changes to your local Git repository.</li>
+<li>Push those locally committed changes to your &#x201C;origin&#x201D; repository on GitHub.</li>
+<li>Repeat steps 2&#x2013;6 as needed.</li>
+</ol>
+<p class="indent">These steps allow you to work locally and keep up to date with your project.&#160;&#160;You can use git diff, and git diff &#x2013;stat or any of the many Git commands to check the difference in code version, and the changes over time for the project.</p>
+</div>
+<div>
+<p id="Sec18" class="Heading2">Workflow Summary: Forking Another Project<a id="cXXX.46" /></p>
+<p class="noindent">Frequently there are existing projects that you want to use, but you might want to change the configuration for your hardware, or want to add a feature to the project. Since I work with many different kinds of Arduino compatible boards, not every project is designed to work with one I&#x2019;m using. For instance, between the Arduino Uno, and the Arduino Mega, the SPI pins are numbered differently.&#160;&#160;I will typically fork the project, and then make the needed changes to my forked copy of the project. Once I&#x2019;m sure the code changes are working, I can do a pull request that allows the maintainer of the main project to merge those fixes to their project.</p>
+<p class="indent">We will use the HelloGithub project at the Pro Arduino GitHub site, <span class="FontName2"><a href="https://github.com/ProArd/HelloGithub">https://github.com/ProArd/HelloGithub</a></span> <span class="FontName2">,</span> and run through the fork process with it. Once you find the HelloGithub project, you can select fork. This copies the project into your own GitHub area. Then you will want to make a copy to your local machine by cloning it.</p>
+<p class="indent">These are the steps for forking another project:</p>
+<ol class="OrderedList">
+<li>Log into <span class="FontName2"><a href="http://github.com">http://github.com</a></span>.</li>
+<li>Visit <span class="FontName2"><a href="http://github.com/proard/HelloFork">http://github.com/proard/HelloFork</a></span>. You will find an example of what you&#x2019;ll find there in <a href="#Fig7" id="_Fig7">Figure 2-7</a>.
+<div class="Figure" id="Fig7">
+<p class="img"><img src="images/9781430239390_Fig02-07.jpg" alt="9781430239390_Fig02-07.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig7">Figure 2-7</a>. </span>The HelloFork project you want to fork </p>
+</div></li>
+<li>Select the &#x201C;Fork&#x201D; option, in the list of buttons highlighted by <a href="#Fig8" id="_Fig8">Figure 2-8</a>.
+<div class="Figure" id="Fig8">
+<p class="img"><img src="images/9781430239390_Fig02-08.jpg" alt="9781430239390_Fig02-08.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig8">Figure 2-8</a>. </span>The &#x201C;Fork&#x201D; button in context </p>
+</div></li>
+<li>GitHub will tell you it is forking the project, with the processing sceen in <a href="#Fig9" id="_Fig9">Figure 2-9</a>.
+<div class="Figure" id="Fig9">
+<p class="img"><img src="images/9781430239390_Fig02-09.jpg" alt="9781430239390_Fig02-09.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig9">Figure 2-9</a>. </span>GitHub&#x2019;s forking page </p>
+</div></li>
+<li>Go to your fork of the project, as in <a href="#Fig10" id="_Fig10">Figure 2-10</a>.
+<div class="Figure" id="Fig10">
+<p class="img"><img src="images/9781430239390_Fig02-10.jpg" alt="9781430239390_Fig02-10.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig10">Figure 2-10</a>. </span>Your fork of the project </p>
+</div></li>
+<li>Clone your project with the following:
+<pre><span class="FontName2">$ git clone <a href="mailto:git@github.com:YourUsername/HelloFork.git">git@github.com:YourUsername/HelloFork.git</a></span></pre></li>
+<li>Set the official HelloFork repository as the upstream repository:
+<pre><span class="FontName2">$ cd HelloFork</span><br /><span class="FontName2">$ git remote add upstream <a href="mailto:git@github.com:proard/HelloFork.git">git@github.com:proard/HelloFork.git</a></span></pre></li>
+<li>Since you just cloned it there are no changes, but once changes have been made you will want to fetch and merge changes from upstream with these commands:
+<pre><span class="FontName2">$ git fetch upstream</span><br /><span class="FontName2">$ git merge upstream/master</span></pre></li>
+<li>You can do a test of the merge by doing a dry run, using the following commands:
+<pre><span class="FontName2">$ git merge --no-commit --no-ff upstream/master</span><br /><span class="FontName2">$ git diff upstream/master &#x2013;stat</span></pre></li></ol>
+<p class="indent">If you want to see the difference between the changes that are being made, you can compare your code with the code on your GitHub repository with the &#x201C;diff&#x201D; command:</p>
+<pre><span class="FontName2">$ git diff origin/master</span></pre>
+<p class="indent">You can get a quick summary of the file changes by using &#x201C;&#x2014;stat&#x201D;</p>
+<pre><span class="FontName2">$ git diff origin/master --stat</span></pre>
+<p class="indent">Given this list, we need to define a couple of new concepts. First, an <i>upstream repository</i> is typically the project that you forked into your GitHub repository. Secondly, every so often you will want to go back to the original project and pick up new files and code changes, so that you can synchronize your work with the main project. Your original project on GitHub is called &#x201C;origin.&#x201D; The latest version of code is called &#x201C;master.&#x201D; So you can compare the latest versions of &#x201C;origin/master,&#x201D; or &#x201C;upstream/master,&#x201D; with your local repository. Over time, projects can get further out of sync. If you fetch the changes from the upstream repository, you can bring the changes to your local machine without clobbering your own code, without breaking existing work by hitting it with a write over. The upstream master code will not automatically update your working area in the local master. After a fetch, you have to take specific action to merge those changes into your own project. <span class="FontName2">git merge</span> defaults to merging the fetched master with your local working master repository. The merge process will combine those changes into your local project.</p>
+</div>
+<div>
+<p id="Sec19" class="Heading2">Creating a Pull Request</p>
+<p class="noindent">In the section we will modify the HelloFork.ino sketch to have your Arduino username and submit the change as a pull request to the official Pro Arduino repository for the HelloFork project. At this point you will already have the forked from Pro Arduino, and cloned to your local system. So now edit the HelloFork.ino sketch to include your GitHub username. The code will look like:</p>
+<pre><span class="FontName2">/*</span><br /><span class="FontName2">* Hello Fork Github Example Arduino Sketch</span><br /><span class="FontName2">* Just add your GitHUb account ID and I&#x0027;ll add your pull request to the project.</span><br /><span class="FontName2">*/</span><br /><span class="FontName2">void setup() {</span><br />&#160;&#160;<span class="FontName2">Serial.begin(9600);</span><br /><span class="FontName2">}</span><br /><span class="FontName2">void loop() {</span><br />&#160;&#160;<span class="FontName2">Serial.println(&quot;Add your GitHub name to the code to test creating a pull request&quot;);</span><br />&#160;&#160;<span class="FontName2">Serial.println(&quot;Hello Github from:&quot;);</span><br />&#160;&#160;<span class="FontName2">Serial.println(&quot;@Ricklon&quot;);</span><br />&#160;&#160;<span class="FontName2">Serial.println(&quot;@ProArd&quot;);</span><br />&#160;&#160;<span class="FontName2">Serial.println(&#x201C;@YourGitHubUsername&#x201D;);</span><br /><span class="FontName2">}</span></pre>
+<p class="indent">Once you save this code you can check the repository for the change by issuing the command:</p>
+<pre><span class="FontName2">$ git status</span></pre>
+<p class="noindent"><b>Result:</b></p>
+<pre><span class="FontName2"># On branch master</span><br /><span class="FontName2"># Changes not staged for commit:</span><br /><span class="FontName2">#&#160;&#160; (use &quot;git add &#x003C;file&#x003E;&#x2026;&quot; to update what will be committed)</span><br /><span class="FontName2">#&#160;&#160; (use &quot;git checkout -- &#x003C;file&#x003E;&#x2026;&quot; to discard changes in working directory)</span><br /><span class="FontName2">#</span><br /><span class="FontName2">#&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;modified:&#160;&#160; HelloFork.ino</span></pre>
+<p class="indent">The status result shows that you modified HelloFork.ino. This change needs to be committed to your local repository with the following command:</p>
+<pre><span class="FontName2">git commit -m &quot;Added a new username to the HelloFork.ino sketch.&quot; HelloFork.ino</span><br /><span class="FontName2">Result:</span><br /><span class="FontName2">[master f6367cf] Added a new username to the HelloFork.ino sketch.</span><br />&#160;<span class="FontName2">1 file changed, 1 insertion(+)</span></pre>
+<p class="indent">The commit uses the &#x201C;<span class="FontName2">-m</span>&#x201D; to specify the message. After the message can be a list of files, paths, and or wildcards to specify the file names and directories to include in the commit. If you want to commit all changed, added, and deleted files, you can use the &#x201C;<span class="FontName2">-a</span>&#x201D; flag. This flag stands for &#x201C;all.&#x201D; The message can contain the Markdown shortcuts we described in the documentation section, like @username to mention a user and link to their account. Now that the file is committed, it is time to push the commit to your GitHub repository. That can be done be issue the command:</p>
+<pre><span class="FontName2">$ git push</span></pre>
+<p class="noindent"><b>Result:</b></p>
+<pre><span class="FontName2">Counting objects: 5, done.</span><br /><span class="FontName2">Delta compression using up to 4 threads.</span><br /><span class="FontName2">Compressing objects: 100% (3/3), done.</span><br /><span class="FontName2">Writing objects: 100% (3/3), 408 bytes, done.</span><br /><span class="FontName2">Total 3 (delta 1), reused 0 (delta 0)</span><br /><span class="FontName2">To <a href="mailto:git@github.com:ricklon/HelloFork.git">git@github.com:ricklon/HelloFork.git</a></span><br />&#160;&#160; <span class="FontName2">4e28d3f..f6367cf&#160;&#160;master -&#x003E; master</span></pre>
+<p class="indent">The push result summarizes all the changes and commit information that is sent to you GitHub repository.&#160;&#160;The &#x201C;To&#x201D; section. The &#x201C;4e28d3f..f6367cf&#x201D; in the result is shorthand for the hash that represents the commit being pushed to your GitHub repository.</p>
+<p class="indent">Take a look at the HelloFork menu, as in <a href="#Fig11" id="_Fig11">Figure 2-11</a>. Clicking on the file views the file. In our case we want to look at the commit and see what was changed as shown in <a href="#Fig12" id="_Fig12">Figure 2-12</a>.</p>
+<div class="Figure" id="Fig11">
+<p class="img"><img src="images/9781430239390_Fig02-11.jpg" alt="9781430239390_Fig02-11.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig11">Figure 2-11</a>. </span>HelloFork.ino changes are now on your GitHub </p>
+</div>
+<div class="Figure" id="Fig12">
+<p class="img"><img src="images/9781430239390_Fig02-12.jpg" alt="9781430239390_Fig02-12.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig12">Figure 2-12</a>. </span>View of the changes in the commit </p>
+</div>
+<p class="indent">The &#x201C;+&#x201D; indicates the new line of code you added. A minus, &#x201C;-&#x201C; represents the removal of code.</p>
+<p class="indent">Now your project is up to date; all changes between your local repository and your GitHub repository are now synchronized.</p>
+</div>
+<div>
+<p id="Sec20" class="Heading2">Creating a Pull Request</p>
+<p class="noindent">Once all the changes you want to make are bundled in your repository it&#x2019;s time to create a &#x201C;pull request&#x201D; that will move your changes to the project you forked your project from. In this case we are using your HelloFork repository. Go to the your GitHub project for HelloFork. It should appear similar to <a href="#Fig13" id="_Fig13">Figure 2-13</a>.</p>
+<div class="Figure" id="Fig13">
+<p class="img"><img src="images/9781430239390_Fig02-13.jpg" alt="9781430239390_Fig02-13.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig13">Figure 2-13</a>. </span>Your fork of the HelloFork project </p>
+</div>
+<p class="indent">The summary shown on <a href="#Fig13">Figure 2-13</a> shows your username, what project is selected, and where the project is from. At the same level are the project options. We are about to use the &#x201C;pull request&#x201D; option. You can also &#x201C;Watch,&#x201D; &#x201C;Star,&#x201D; or &#x201C;Fork&#x201D; the project from this menu. With &#x201C;Fork&#x201D; it shows you the number of forks of the project. If anyone wants to make a fork of your project, they can select &#x201C;Fork.&#x201D; For now just select pull request button, as in <a href="#Fig14" id="_Fig14">Figure 2-14</a>.</p>
+<div class="Figure" id="Fig14">
+<p class="img"><img src="images/9781430239390_Fig02-14.jpg" alt="9781430239390_Fig02-14.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig14">Figure 2-14</a>. </span>Pull Request button </p>
+</div>
+<p class="indent">After the pull request is selected, you are shown the &#x201C;pull request&#x201D; management screen as shown in <a href="#Fig15" id="_Fig15">Figure 2-15</a>. Here you can decide the details of the pull request. In our case, we&#x2019;re just going to ask to pull the latest changes from our project in the master branch, to the Pro Arduino master branch.</p>
+<div class="Figure" id="Fig15">
+<p class="img"><img src="images/9781430239390_Fig02-15.jpg" alt="9781430239390_Fig02-15.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig15">Figure 2-15</a>. </span>Pull Request screen </p>
+</div>
+<p class="indent">The pull request we created appears in in <a href="#Fig15">Figure 2-15</a>, where we give it a title and description. Sometimes the title is descriptive enough, but there are times when you need to explain more about what you are doing, and what issues it addresses, then you can put that information in the main message area. The message area accepts Markdown, as we described in the documentation section of this chapter. Now that you&#x2019;ve got your message entered, select the &#x201C;Send Pull request&#x201D; button shown in <a href="#Fig16" id="_Fig16">Figure 2-16</a>.</p>
+<div class="Figure" id="Fig16">
+<p class="img"><img src="images/9781430239390_Fig02-16.jpg" alt="9781430239390_Fig02-16.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig16">Figure 2-16</a>. </span>Send pull request button </p>
+</div>
+<p class="indent">Once the pull request is done, it is filed as a request with the maintainer of the project you forked from. So for most purposes, you are finished. You are just waiting for the maintainer to implement your changes, or for the maintainer to ask for more clarification. The good news is that while this process is documented in the GitHub system, the communication between you and the maintainer can be extended in email, and those emails get tracked in GitHub, too, so that nothing is lost.</p>
+</div>
+<div>
+<p id="Sec21" class="Heading2">How To Merge a Pull Request</p>
+<p class="noindent">Now let&#x2019;s look at the flip side: What happens when you get a pull request? Once someone has submitted the pull request, you, as the maintainer, get a message and can immediately check the pull status from the pull request screen as shown in <a href="#Fig17" id="_Fig17">figure 2-17</a>.</p>
+<div class="Figure" id="Fig17">
+<p class="img"><img src="images/9781430239390_Fig02-17.jpg" alt="9781430239390_Fig02-17.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig17">Figure 2-17</a>. </span>Receiver of the Pull Request screen </p>
+</div>
+<p class="indent">The summary of this pull request identifies who made the request, and identifies the commit that you are being asked to merge into your project. GitHub does a quick check to see if the new code can be added to the original automatically. In our case, the merge request can be automatic. <a href="#Fig18" id="_Fig18">Figure 2-18</a> shows a close up of that portion of the screen.</p>
+<div class="Figure" id="Fig18">
+<p class="img"><img src="images/9781430239390_Fig02-18.jpg" alt="9781430239390_Fig02-18.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig18">Figure 2-18</a>. </span>Automatic pull requst merge option </p>
+</div>
+<p class="indent">In this example, the maintainer selects to &#x201C;merge pull request&#x201D; and then is presented with confirmation and the opportunity to add a note about the merge as shown in <a href="#Fig19" id="_Fig19">Figure 2-19</a>.</p>
+<div class="Figure" id="Fig19">
+<p class="img"><img src="images/9781430239390_Fig02-19.jpg" alt="9781430239390_Fig02-19.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig19">Figure 2-19</a>. </span>Confirm that you want to make this pull request </p>
+</div>
+<p class="indent">Once that merge is confirmed, then a summary screen is show as in <a href="#Fig20" id="_Fig20">Figure 2-20</a>. The entire merge discussion is listed, so that you can review the comments. You can also review the commit status before and after the merge. If there is information about the merge that needs changing, it is possible to edit information about the merge from this screen.</p>
+<div class="Figure" id="Fig20">
+<p class="img"><img src="images/9781430239390_Fig02-20.jpg" alt="9781430239390_Fig02-20.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig20">Figure 2-20</a>. </span>The completed pull request summary showing request closed </p>
+</div>
+<p class="indent"><a href="#Fig21" id="_Fig21">Figure 2-21</a> shows the summary of the merge. It indicates which repositories were merged, and gives an idea of how much changed, by saying, in this case 1 commit was merged. There are times where multiple commits can be merged at once.</p>
+<div class="Figure" id="Fig21"><p class="img"><img src="images/9781430239390_Fig02-21.jpg" alt="9781430239390_Fig02-21.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig21">Figure 2-21</a>. </span>Notification of merged pull request </p>
+</div>
+<p class="indent"><a href="#Fig20">Figure 2-20</a> also shows that the merge is &#x201C;closed&#x201D;; this merge was identified as &#x201C;#2&#x201D; in the issue system. If you select &#x201C;#2&#x201D; you will be sent to the issue system, where you can see that the issue was closed as in <a href="#Fig21">Figure 2-21</a>.</p>
+<p class="indent">Since the HelloFork project currently has two issues, both pull requests that were completed are shown. These pull request are in the Pro Arduino project that accepted your request. In <a href="#Fig22" id="_Fig22">Figure 2-22</a> the screen from GitHub shows that two closed issues exist, and 0 open issues exist. If you made a pull request earlier to the project, then you would see them as one or more open issues. Since pull requests are integrated into the issue system, it is easy to find out who fixed issues, what issues were resolved, and where the changes came from. This leads us directly to issue management.</p>
+<div class="Figure" id="Fig22"><p class="img"><img src="images/9781430239390_Fig02-22.jpg" alt="9781430239390_Fig02-22.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig22">Figure 2-22</a>. </span>Project issue list shows pull request issue closed </p>
+</div>
+</div>
+<div>
+<p id="Sec22" class="Heading2">What is issue management<a id="cXXX.47" />?</p>
+<p class="noindent">GitHub provides an issue-tracking system. Issues include new features, problems with existing code, and code review requests. Each issue is classified in detail by this issue-tracking system. An issue can either be open or closed. It&#x2019;s possible to comment on open and closed issues, as well as to reopen a closed issue.</p>
+<p class="indent">When working with a forked project, the official issue list is maintained on the project you forked your copy from, not your forked copy.</p>
+<p class="indent">Watching a project gives you all project updates and information. Starring a project only shows that you like the project, but doesn&#x2019;t update you on every detail.</p>
+<p class="indent">You can sort issues by the following categories:</p>
+<ul class="bulleted">
+<li>Everyone&#x2019;s issues</li>
+<li>Issues assigned to you</li>
+<li>Issues created by you</li>
+<li>Issues in which you are mentioned</li>
+</ul>
+<p class="indent">It&#x2019;s possible to create <i>milestones</i> as well. These are project-specific goals that you can create and customize. You can also create your own labels that help organize the issues for your project. Example labels are:</p>
+<ul class="bulleted">
+<li>Priority</li>
+<li>Defect</li>
+<li>Feature</li>
+<li>Enhancement</li>
+<li>Code review</li>
+<li>Bug</li>
+<li>Duplicate</li>
+<li>Won&#x2019;t fix</li>
+<li>Question</li>
+</ul>
+<p class="indent">These project labels can be a quick way of prioritizing, because they visually identify the kinds of problems in the project.</p>
+<p class="indent"><a href="#Fig23" id="_Fig23">Figure 2-23</a> shows the GitHub Issue Manager main page. In one view, you can get an idea of the &#x201C;open&#x201D; issues for a project. From here you can create new issues, and find issues that you have experienced. It also let&#x2019;s you search not just the &#x201C;open&#x201D; issues, but the &#x201C;closed&#x201D; issues as well.</p>
+<div class="Figure" id="Fig23"><p class="img"><img src="images/9781430239390_Fig02-23.jpg" alt="9781430239390_Fig02-23.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig23">Figure 2-23</a>. </span>Arduino GitHub Project </p>
+</div>
+</div>
+<div>
+<p id="Sec23" class="Heading2">Issue management with Github<a id="cXXX.48" /></p>
+<p class="noindent">For a quick way to think about issue tracking you can follow the following process:<a id="cXXX.49" /></p>
+<ol class="OrderedList">
+<li>Look for the issue in the issue list as shown in <a href="#Fig23">Figure 2-23</a>.</li>
+<li>If it does not exist, file a new issue and include a concise subject, a description that includes a way to reproduce the problem, and, if possible, a source code example or test that fails due to the noted issue. GitHub automatically e-mails the creation of new issues to maintainers.</li>
+<li>Make your modification to the project files to fix the issue and submit a pull request from GitHub.</li>
+<li>Confirm the issue is fixed by testing it.</li>
+<li>Lastly, close the issue in the issue system, which will update its status.</li>
+</ol>
+</div>
+<div>
+<p id="Sec24" class="Heading2">Connecting Version Control with Issue Management<a id="cXXX.37a" /></p>
+<p class="noindent">The ways you change your code and files to address an issue are collected in the message portion of a commit. These commits represent progress towards adding features or resolving issues. Connecting this progress to the issue tracking system is critical because you want to know what the code changes are for and you want to make it easy to track what code fixed which issue. GitHub has added some automatic linking features that automate part of this process. If you refer to issues by &#x201C;#&#x201D; pound issue number like &#x201C;#1&#x201D; in the commit message, or the issue comment GitHub will automatically link to the corresponding issue number. Every code commit should have the issue number and description of the code changes. When the issue number is used, GitHub automatically lists the commit in the issue history. In one issue discussion, you can follow the entire set of changes to code. issue management<a id="cXXX.50" /></p>
+<p class="indent">Commit hashes are also automatically linked. Every commit has a Secure Hash Algorithm 1 (SHA-1). This hash is not a sequential number, but a 160 bit unique string, which looks like &#x201C;f9bf52794286cd2acf664f8ffd7d7547c1b4dfea,&#x201D; and which is automatically linked to the commit by GitHub. This makes it easier to discuss multiple commits and peak at what was changed.</p>
+</div>
+<div>
+<p id="Sec25" class="Heading1">Documentation</p>
+<p class="noindent">Documentation<a id="cXXX.51" /> is important. It is critical that you document what you do. When a project moves from one person who can control everything to a community of users and developers, it is important that people can find out how to use what you do, and the best way to help improve or enhance your work. It is possible to put all of your documentation into a readme file or into a documentation directory for the project, but it can be more convenient to use the GitHub wiki. Here is the quick and dirty way to use GitHub. Select the Wiki Tab on the project as shown in <a href="#Fig24" id="_Fig24">Figure 2-24</a>.</p>
+<div class="Figure" id="Fig24">
+<p class="img"><img src="images/9781430239390_Fig02-24.jpg" alt="9781430239390_Fig02-24.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig24">Figure 2-24</a>. </span> </p>
+</div>
+<div>
+<p id="Sec26" class="Heading2">Github wiki<a id="cXXX.52" /></p>
+<p class="noindent">The default page is called Home and is automatically filled with the text &#x201C;Welcome to the HelloGithub wiki!&#x201D; From here, you can select Edit Page, and enter a main description and provide links to other important project pages.</p>
+</div>
+<div>
+<p id="Sec27" class="Heading2">Creating Pages<a id="cXXX.53" /></p>
+<p class="noindent">The Create and Edit buttons are located on the left side of the wiki page. To create pages, click the New Page button, and you&#x0027;ll be presented with the Create New Page dialog, as shown in <a href="#Fig25" id="_Fig25">Figure 2-25</a>.</p>
+<div class="Figure" id="Fig25">
+<p class="img"><img src="images/9781430239390_Fig02-25.jpg" alt="9781430239390_Fig02-25.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig25">Figure 2-25</a>. </span>The GitHub Create New Page dialog </p>
+</div>
+<p class="indent">In the dialog in <a href="#Fig25">Figure 2-25</a>, you give your page a title. After selecting &#x201C;OK&#x201D; the &#x201C;Edit Page&#x201D; screen appears and you can use the minimal web GUI or just write the new page using markdown syntax as shown in <a href="#Fig26" id="_Fig26">Figure 2-26</a>.</p>
+<div class="Figure" id="Fig26">
+<p class="img"><img src="images/9781430239390_Fig02-26.jpg" alt="9781430239390_Fig02-26.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig26">Figure 2-26</a>. </span>Editing the page </p>
+</div>
+<p class="indent">After entering the text in <a href="#Fig26">Figure 2-26</a>, select the &#x201C;save&#x201D; option and the completed page appears. <a href="#Fig27" id="_Fig27">Figure 2-27</a> shows the published page you just saved.</p>
+<div class="Figure" id="Fig27">
+<p class="img"><img src="images/9781430239390_Fig02-27.jpg" alt="9781430239390_Fig02-27.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig27">Figure 2-27</a>. </span>Reviewing the completed page </p>
+</div>
+<p class="indent">Finally, you need to link the new page back to the home page by editing it and adding the line:</p>
+<pre><span class="FontName2">[Home](wiki/Home)</span></pre>
+<p class="indent">Anything between the brackets will be the hyperlink text. Then anything between the parentheses will be the link. In our case, we link the &#x201C;wiki&#x201D; and the page called &#x201C;home.&#x201D; Anywhere this code appears will link back to the main &#x201C;Home&#x201D; page.</p>
+</div>
+<div>
+<p id="Sec28" class="Heading2">Using Markdown<a id="cXXX.54" /><a id="cXXX.55" /></p>
+<p class="noindent"><i>Markdown</i> is an efficient syntax for quickly generating wiki pages. GitHub-flavored markdown is very code friendly and easy to use. More details of GitHub markdown are found here: <span class="FontName2"><a href="https://help.github.com/articles/github-flavored-markdown">https://help.github.com/articles/github-flavored-markdown</a></span>. Also, the HelloGitHub project has an interactive version of this file here: <span class="FontName2"><a href="https://github.com/ProArd/HelloGithub/wiki/Markdown">https://github.com/ProArd/HelloGithub/wiki/Markdown</a></span><span class="FontName2">.</span> The following are the basic code and page formatting options to get started quickly:</p>
+<div>
+<p id="Sec29" class="Heading3">Code Blocks</p>
+<p class="noindent">We work with a lot of code in documentation, and showing examples quickly and easily is critical. To indicate a code section, we use three back ticks &#x201C;```&#x201D; to start a code block and we use three more back ticks &#x201C;```&#x201D; to close a code block. This makes it simple to add code into your documentation and examples. You can also specify the type of highlighting for your project. In the case of Arduino projects, you would be using C++ or C as the formatting and coloring options. You can choose not to show highlight with &#x201C;no-highlght&#x201D;.</p>
+<p class="noindent"><b>Markdown:</b></p>
+<pre><span class="FontName2">```C++</span><br /><span class="FontName2">/*</span><br /><span class="FontName2">* Code goes here.</span><br /><span class="FontName2">*/</span><br /><span class="FontName2">void setup() {</span><br /><span class="FontName2">}</span><br /><span class="FontName2">void loop() {</span><br /><span class="FontName2">}</span><br /><span class="FontName2">```</span></pre>
+<p class="noindent"><b>Display:</b></p>
+<pre><span class="FontName2">/*</span><br /><span class="FontName2">* Code goes here.</span><br /><span class="FontName2">*/</span><br /><span class="FontName2">void setup() {</span><br /><span class="FontName2">}</span><br /><span class="FontName2">void loop() {</span><br /><span class="FontName2">}</span></pre>
+</div>
+<div>
+<p id="Sec30" class="Heading3">Linking to files.</p>
+<p class="noindent">The label for the hyperlink is placed between square brackets &#x201C;[ ]&#x201D;, and then the link is placed between the parentheses &#x201C;( )&#x201D;, as in the example. When linking external documents or images, the full link can go inside the parentheses. When linking to pages or files in the wiki, the the entry needs to begin &#x201C;(wiki/&#x201D;, and everything after that is a page name or filename completed by the last &#x201C;)&#x201D;.</p>
+<p class="noindent"><b>Markdown:</b></p>
+<pre>[Link to remote site](<a href="http://github.com/proard">http://github.com/proard</a>)<br />[Link to remote file](<a href="https://github.com/ProArd/attinysecretknock/blob/master/ATtinySecretKnock/ATtinySecretKnock.ino">https://github.com/ProArd/attinysecretknock/blob/master/ATtinySecretKnock/ATtinySecretKnock.ino</a>)<br />[Link to wiki files](wiki/TestLink)</pre>
+<p class="noindent"><b>Output:</b></p>
+<pre>Link to remote site<br />Link to remote file<br />Link to wiki files</pre>
+<p class="noindent">The results are hyperlinks with the link to labels.</p>
+</div>
+<div>
+<p id="Sec31" class="Heading3">Headings</p>
+<p class="noindent">Heading values are determined by the number of hash &#x201C;#&#x201D; symbols. A level 1 header would be one &#x201C;#&#x201D;, level 2 &#x201C;##&#x201D;, and level 3 &#x201C;###&#x201D;.</p>
+<p class="noindent"><b>Markdown:</b></p>
+<pre><span class="FontName2"># H1</span><br /><span class="FontName2">## H2</span><br /><span class="FontName2">### H3</span><br /><span class="FontName2">#### H4</span></pre>
+<p class="noindent"><b>Output:</b></p>
+<p class="noindent"><span class="Font1"><i><b>H1</b></i></span><br /><span class="Font2">H2</span><br /><span class="Font3"><i><b>H3</b></i></span><br /><span class="Font4">H4</span></p>
+</div>
+</div>
+<div>
+<p id="Sec32" class="Heading3">Lists</p>
+<p class="noindent">Lists can be ordered or unordered. It is possible to mix and match ordered and unordered lists. These shortcuts appear just like html ordered and unordered lists.</p>
+<div>
+<p id="Sec33" class="Heading3">Ordered lists</p>
+<p class="noindent">Ordered lists just need to start with a number. GitHub wiki will substitute the correct sequence number.</p>
+<pre><span class="FontName2">Markdown:</span><br /><span class="FontName2">10.&#160;&#160;item 1</span><br /><span class="FontName2">9.&#160;&#160;item 2</span></pre>
+<pre><span class="FontName2">Output:</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">1.&#160;&#160;item 1</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">2.&#160;&#160;item 2</span></pre>
+</div>
+<div>
+<p id="Sec34" class="Heading3">Unordered lists</p>
+<p class="noindent">Unordered lists can use *, -, or, + as symbols. It doesn&#x0027;t matter which as long as there exists a space between the symbol and the start of the list value.</p>
+<p class="noindent"><b>Markdown:</b></p>
+<pre><span class="FontName2">* item a</span><br /><span class="FontName2">+ item b</span><br /><span class="FontName2">- item c</span></pre>
+<p class="noindent"><b>Output:</b></p>
+<ul class="bulleted">
+<li>item a</li>
+<li>item b</li>
+<li>item c</li>
+</ul>
+</div>
+<div>
+<p id="Sec35" class="Heading3">Linking to Images</p>
+<p class="noindent">Linking to images is just another version of linking. Except the brackets &#x201C;[]&#x201D; denote the alt text for the image. The parentheses hold the link to the image. If the image is in your project you can hyperlink to the raw file. It is possible to add the image to your project wiki by checking out the project&#x0027;s GitHub wiki, adding an image, committing, and then pushing it back into your GitHub project wiki. The HelloGithub project wiki can be found here: <span class="FontName2"><a href="https://github.com/ProArd/HelloGithub/wiki/_access">https://github.com/ProArd/HelloGithub/wiki/_access</a></span></p>
+<p class="indent">Here&#x2019;s the syntax of Markdown code to place an image, followed by a specific example:</p>
+<pre><span class="FontName2">![alt text](URL to image)</span></pre>
+<p class="noindent"><b>Markdown:</b></p>
+<pre><span class="FontName2">![ProArduino Image](ProArduino.jpeg)</span></pre>
+<p class="noindent"><b>Output:</b></p>
+<div class="Figure" id="Figa">
+<p class="img"><img src="images/9781430239390_unFig02-01.jpg" alt="9781430239390_unFig02-01.jpg" /></p>
+</div>
+<div>
+<p id="Sec36" class="Heading3">Normal Text</p>
+<p class="noindent">For normal text you can type standard sentence structure. Paragraphs will automatically break at the new line. This combination of links, code formatting, and basic information structuring can get you started documenting your project. More importantly, effective documentation can help people understand why project is important, how they can help support it, and when to join in with you to document it.</p>
+</div>
+</div>
+</div>
+<div>
+<p id="Sec37" class="Heading1">Contributing to Arduino Development</p>
+<p class="noindent">Now that you&#x0027;re comfortable with the concepts and tools of social coding, I&#x0027;ll present an example workflow that sets up an Arduino social development environment, using the concepts and tools discussed in the preceding sections of this chapter.</p>
+<p class="indent">The proper way to contribute code and fixes to the Arduino project is to fork the repository to your own area on GitHub. Then you can make changes to your repository and commit those changes to your repository. Next, you create a pull request on GitHub for those changes to be merged into the main project. This pull request can be reviewed, and then rejected or accepted into the project.</p>
+<div>
+<p id="Sec38" class="Heading2">Forking Your Own Copy of Arduino<a id="cXXX.56" /></p>
+<p class="noindent">Here are the steps you would use to configure your own repository from Arduino&#x2019;s official repository on GitHub. <a href="#Fig28" id="_Fig28">Figure 2-28</a> shows Arduino GitHub project page.</p>
+<ol class="OrderedList">
+<li>Log into GitHub at <span class="FontName2"><a href="http://github.com">http://github.com</a></span>.</li>
+<li>Go to the Arduino project:
+<pre><span class="FontName2"><a href="http://github.com/arduino/Arduino">http://github.com/arduino/Arduino</a></span><span class="FontName2">.</span></pre></li>
+<li>Select Fork for the Arduino project on the GitHub interface. This places a copy of the Arduino repository into your own GitHub area. Now that you have that in place, you need to clone your copy of Arduino to your local machine. This process is called cloning your fork of Arduino, and can be accomplished with the following command:
+<pre><span class="FontName2">$ git clone</span><span class="FontName2"><a href="mailto:git@github.com:username/Arduino.git">git@github.com:username/Arduino.git</a></span></pre></li>
+<li>If you don&#x2019;t need the entire project history, use this instead:
+<pre><span class="FontName2">$ git clone <a href="mailto:git@github.com:arduino/Arduino.git --depth">git@github.com:arduino/Arduino.git --depth</a> 1</span></pre></li>
+<li>Set the official Arduino repository as the upstream repository. The upstream repository is needed so that you can pull down new code that other people add to the Arduino project. Here are the commands to do so:
+<pre><span class="FontName2">$ cd Arduino</span><br /><span class="FontName2">$ git remote add upstream <a href="mailto:git@github.com:arduino/Arduino.git">git@github.com:arduino/Arduino.git</a></span></pre></li>
+<li>Now that you have this in place, you can start editing the code. After a while, you&#x0027;ll want to fetch and merge changes from Arduino every time new code is added. This is done with the following commands:
+<pre><span class="FontName2">$ git fetch upstream</span><br /><span class="FontName2">$ git merge upstream/master</span></pre></li>
+</ol>
+<div class="Figure" id="Fig28">
+<p class="img"><img src="images/9781430239390_Fig02-28.jpg" alt="9781430239390_Fig02-28.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig28">Figure 2-28</a>. </span>Arduino organization Arduino repository </p>
+</div>
+<p class="noindent">Once you have the your own fork, and have cloned it locally you will want to compile and run the Arduino IDE from source code. Arduino has documented this process here: <span class="FontName2"><a href="https://code.google.com/p/arduino/wiki/BuildingArduino">https://code.google.com/p/arduino/wiki/BuildingArduino</a></span>. Once you are able to run the software using &#x201C;ant run&#x201D; you can now make changes to the source code. It is now possible to find issues in the Arduino project&#x2019;s issue list and fix them. Using the social coding techniques you will be able to make changes to the software, and submit your changes as pull requests back to the Arduino project. It&#x2019;s a big challenge to get this far with a large project, but it is really worthwhile to be able to make a great project even better with the power of the open source community.</p>
+<p class="indent">The combination of tools allows for complete issue tracking and code management.</p>
+<p id="Sec39" class="Heading1">How to build the Arduino IDE from source</p>
+<p class="noindent">Now that you have the source code, you will want to run the code to identify the changes and test that everything is working. There is a straightforward process for doing this, but installing the toolkit is a little bit tricky. The process is different for the Windows, Mac OS X, and Linux platforms.</p>
+<p class="indent">For Windows<a id="cXXX.57" />:</p>
+<ol class="OrderedList">
+<li>Install Cygwin:</li>
+<li>Install JDK</li>
+<li>Install ANT</li>
+<li>Configure ANT home directory</li>
+<li>Install GIT (you may have already installed it)</li>
+<li>Clone your fork of Arduino or Clone Arduino</li>
+<li>Go to project directory</li>
+<li>Go to build directory</li>
+<li>Type <span class="FontName2">&#x201C;ant clean&#x201D;</span></li>
+<li>Type <span class="FontName2">&#x201C;ant run&#x201D;</span></li>
+</ol>
+<p class="indent">For Mac OS X<a id="cXXX.58" />:</p>
+<ol class="OrderedList">
+<li>Install ANT</li>
+<li>Configure ANT home directory</li>
+<li>Install GIT (you may have already installed it)</li>
+<li>Clone your fork of Arduino or Clone Arduino</li>
+<li>Go to project directory</li>
+<li>Go to build directory</li>
+<li>Type <span class="FontName2">&#x201C;ant clean&#x201D;</span></li>
+<li>Type <span class="FontName2">&#x201C;ant run&#x201D;</span></li>
+</ol>
+<p class="indent">For Linux<a id="cXXX.59" />:</p>
+<ol class="OrderedList">
+<li>Install JDK:</li>
+<li>Install ANT</li>
+<li>Configure ANT home directory</li>
+<li>Install GIT (you may have already installed it)</li>
+<li>Clone your fork of Arduino or Clone Arduino</li>
+<li>Go to project directory</li>
+<li>Go to build directory</li>
+<li>Type &#x201C;ant clean&#x201D;</li>
+<li>Type &#x201C;ant run&#x201D;</li>
+</ol>
+<p class="indent">Any Java compilation errors will stop the run. Any updates to the core files must be tested by compiling and uploading.</p>
+<p id="Sec40" class="Heading1">Community Resources</p>
+<p class="noindent">The Arduino community is a great source for both beginning and experienced developers. The community allows for users to share their experiences and help one another learn new skills and troubleshoot difficult problems. The following list provides some valuable resources offered by the Arduino community:</p>
+<ul class="bulleted">
+<li>The Arduino blog (<span class="FontName2"><a href="http://arduino.cc/blog">http://arduino.cc/blog</a></span>)</li>
+<li>The Twitter feed for the Arduino team (<span class="FontName2"><a href="http://twitter.com/arduino">http://twitter.com/arduino</a></span>)</li>
+<li>The Arduino forums (<span class="FontName2"><a href="http://arduino.cc/forum/">http://arduino.cc/forum/</a></span>)</li>
+<li>The developer mailing list (<span class="FontName2"><a href="https://groups.google.com/a/arduino.cc/forum/?fromgroups#">https://groups.google.com/a/arduino.cc/forum/?fromgroups#</a>!forum/developers</span>)</li>
+<li>The Arduino Playground (<span class="FontName2"><a href="http://arduino.cc/playground/">http://arduino.cc/playground/</a></span>)</li>
+<li>The Arduino Style Guide for Coding (<span class="FontName2"><a href="http://arduino.cc/en/Reference/StyleGuide">http://arduino.cc/en/Reference/StyleGuide</a></span>)</li>
+<li>The Arduino Style Guide for Writing Libraries (<span class="FontName2"><a href="http://arduino.cc/en/Reference/APIStyleGuide">http://arduino.cc/en/Reference/APIStyleGuide</a></span>)</li>
+</ul>
+<p id="Sec41" class="Heading1">Summary</p>
+<p class="noindent">Using the social-coding practices outlined in this chapter, you&#x2019;ll be able to create projects that can transition from personal projects, to group projects, to professional projects that use version control, issue tracking, and documentation. By using these processes, you can also join other open source projects and contribute feedback, documentation, issues, and code fixes. If you follow these procedures, your code and ideas can find there way into Arduino projects as features, fixes, and new libraries.</p>
+<p class="indent">The patterns outlined in this chapter will be used throughout the book and code examples. All the code examples can be found at and forked from <span class="FontName2"><a href="http://github.com/proard">http://github.com/proard</a></span>.</p>
+</div>
+</div>
+</div>
+</body>
+</html>

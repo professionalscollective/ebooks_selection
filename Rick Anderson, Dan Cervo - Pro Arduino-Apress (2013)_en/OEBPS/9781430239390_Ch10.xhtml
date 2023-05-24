@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"[]>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>CHAPTER 10 Multiprocessing: Linking the Arduino for More Power</title>
+<link href="9781430239390.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<p class="ChapterNumber"><a id="Chap10" />CHAPTER 10</p>
+<p class="chapimage"><img src="images/frontdot.jpg" alt="image"/></p>
+<p class="ChapterTitle">Multiprocessing: Linking the Arduino for More Power</p>
+<div>
+<p class="noindent">Certain projects may not lend themselves well to an individual Arduino, because of possible limitations with the hardware, such as a processor&#x2019;s speed or limited memory. Multiprocessing<a id="cXXX.189a" /> can add greater functionality to a system; this is commonly seen with Arduino in the form of coprocessors connected via shields such as the Ethernet shield. Coprocessor-style shields share their functionality with the Arduino to offload complex processes, but still allow the Arduino to have the main control. Multiprocessing is normally associated with high-level computing when it is infeasible to make a single device perform at required speeds. The principles of supercomputing<a id="cXXX.379" /> can be applied to microcontrollers. This chapter explorers the fundamental hurdle of multiprocessing by examining reliable communication between two or more processors.</p>
+<p class="indent">Processors can be of same type or unique to best match the type of work being performed. For instance, the Arduino may not be meant for digital signal processing (DSP) itself, but when combined with a DSP chip, it can control the DSP and make use of the data coming from the DSP. The development of a sensor package may fit well within the abilities of one Arduino, and the package could use a basic serial connection. A different communication method<a id="cXXX.189b" /> may need to be used if 100 packages have to be working at the same time within the same system. Controlling a mass LED display built with smaller LED units would employ numerous identical units to make a much larger display, which would be difficult for a single piece of equipment to achieve.</p>
+<p class="indent">Multiprocessor systems can be broadly categorized by the coupling between devices. <i>Loosely coupled</i> systems<a id="cXXX.380" /> require a communications package be used between devices, such as the Xbee module to communicate via wireless or the Ethernet shield. Even if the secondary device is built into the same physical device, the use of a middleman requires that the processors use extra resources maintaining the additional communication hardware. However, while loosely coupled processors can lose a great deal of efficiency by adding the extra layer for communication, changing from one protocol to another, they do have the advantage of being able to traverse great physical distances.</p>
+<p class="indent"><i>Tightly coupled</i> systems take advantage of methods designed for high bandwidth that are built within the processor, such as HyperTransport. Some server processors have HyperTransport<a id="cXXX.381" /><a id="cXXX.382" /> built directly within the processor to be able to communicate directly with other processors without having to use other communication hardware. Tightly coupled multiprocessing setups operate at short distance to maximize the available bandwidth. Usually distances of a few inches to a few feet separate processors before the increase in transmission line impedance makes separated hardware-based communication methods more viable. Tightly coupled systems can also share common resources such as memory with greater ease than can be done with loosely coupled systems. Tightly coupled systems usually have a protocol for flow control and addressing between processing units. The protocols that are used within tightly coupled systems are usually simple when compared to loosely coupled systems because data corruption is limited by careful engineering of the physical connections, lowering the need for complex error correction.</p>
+<p class="indent">This chapter focuses on chip-to-chip, tightly coupled systems. Several methods exist to connect one chip to another, and they are categorized as either <i>serial</i> or <i>parallel</i>. In recent times, parallel alone has been decreasing in use because of the increase in the reliability and speed that serial now provides. A parallel methodology combined with serial communications has been coming out in the form of technologies such as SATA, PCI express, and USB 3.0. The lower count of the used pins makes serial methods more viable for microcontroller work. Out of the three common communication methods<a id="cXXX.190a" /> that are implemented in the Arduino, only two are viable for use for multiprocessing: I2C and Serial Peripheral Interface (SPI).</p>
+<p class="indent">I2C and SPI have the advantage over serial because they offer the ability to connect multiple devices over a data bus. The I2C and SPI serial communication standards are natively available within the Arduino without any extra hardware and are excellent choices for chip-to-chip communication. Unlike regular serial, which uses two separate lines for each connected device, I2C and SPI share the same data transmission lines and are also synchronous communication methods, both using a shared clock line, which helps with the reliability of transmitted data. SPI is capable of running faster than I2C, but SPI uses more digital connection when adding more end devices. The added digital connections are used to address the individual connected devices. Concentrations of the differences between SPI and I2C need to be taken into account when deciding which method will meet the requirements of a project.</p>
+<p id="Sec1" class="Heading1">I2C</p>
+<p class="noindent">I2C is a great choice for connecting processors, sensors, and accessories. It has a significant amount of support from multiple hardware vendors, at least in part because of its low pin count to connect multiple devices. I2C requires only two lines<a id="cXXX.383" /><a id="cXXX.384" />, a serial clock and a serial data line, shared between multiple end devices. It has advanced features including flow control, addressing, master/slave both able to control data transmission, and clock stretching to allow interoperability of slower devices.</p>
+<p class="indent">I2C has some disadvantages<a id="cXXX.385" /><a id="cXXX.386" /> that keep it from being a direct choice for chip-to-chip communications:</p>
+<ul class="bulleted">
+<li>I2C is only capable of half-duplex transmission and the bus speed is lower to allow for two-way communications.</li>
+<li>I2C has a large address space and allows you to create large networks. An increase in the number of devices can be problematic, however, because as the number of devices go up, the data line can become saturated with transmissions, choking the serial transmission and increasing the number of data collisions.</li>
+<li>I2C has a deterministic method to deal with collisions between devices, so data should not be lost unless the end device waiting to send fills its entire buffer with data before it can take control of the data line, which is possible on busy networks.</li>
+</ul>
+<p class="indent">Other problems can occur with communications between two distant endpoints within a large network. Capacitance of the data and clock lines can be increased when a line grows in size, due to the data and clock on I2C connections being pulled high. The change in capacitance directly affects the rise and fall time of the digital signal, requiring slower bus speeds to accommodate the delay in the state change. The capacitance is negligible with short-run wire distances, but requires extra consideration on larger systems if a higher data rate is required. There is more bandwidth loss<a id="cXXX.387" /><a id="cXXX.388" /> in I2C inherently because the protocol has built-in handshaking and reply packets.</p>
+<p class="indent">I2C may be a sufficient solution for chip-to-chip communication if only a few devices neesd to be connected or the amount of data being transferred is minimal. I2C was earlier described in <a href="9781430239390_Ch06.xhtml">Chapter 6</a>; refer to the example there for the basic techniques for implementing I2C communications with Arduino.</p>
+<div class="notepara">
+<p class="paraaftertitle1"><img src="images/sq.jpg" alt="image"/>&#160;<b>Note</b>&#160;&#160; Hardware that is labeled as having a &#x201C;two-wire interface&#x201D; is similar to I2C, with some key differences. Diligence should be used when selecting components, especially if the two standards are to be used in conjunction to ensure compatibility.</p></div>
+<p id="Sec2" class="Heading1">Serial Peripheral Interface<a id="cXXX.389" /></p>
+<p class="noindent">SPI is almost the same as serial communication, being capable of full-duplex communication while providing synchronous connection between devices. SPI offers the following advantages<a id="cXXX.390" />:</p>
+<ul class="bulleted">
+<li>It can achieve very high speeds and is normally implemented between one master and one or more slaves.</li>
+<li>There is no clock limit set by the SPI standard, and it is limited only by the hardware&#x2019;s maximum clock speed.</li>
+<li>The clock is shared between SPI devices, eliminating the need for the devices to be individually clocked. The master SPI device controls the clock and is similar to the method used by I2C.</li>
+<li>SPI slave devices do not have the ability to temporally hold the clock that is inherent for I2C devices.</li>
+<li>SPI has defined a range of connection types: three-wire, which uses a bidirectional data line (a half-duplex method); the more common four-wire; and five-wire, which adds a data-ready line to provide the ability for a slave device to inform the master that data needs to be transferred.</li>
+</ul>
+<div class="notepara">
+<p class="paraaftertitle1"><img src="images/sq.jpg" alt="image"/>&#160;<b>Note</b>&#160;&#160; The lack of defined protocols can be problematic when integrating multiple devices, as each device can implement unique protocols, possibly making interconnectivity difficult. A router can be used to bridge dissimilar SPI protocols by translating and passing data from one SPI network to another. Manufacturer data sheets should contain all the information needed to develop such a router. The lack of defined protocols is also an advantage in that it provides flexibility to tailor protocols to the application.</p></div>
+<p class="indent">There are a lot of abbreviations<a id="cXXX.391" /> used in this chapter, so <a href="#Tab1" id="_Tab1">Table 10-1</a> acts as a handy reference guide.</p>
+<div class="Table">
+<p class="TabCapt"><span class="CaptNr"><a id="Tab1" href="#_Tab1">Table 10-1</a>. </span>SPI Abbreviations </p>
+<table>
+<thead>
+<tr class="header">
+<th>Abbreviation</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SCK (serial clock)</td>
+<td>The clock signal generated by the SPI master associated with data transfer</td>
+</tr>
+<tr>
+<td>SS (slave select)</td>
+<td>A logical high or low signal line used to select one or multiple devices</td>
+</tr>
+<tr>
+<td>MOSI (master out slave in)</td>
+<td>A shared data line on all SPI devices in a network; this is the output of the master&#x2019;s shift register and the input of the slave&#x2019;s</td>
+</tr>
+<tr>
+<td>MISO (master in slave out)</td>
+<td>A shared data line on all SPI devices in a network; this is the input of the master&#x2019;s shift register and the output of the slave&#x2019;s</td>
+</tr>
+<tr>
+<td>CLI (clear interrupts)</td>
+<td>Clears the global interrupt enable flag</td>
+</tr>
+<tr>
+<td>SEI (set interrupts)</td>
+<td>Sets the global interrupt flag</td>
+</tr>
+<tr>
+<td>ISR (interrupt service routine)</td>
+<td>Used to define event handling on the processor</td>
+</tr>
+<tr>
+<td>SPCR (SPI control register)</td>
+<td>An 8-bit register that defines a majority of SPI functionality and configuration</td>
+</tr>
+<tr>
+<td>SPIE (SPI interrupt enable)</td>
+<td>Turns on interrupt handling for SPI events</td>
+</tr>
+<tr>
+<td>SPE (SPI enable)</td>
+<td>Turns SPI core on or off</td>
+</tr>
+<tr>
+<td>DORD (data order)</td>
+<td>Sets the data order of a transfer to most-significant-bit-first or least-significant-bit-first</td>
+</tr>
+<tr>
+<td>MSTR (master/slave select)</td>
+<td>Enables the master mode in the SPI core</td>
+</tr>
+<tr>
+<td>CPOL (clock polarity)</td>
+<td>Defines the clock polarity when idle</td>
+</tr>
+<tr>
+<td>CPHA (clock phase)</td>
+<td>Determines when data is set and when it is read in correlation to the rise and fall of the clock</td>
+</tr>
+<tr>
+<td>SPR1, SPR0, SPI2X (SPI clock rate select)</td>
+<td>Used together to determine the clock divider and speed of the SPI network</td>
+</tr>
+<tr>
+<td>SPSR (SPI status register)</td>
+<td>Stores flags regarding the SPI transfer; also holds the SPI2X value</td>
+</tr>
+<tr>
+<td>SPIF (SPI interrupt flag)</td>
+<td>Is set when an event triggers the SPI interrupt and is cleared on read</td>
+</tr>
+<tr>
+<td>WCOL (write collision)</td>
+<td>Is written when data is written to the SPDR during a transfer</td>
+</tr>
+<tr>
+<td>SPDR (SPI data register)</td>
+<td>Holds the incoming and outgoing data of an SPI transfer</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p id="Sec3" class="Heading1">Connecting Two Devices</p>
+<p class="noindent">The place to start with SPI is to use the SPI master library. The slave will be demonstrated through direct manipulation of the registers because the SPI library does not implement a slave mode. It will be easier (and necessary) to work with SPI using the registers for both master and slave when developing new protocols. The following list describes the class functions associated with the SPI library:</p>
+<ul class="bulleted">
+<li><span class="FontName2">SPI.begin()</span><a id="cXXX.392" />: This starts the SPI on the Arduino <i>and</i> sets input/output (I/O) of the SPI default pins.</li>
+<li><span class="FontName2">SPI.end()</span><a id="cXXX.393" />: This turns off SPI but does not change the pin modes.</li>
+<li><span class="FontName2">SPI.setBitOrder()</span><a id="cXXX.394" />: This passes <span class="FontName2">LSBFIRST</span> or <span class="FontName2">MSBFIRST</span>. The master and slaves must be set the same for proper communication, and in most cases this is arbitrary. Some hardware will require a specific bit order, so you should reference a data sheet when using the Arduino with SPI hardware that cannot be configured.</li>
+<li><span class="FontName2">SPI.setClockDivider()</span><a id="cXXX.395" />: The Arduino is cable of running at several different speeds by setting a divider of the main clock. This is useful when connecting devices that cannot operate at the Arduino maximum speed. Increasing the clock divider lowers the clock speed and is also useful for troubleshooting connections, by preventing noise or crosstalk on the line from being sampled as a data. The changes in clock speed can correct for lines that have high-capacitance issues. <a href="#Tab2" id="_Tab2">Table 10-2</a> lists the available options that can be set.</li>
+</ul>
+<div class="notepara">
+<p class="paraaftertitle1"><img src="images/sq.jpg" alt="image"/>&#160;<b>Note</b>&#160;&#160; The slave devices must be capable of running at the end clock speed of the master. If the clock is too fast, the slave devices may attempt to read the clock and data but will fail.</p></div>
+<div class="Table" id="Tab2">
+<p class="TabCapt"><span class="CaptNr"><a href="#_Tab2">Table 10-2</a>. </span>Clock Divider Settings<a id="cXXX.396" /> with Resulting Speed </p>
+<table>
+<thead>
+<tr class="header">
+<th>Command</th>
+<th>Divide By</th>
+<th>End Clock Speed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="FontName2">SPI_CLOCK_DIV2</span></td>
+<td>2</td>
+<td>8MHz</td>
+</tr>
+<tr>
+<td><span class="FontName2">SPI_CLOCK_DIV4</span></td>
+<td>4</td>
+<td>4MHz</td>
+</tr>
+<tr>
+<td><span class="FontName2">SPI_CLOCK_DIV8</span></td>
+<td>8</td>
+<td>2MHz</td>
+</tr>
+<tr>
+<td><span class="FontName2">SPI_CLOCK_DIV16</span></td>
+<td>16</td>
+<td>1MHz</td>
+</tr>
+<tr>
+<td><span class="FontName2">SPI_CLOCK_DIV32</span></td>
+<td>32</td>
+<td>500kHz</td>
+</tr>
+<tr>
+<td><span class="FontName2">SPI_CLOCK_DIV64</span></td>
+<td>64</td>
+<td>250kHz</td>
+</tr>
+<tr>
+<td><span class="FontName2">SPI_CLOCK_DIV128</span></td>
+<td>128</td>
+<td>125kHz</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="notepara">
+<p class="paraaftertitle1"><img src="images/sq.jpg" alt="image"/>&#160;<b>Caution</b>&#160;&#160; The Atmel data sheet states that a minimum clock divider of 4 should be used. Significant transmission errors occur when attempting to communicate at 8MHz.</p></div>
+<ul class="bulleted">
+<li><span class="FontName2">SPI.setDataMode()</span><a id="cXXX.397" />: This determines how the clock is configured and read. The data lines are sampled in relation to the clock cycle. This setting is similar to serial baud rate, and all devices must be set the same for communication to take place. <a href="#Tab3" id="_Tab3">Table 10-3</a> shows the data modes and when data is sampled in relation to the clock polarity. When mode0 is used, the clock will idle low, and data will be sampled when the clock rises. Mode1 shares the same clock polarity as mode0, with the sample happening when the clock falls to the idle state. Mode2 and mode3 mirror mode0 and mode1, but with the clock set to high when idle. Mode2 samples the data when the clock falls and mode3 samples when the clock goes high. The default for the Arduino is mode0.
+<div class="Table" id="Tab3">
+<p class="TabCapt"><span class="CaptNr"><a href="#_Tab3">Table 10-3.</a></span> SPI Data Transmission Modes<a id="cXXX.398" /> </p>
+<p class="img"><img src="images/Table10-3.jpg" alt="image" /></p>
+</div></li>
+</ul>
+</div>
+<div class="notepara">
+<p class="paraaftertitle1"><img src="images/sq.jpg" alt="image"/>&#160;<b>Note</b>&#160;&#160; Since the SPI clock will remain idle for a majority of the time, even when transmitting, you should use mode0 or mode1 if possible in power-conscious designs.</p></div>
+<ul class="bulleted">
+<li><span class="FontName2">SPI.transfer()</span><a id="cXXX.399" />: Calling this function and passing data will both send and receive 1 byte over the SPI lines. This function will return the incoming byte from the active slave. This is a full-duplex transfer; as one bit shifts out of the master, it is received by the slave, and the slave simultaneously sends a bit to the master.</li>
+</ul>
+<div>
+<p id="Sec4" class="Heading2">Setting Up a Master SPI Device</p>
+<p class="noindent">For <a href="#list1" id="_list1">Listing 10-1</a>, two Arduino-compatible boards are required (Unos were used for the example). For other Arduinos, refer to the board&#x2019;s pin map and connect to the appropriate pins. You&#x2019;ll also need an external LED because the SPI communication uses pin 13. The SPI master simplifies the pin mapping by setting the pins automatically, regardless of the board. SPI is electrically a straight-through protocol. The four standard lines<a id="cXXX.400" /> of SPI&#x2014;MISO (master in slave out), MOSI (master out slave in), SCK (serial clock), and SS (slave select)&#x2014;should be wired together. You&#x2019;ll also need to share a common ground between devices and power, either separately or from one board to another. <a href="#Tab4" id="_Tab4">Table 10-4</a> describes the standard pin configuration<a id="cXXX.401" />.</p>
+<div class="Table">
+<p class="TabCapt"><span class="CaptNr"><a id="Tab4" href="#_Tab4">Table 10-4</a>. </span>SPI Default Pin Configuration </p>
+<p class="img"><img src="images/Table10-4.jpg" alt="image" /></p>
+</div>
+<p class="indent">The SS line on the master is not tied to any particular pin, and multiple can be used at the same time, one for each additional device. When using different SS connections, the original SS needs to be declared as an output. If the SS is an input and drops low, the device will lose its configuration as a master and become a slave.</p>
+<p class="indent"><a href="#list1">Listing 10-1</a> includes code for both an SPI master and slave. The master uses the SPI library, and the slave is written directly addressing the SPI registers on the Arduino. The code for the slave will be recycled for the second example, later in the chapter. Before beginning, you should mark the Arduinos as designating master or slave. A marker with ink that comes off easily with rubbing alcohol can be used on the USB connector.</p>
+<p class="noindent2"><a href="#_list1" id="list1"><b><i>Listing 10-1.</i></b></a>&#160;&#160;SPI Master Sketch<a id="cXXX.402" /></p>
+<pre><span class="FontName2">#include &#x003C;SPI.h&#x003E; // Include the SPI library for master</span><br /><span class="FontName2">byte dataToSend;</span><br /><span class="FontName2">byte dataToReceive;</span><br /><span class="FontName2">boolean blink = LOW;</span><br /><br /><span class="FontName2">void setup() {</span><br />&#160;&#160;<span class="FontName2">pinMode(8,OUTPUT); // Blink</span><br />&#160;&#160;<span class="FontName2">pinMode(10,OUTPUT); // Set the slave select pin to output for the master</span><br />&#160;&#160;<span class="FontName2">digitalWrite(10, HIGH); // Set the slave select pin high</span><br />&#160;&#160;<span class="FontName2">SPI.begin(); // Start SPI</span><br />&#160;&#160;<span class="FontName2">Serial.begin(115200);</span><br />&#160;&#160;<span class="FontName2">delay(500); // Allow connected devices to initialize</span><br /><span class="FontName2">}// End setup</span><br /><br /><span class="FontName2">void loop() {</span><br />&#160;&#160;<span class="FontName2">while (Serial.available() &#x003E; 0) {</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">dataToSend = Serial.read(); // Read a byte in from serial</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">transferSPI(dataToSend); // Sent that byte</span><br />&#160;&#160;<span class="FontName2">}</span><br />&#160;&#160;<span class="FontName2">digitalWrite(8, (blink = !blink));&#160;&#160; // Blink LED life check</span><br />&#160;&#160;<span class="FontName2">delay(1000);</span><br /><span class="FontName2">}// End loop</span><br /><br /><span class="FontName2">byte transferSPI(byte dataToSend) {</span><br />&#160;&#160;<span class="FontName2">digitalWrite(10, LOW); // Turn the slave select on</span><br />&#160;&#160;<span class="FontName2">delay(1); // The slave takes a moment to respond to the slave select line falling</span><br />&#160;&#160;<span class="FontName2">dataToReceive = SPI.transfer(dataToSend); // Begin full-duplex data transfer</span><br />&#160;&#160;<span class="FontName2">digitalWrite(10, HIGH); // Turn the slave select off</span><br />&#160;&#160; <span class="FontName2">Serial.write(dataToSend); // Echo sent data</span><br />&#160;&#160;<span class="FontName2">Serial.println();</span><br />&#160;&#160;<span class="FontName2">Serial.write(dataToReceive); // Display byte received</span><br />&#160;&#160;<span class="FontName2">Serial.println();</span><br /><span class="FontName2">}// End transferSPI</span></pre>
+</div>
+<div>
+<p id="Sec5" class="Heading2">Verifying the Code</p>
+<p class="noindent">The code in <a href="#list1">Listing 10-1</a> needs to be uploaded to a single Arduino that will be designated as master. The SPI functionality<a id="cXXX.403" /> is handled by the library, and with only the <span class="FontName2">SPI.begin()</span> used, the default settings are all used from the Arduino. To verify that the code is working properly, set up the LED to pin 8 and connect the MOSI pin 11 to the MISO pin 13, creating a data loopback. The SS and SCK can be left alone for this test. The master connected to itself should echo the characters sent through the serial connection. As it shifts a byte out normally to a slave, it shifts a byte in. This process is held in lockstep by the SCK, which normally causes the slave to simultaneously send and receive a bit until the whole byte is swapped. When plugged into itself, the master will expect a bit from the slave every time it sends one. Once you have verified that the Arduino can properly send and receive data, it is ready integrate the slave into the SPI setup.</p>
+</div>
+<div>
+<p id="Sec6" class="Heading2">Interrupting Vectors</p>
+<p class="noindent">In order to respond to the incoming data from the master, the slave will need to react very quickly to the SS going low. The SS pin could be constantly polled in the loop, but this would take a lot of time, and as the code grows in complexity, it would become altogether impossible for the slave to react quickly enough. To achieve the proper response time to the master&#x2019;s control, an internal interrupt needs to be implemented. The Arduino has several interrupt vectors that each has a specific trigger. Generally, both the SREG and the specific interrupt must be set. The simplest way to manipulate the SREG is to use the built-in commands <span class="FontName2">cli();</span> and <span class="FontName2">sei();</span>. <span class="FontName2">cli();</span> turns global interrupts off, and <span class="FontName2">sei();</span> turns them on. When they are on, any enabled interrupts will be followed and make use of the code within an attached ISR (interrupt service routine) function. When an interrupt occurs, the current instruction will complete and the code that was running will stop and wait for the interrupt to finish. When working with new code in an interrupt, it may be helpful to do something observable in the main loop&#x2014;that is, to have a simple method to verify that the interrupt is exiting properly and the loop is proceeding.</p>
+<p class="indent">When designing code that includes interrupts, you need to take special care to determine if other code in the program will fail while the interrupt is running. This may include code that itself is time sensitive or perhaps shares a global variable with the interrupt, whereby data loss would occur by following the interrupt. In these cases it is best to turn interrupts off until the code has executed. This can be accomplished by the command <span class="FontName2">cli();</span>. Remember the interrupts need to be turned back on after the critical code has executed to be used again later. This, again, is accomplished by using the <span class="FontName2">sei();</span> command. When multiprocessing, the behavior of other devices must also be accounted for. The fact that interrupts are turned off on one device does not prevent the remaining devices from acting as normal. With SPI, this could be handled through a software layer protocol. Simply have the slave echo the first byte back to the master before the master continues transmission. This will tell the master that the slave is ready and listening.</p>
+<p class="indent">The SPI interrupt vector<a id="cXXX.404" /> is called when the SREG and SPI interrupt enable are on and the SPI interrupt flag is set by the SS line going low. These registers are explained in the next section in detail. When these three conditions are met, the device will jump to ISR(SPI_STC_vect). ISR(SPI_STC_vect) is similar to a function, but has some key differences. The compiler does not see this as a normal function, so code may be optimized on compile. To protect against this, data types may have the property <span class="FontName2">_volatile</span> added when in doubt. The biggest difference is that nothing may be passed to an ISR upon calling it and no data will be returned. ISR cannot call as a normal function; only the internal interrupt handler may call it when conditions are met. Global variables can be used within the ISR and will be usable upon exit. Otherwise, using memory space and pointers is also an option, though greater in complexity.</p>
+</div>
+<div>
+<p id="Sec7" class="Heading2">SPI by the Registers</p>
+<p class="noindent">There is no library functionality for an Arduino to run as a slave device at the time of writing. You can create a slave by directly addressing the registers that control SPI. This method will be used in <a href="#list2" id="_list2">Listing 10-2</a> to create a slave device and will be used in subsequent examples. The functionality of SPI is controlled within three 8-bit registers. This does not include manipulating the data direction registers or the SREG for global interrupts, which will also be required for a proper SPI device to be written in a register. The three SPI registers are the SPCR (SPI control register), SPSR (SPI status register), and SPDR (SPI data register). The layouts of these three registers are shown in the <a href="#Fig1" id="_Fig1">Figure 10-1</a>.</p>
+<div class="Figure" id="Fig1">
+<p class="img"><img src="images/9781430239390_Fig10-01.jpg" alt="9781430239390_Fig11-01.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig1">Figure 10-1</a> </span>.&#160;&#160;SPI register structure<a id="cXXX.405" /> </p>
+</div>
+<p class="indent">The SPIE (SPI interrupt enable<a id="cXXX.406" />) in the SPCR enables the SPI interrupt vector when SREG is also enabled. This allows the device to respond quickly when data is ready to transmit and is an absolute must for a slave device. SPI is a highly time-sensitive protocol; the master will transmit data when it is ready and assumes that the slave is waiting. The slave cannot delay the master and will cause problems when not properly synchronized with the master. It is possible for the slave to begin listening to the transmission partway through, which will result in lost data. In addition to using interrupts, the master may also include a short delay before the first byte in a string of bytes is transmitted, which helps ensure that the slave is ready and waiting.</p>
+<p class="indent">The SPE (SPI enable<a id="cXXX.407" />) is required for any SPI communication to take place, and in conjunction with the MSTR will automatically configure some pin directions as either input or output. Pins that are still user configured must be set manually. When the MSTR bit is set, the device is in master mode, only forcing MISO to input, so the MOSI, SCK, and SS should be manually set. If the MSTR is left off, the device is a slave, and all SPI lines except MISO are set as input. Depending on the nature of the project&#x2019;s code, it may not be necessary to set the MISO as output, in which case the slave is set to a receive-only mode. This may be useful in a situation where you need to push data or a command to multiple devices at once but do not need anything returned from the slave. In these cases it may even be possible to use a single SS line that is common to all devices if the data being sent is the same for all end devices. Otherwise, the MISO must be set to output on the slave to allow for full-duplex communication. SPI pin modes are outlined in <a href="#Tab5" id="_Tab5">Table 10-5</a> for master and slave.</p>
+<div class="Table">
+<p class="TabCapt"><span class="CaptNr"><a id="Tab5" href="#_Tab5">Table 10-5</a>. </span>SPI Master vs. Slave Pin Modes<a id="cXXX.408" /> </p>
+<table>
+<thead>
+<tr class="header">
+<th> </th>
+<th>Master</th>
+<th>Slave</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><b>MOSI</b></td>
+<td>User set</td>
+<td>Force input</td>
+</tr>
+<tr>
+<td><b>MISO</b></td>
+<td>Force input</td>
+<td>User set</td>
+</tr>
+<tr>
+<td><b>SCK</b></td>
+<td>User set</td>
+<td>Force input</td>
+</tr>
+<tr>
+<td><b>SS</b></td>
+<td>User set</td>
+<td>Force input</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="indent">Returning to the DORD that was skipped over in the SPCR, this bit controls the order in which the bits of the SPDR are transmitted. The default setting is 0 and will shift the MSB of the SPDR first and the LSB last. If set to 1, then the reverse will happen&#x2014;the LSB will be sent first and the MSB last. It is important that these agree on both the master and the slave.</p>
+<p class="indent">CPOL and CPHA on the master device determine how the clock is to be generated, as well as when data is to be shifted to and from the SPDR. A slave device will use these to control how it responds to the clock signal from the master. The slave will sample the data line when triggered and set the outgoing bit on clock setup. We saw a full explanation of the clock modes earlier in the chapter. The CPOL and CPHA settings for each mode are listed <a href="#Tab6" id="_Tab6">Table 10-6</a>.</p>
+<div class="Table">
+<p class="TabCapt"><span class="CaptNr"><a id="Tab6" href="#_Tab6">Table 10-6</a>. </span>SPI Clock-Generation Modes<a id="cXXX.409" /> </p>
+<table>
+<thead>
+<tr class="header">
+<th> </th>
+<th>CPOL</th>
+<th>CPHA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><b>Mode 0</b></td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><b>Mode 1</b></td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td><b>Mode 2</b></td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td><b>Mode 3</b></td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="indent">The last two bits of the SPCR, SPR1 and SPR0, set the clock divider along with the last bit of the SPSR, SPI2X, which is a clock multiplier. Setting the SPI2X will double the clock rate; this, combined with the available speeds from SPR1 and SPR0, yields a range of clock dividers from 2 to 128. It is worth noting again that the Atmel data sheet states that the minimum clock divider that should be used is 4. In practice, attempting to use a clock divider of 2 should return corrupt data. The speed settings are listed in <a href="#Tab7" id="_Tab7">Table 10-7</a>.</p>
+<div class="Table">
+<p class="TabCapt"><span class="CaptNr"><a id="Tab7" href="#_Tab7">Table 10-7</a>. </span>SPI Clock-Generation Multipliers<a id="cXXX.410" /> </p>
+<p class="img"><img src="images/Table10-7.jpg" alt="image" /></p>
+</div>
+<p class="indent">The SPSR has two remaining settings left: the SPIF (SPI interrupt flag<a id="cXXX.411" />) and the WCOL (write collision<a id="cXXX.412" />). The SPIF is set when a serial transmission has completed. It can be cleared in a number of ways, including by reading the SPSR followed by accessing the SPDR. This feature allows a <span class="FontName2">while</span> loop to execute until the serial transfer is completed. This prevents you from having to read the SPDR before the byte is actually received, and if you are in a sequence of loops, it prevents you from writing the SPDR while a transmission is in progress. Should the SPDR be written during a serial transmission, the WCOL will be set to a logical one. This is not generally preferable, so should be avoided. The WCOL is cleared in the same fashion as the SPIF.</p>
+<p class="indent">Let&#x2019;s now see the slave sketch (<a href="#list2">Listing 10-2</a>).</p>
+<p class="noindent2"><a href="#_list2" id="list2"><b><i>Listing 10-2.</i></b></a>&#160;&#160;SPI Slave Sketch<a id="cXXX.413" /></p>
+<pre><span class="FontName2">byte dataToEcho; // Declare a global variable to be used in interrupt</span><br /><span class="FontName2">boolean blink = LOW;</span><br /><span class="FontName2">void setup() {</span><br />&#160;&#160;<span class="FontName2">Serial.begin(115200);</span><br />&#160;&#160;<span class="FontName2">DDRB |= 0b00010001;&#160;&#160;&#160;&#160;// MISO LED(8) Output</span><br />&#160;&#160;<span class="FontName2">PORTB |= 0b00000100;&#160;&#160; // Set slave select HIGH</span><br />&#160;&#160;<span class="FontName2">SPCR |= 0b11000000;&#160;&#160;&#160;&#160; // Turn SPIE and SPE on</span><br />&#160;&#160;<span class="FontName2">SPSR |= 0b00000000;&#160;&#160;&#160;&#160; // Default SPI settings</span><br />&#160;&#160;<span class="FontName2">sei(); // Enable global interrupts</span><br /><span class="FontName2">}// End setup</span><br /><br /><span class="FontName2">void loop() {</span><br />&#160;&#160;<span class="FontName2">digitalWrite(8, (blink = !blink));&#160;&#160; // Blink LED life check</span><br />&#160;&#160;<span class="FontName2">delay(1000);</span><br /><span class="FontName2">}// End loop</span><br /><br /><span class="FontName2">ISR(SPI_STC_vect) {</span><br />&#160;&#160;<span class="FontName2">cli(); // Turn interrupts off while running sensitive code</span><br />&#160;&#160;<span class="FontName2">while (!(PINB &#x0026; 0b00000100)) { // Enter while loop if slave select is low</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">SPDR = dataToEcho; // Load the SPI data register with data to shift out</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">while (!(SPSR &#x0026; (1 &#x003C;&#x003C; SPIF))); // Wait till data transfer is complete</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">dataToEcho = SPDR; // Read the incomming data. This byte will be sent next interrupt.</span><br />&#160;&#160;<span class="FontName2">}</span><br />&#160;&#160;<span class="FontName2">sei(); // Turn interrupts back on when done</span><br /><span class="FontName2">}// End ISR for spi</span></pre>
+</div>
+<div>
+<p id="Sec8" class="Heading2">Verifying the Code</p>
+<p class="noindent">Connect the slave to the master as per <a href="#Fig2" id="_Fig2">Figure 10-2</a>, with pins 13 through 10 connected together between the two Arduinos for SPI, and connect a separate LED to pin 8.</p>
+<div class="Figure" id="Fig2">
+<p class="img"><img src="images/9781430239390_Fig10-02.jpg" alt="9781430239390_Fig11-02.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig2">Figure 10-2</a> </span>.&#160;&#160;Arduino-to-Arduino SPI connections<a id="cXXX.414" /> </p>
+</div>
+<p class="indent">Once you&#x2019;ve made the physical connections and powered the boards, open a serial connection via USB to the master. When you enter a single character through serial, that character will be sent to the slave device, and at the same time receive a byte from the slave. Note that when echoing data, the slave will always be one byte behind; a null byte<a id="cXXX.416" /> will be received back from the first SPI transfer. When the second byte is sent, the first byte will then be echoed. Should more data from a slave be expected, the master can transmit null bytes until the expected data is all received. In the case of a slave that echoes, the master will need to send one additional trailing null byte to get back the full string that it sent. The data sent and received should look like <a href="#Tab8" id="_Tab8">Tables 10-8</a> and <a href="#Tab9" id="_Tab9">10-9</a>. <a href="#Tab9">Table 10-9</a> shows a null byte being sent at the end of a transmission string.</p>
+<div class="Table">
+<p class="TabCapt"><span class="CaptNr"><a id="Tab8" href="#_Tab8">Table 10-8</a>. </span>Data Transfer Shifting<a id="cXXX.415" /> </p>
+<p class="img"><img src="images/Table10-8.jpg" alt="image" /></p>
+</div>
+<div class="Table">
+<p class="TabCapt"><span class="CaptNr"><a id="Tab9" href="#_Tab9">Table 10-9</a>. </span>Null Byte at the End of the String </p>
+<p class="img"><img src="images/Table10-9.jpg" alt="image" /></p>
+</div>
+<p class="indent">The transfer between master and slave is procedural and requires the connection to be maintained consistently between the devices. The communication in the sample code follows the steps in <a href="#Tab10" id="_Tab10">Table 10-10</a>. The example sends one byte at a time as <a href="#Tab10">Table 10-10</a> shows; however, large strings can be sent within a loop. The use of loops for sending data is demonstrated in <a href="#list3" id="_list3">Listing 10-3</a>, along with an alternative method to create master device by using registers.</p>
+<div class="Table">
+<p class="TabCapt"><span class="CaptNr"><a id="Tab10" href="#_Tab10">Table 10-10</a>. </span>Master and Slave Communication Steps<a id="cXXX.417" /> </p>
+<table>
+<thead>
+<tr class="header">
+<th>Master</th>
+<th>Slave</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Drop slave select low</td>
+<td>1. Begin listening to master</td>
+</tr>
+<tr>
+<td>2. Write data to be sent</td>
+<td>2. Write data to be sent</td>
+</tr>
+<tr>
+<td>3. Full-duplex transfer</td>
+<td>3. Full-duplex transfer</td>
+</tr>
+<tr>
+<td>4. Read received data</td>
+<td>4. Read received data</td>
+</tr>
+<tr>
+<td>5. Slave select high</td>
+<td>5. Return to idle</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div>
+<p id="Sec9" class="Heading2">Multiple Slaves<a id="cXXX.418" /></p>
+<p class="noindent">Developing a master through register manipulation is a logical next step to developing tightly controlled protocols. The next feature I&#x2019;ll address, though, is connecting to multiple slaves. Under a normal four-wire SPI connection, the addition of slaves beyond the first requires additional SS lines controlled by the master. The MISO, MOSI, and SCK are shared lines between all devices on an SPI network; however, the SS line will be separated under all but the most unusual SPI networks. This allows the master to select one slave at a time, and a slave that is not signaled will ignore the communication.</p>
+</div>
+<div>
+<p id="Sec10" class="Heading2">Master in Register</p>
+<p class="noindent">While in most cases, the SPI library will suffice in the creation of a master SPI device, it will fall short when creating more complex protocols. For that reason, and to gain a better understanding of the SPI, writing the master code in register is the next step and is shown in <a href="#list3">Listing 10-3</a>.</p>
+<p class="noindent2"><a href="#_list3" id="list3"><b><i>Listing 10-3.</i></b></a>&#160;&#160;Master Code Register Sketch<a id="cXXX.419" /></p>
+<pre><span class="FontName2">const int bufferSize = 64; // Sets the size of the txBuffer and the rxBuffer</span><br /><span class="FontName2">byte txBuffer[bufferSize]; // Created to hold data waiting to be sent to the slave</span><br /><span class="FontName2">byte rxBuffer[bufferSize]; // Created to hold incoming data received from the slave</span><br /><br /><span class="FontName2">void setup() {</span><br />&#160;&#160;<span class="FontName2">Serial.begin(115200);</span><br />&#160;&#160;<span class="FontName2">DDRB |= 0b00101101; // LED(8) MOSI SCK SS Output</span><br />&#160;&#160;<span class="FontName2">PORTB |= 0b00000100; // Set slave select HIGH</span><br />&#160;&#160;<span class="FontName2">SPCR |= 0b01010000; // This is the SPI control register. SPE (bit 6) enables SPI, and MSTR (bit 4) sets device as master</span><br />&#160;&#160;<span class="FontName2">SPSR |= 0b00000000; // Default SPI settings and interrupts</span><br /><span class="FontName2">}</span><br /><br /><span class="FontName2">void loop() {</span><br />&#160;&#160;<span class="FontName2">if (Serial.available() &#x003E; 0) {</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">int count = 0;</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">delay(50); // Allow serial to complete receiving</span><br />&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">while (Serial.available() &#x003E; 0) {</span><br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">txBuffer[count] = Serial.read(); // Dump serial buffer into the txBuffer</span><br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">count++;</span><br />&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">}</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">PORTB &#x0026;= 0b11111011; // Turn the slave select on</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">transferSPI(count);</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">PORTB |= 0b00000100; // Turn the slave select off</span><br />&#160;&#160;<span class="FontName2">}</span><br />&#160;&#160;<span class="FontName2">// Blink code</span><br />&#160;&#160;<span class="FontName2">PORTB |= 0b00000001;</span><br />&#160;&#160;<span class="FontName2">delay(1000);&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// Wait for a second</span><br />&#160;&#160;<span class="FontName2">PORTB &#x0026;= 0b11111110;</span><br />&#160;&#160;<span class="FontName2">delay(1000);&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;// Wait for a second</span><br /><span class="FontName2">}</span><br /><br /><span class="FontName2">int transferSPI(int txBytes) {</span><br />&#160;&#160;<span class="FontName2">int count = 0;</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">while (count &#x003C; txBytes) {</span><br />&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">SPDR = txBuffer[count]; // Writing to the register begins SPI transfer</span><br />&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">while (!(SPSR &#x0026; (1 &#x003C;&#x003C; SPIF))); // While until transfer complete</span><br />&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">rxBuffer[count] = SPDR; // Read newly received byte</span><br />&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">count++;</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">}</span><br />&#160;&#160;<span class="FontName2">displayBuffer(count);</span><br /><span class="FontName2">}</span><br /><br /><span class="FontName2">int displayBuffer(int nBytes) { // Write txBuffer and rxBuffer to the screen</span><br />&#160;&#160;<span class="FontName2">Serial.write (txBuffer, nBytes);</span><br />&#160;&#160;<span class="FontName2">Serial.println();</span><br />&#160;&#160;<span class="FontName2">Serial.write (rxBuffer, nBytes);</span><br />&#160;&#160;<span class="FontName2">Serial.println();</span><br /><span class="FontName2">}</span></pre>
+</div>
+<div>
+<p id="Sec11" class="Heading2">Verifying the Code</p>
+<p class="noindent">To use the master code from the second example, connect it to an Arduino running the slave code from the first example. This will be in the normal fashion, straight through, as per <a href="#Fig2">Figure 10-2</a>. Verification of code consists of running a serial connection and sending data. The data will be echoed in the same fashion as the first example. This code implements one major difference: it takes all incoming serial data and loads it into an array so that the SPI transmission<a id="cXXX.420" /> can be completed in series with greater efficiency. The SS line goes low and stays low until all data in the <span class="FontName2">txBuffer</span> has been sent and the <span class="FontName2">rxBuffer</span> is filled.</p>
+</div>
+<p id="Sec12" class="Heading1">Symmetric Architecture Bipolar Bus<a id="cXXX.202a" /><a id="cXXX.421" /></p>
+<p class="noindent">SPI is in many ways an elegant solution for chip-to-chip communication; however, it has significant drawbacks that limit its use:<a id="cXXX.422" /></p>
+<ul class="bulleted">
+<li>The first problem is that as the number of slave devices increases, so does the number of SS lines. This can certainly be a problem for pin-intensive projects. Without extra logic such as a MUX, even the Mega can run out of pins.</li>
+<li>The second problem is that the SPI architecture is not resilient to changes. It will work as configured, but you must take great care of design when adding or removing nodes. There is no real hot-swap ability native to SPI. And, should the master device become compromised, the whole network will collapse. When a slave device needs to request data transfers, you need to add a data-ready line. The data-ready signal output from the slave tells the master that data needs to be transferred. To add a data-ready line we will need additional connections for each additional slave. All data-flow control is placed on the master, which can limit the functionality of the master, as it may need to spend a significant amount of processor resources to monitor and handle communication.</li>
+<li>Finally, one slave cannot communicate directly with another. Even if the master were to route the data from one slave to another, there would be a great loss of efficiency, as the data would have to be transmitted twice. The solution to all these problems is a custom protocol.</li>
+</ul>
+<p class="indent">Douglas Bebb of MAD Fellows developed a bus architecture as an open standard to better serve in chip-to-chip communication. This architecture and protocol is called the <i>Symmetric Architecture Bipolar Bus (SABB)</i><a id="cXXX.423" />. It is a standard in active open development and goes beyond functionality on the Arduino, but can be fully demonstrated on any Arduino board. On the Arduino, it is built on the SPI block, and so uses registers and methodologies discussed earlier, but takes best practices and turns them on their head.</p>
+<p class="indent">Again, for reference, SPI defines a standard that has unique master/slave devices, full-duplex transmission, and a shared serial clock. Much is left undefined when using SPI, which is both an advantage and drawback. SABB is designed to be more robust while still allowing flexibility. The highlights of SABB include the following:</p>
+<ul class="bulleted">
+<li>Full-duplex communication</li>
+<li>Synchronous serial</li>
+<li>Roleless devices</li>
+<li>Hot-swap capabilities</li>
+<li>Individual addressing capabilities</li>
+<li>Address-broadcasting capabilities</li>
+<li>Backward compatibility to SPI</li>
+<li>Modular and redundant design</li>
+<li>Four-wire bus (no extra SS or data-ready lines needed for extra devices)</li>
+</ul>
+<p class="indent">The logical and electrical connections<a id="cXXX.424" /> in SABB are similar to SPI, with the exception that the SS line is shared between all SABB-enabled devices. <a href="#Fig3" id="_Fig3">Figure 10-3</a> shows a logical block diagram of this feature.</p>
+<div class="Figure" id="Fig3">
+<p class="img"><img src="images/9781430239390_Fig10-03.jpg" alt="9781430239390_Fig11-03.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig3">Figure 10-3</a> </span>.&#160;&#160;SABB connection block<a id="cXXX.425" /> </p>
+</div>
+<div>
+<p id="Sec13" class="Heading2">SABB by the Code</p>
+<p class="noindent">Possibly the most significant feature of SABB is the scrapping of master/slave topography<a id="cXXX.426" />. This topography is a huge limitation on a bus, and so for a number of reasons has been engineered out. All devices connected using SABB share the same code. While only one device can control the data lines at once, each device has the ability to do so. Note that while SPI allows communication between a master and a slave, the slaves do not have the ability to directly communicate. This barrier is removed, as there is no slave/master relationship. Any device may communicate to any other device on the network. Flow control<a id="cXXX.427" /> is first determined on a hardware level, and then once the bus is held by a device, software flow control takes over. The flow control used in <a href="#list4" id="_list4">Listing 10-4</a> is limited to the ability of each device to be addressed.</p>
+<p class="noindent2"><a href="#_list4" id="list4"><b><i>Listing 10-4.</i></b></a>&#160;&#160;SABB</p>
+<pre><span class="FontName2">const byte myAddress = &#x0027;2&#x0027;; // Address range from 0 &#x2013; 255</span><br /><span class="FontName2">const int bufferSize = 64; // 64 matches the size of serial buffer</span><br /><span class="FontName2">byte txBuffer[bufferSize]; // Created to hold data waiting to be sent to the slave</span><br /><span class="FontName2">byte rxBuffer[bufferSize]; // Created to hold incoming data received from the slave</span><br /><span class="FontName2">volatile byte rxBufferSlave[bufferSize]; // Holds data when used as slave</span><br /><span class="FontName2">volatile boolean flag = true; // Change LED state flag</span><br /><br /><span class="FontName2">void setup() {</span><br />&#160;&#160;<span class="FontName2">Serial.begin(115200); // Open serial connection</span><br />&#160;&#160;<span class="FontName2">PORTB |= 0b00000100; // Set SS HIGH</span><br />&#160;&#160;<span class="FontName2">while (!(PINB &#x0026; 0b00000100)); // Wait to initialize if SS held LOW externally</span><br />&#160;&#160;<span class="FontName2">initSPI(); // Prepare to connect to the network</span><br />&#160;&#160;<span class="FontName2">txBuffer[0] = 0b00000000; // Load tx buffer with a null byte</span><br />&#160;&#160;<span class="FontName2">transferSPI(1); // Send null byte to release waiting devices</span><br />&#160;&#160;<span class="FontName2">initSPI(); // Set idle state for board to board communication</span><br />&#160;&#160;<span class="FontName2">Serial.println(&quot;Ready&quot;); // Alert that device is fully initialized</span><br /><span class="FontName2">}</span><br /><span class="FontName2">void loop() {</span><br />&#160;&#160;<span class="FontName2">if (Serial.available()) {</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">delay(1000); // Wait a sec to receive serial data</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">int count = 1; // Store data begining 2nd byte in array</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">txBuffer[0] = 0b00000000; // Send null byte first</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">while (Serial.available()) {</span><br />&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">txBuffer[count] = Serial.read(); // Dump serial buffer into the txBuffer</span><br />&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">count++;</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">}</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">Serial.flush(); // Clear serial buffer</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">transferSPI(count); // Sends and receives data as master</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">printBuffer(count); // Prints data that was sent and received</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">initSPI(); // Return to idle state</span><br />&#160;&#160;<span class="FontName2">}</span><br />&#160;&#160;<span class="FontName2">if (flag == true ){ // Flag sets true when addressed by master</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">PORTB = (&#x223C;(PINB &#x003C;&#x003C; 7) &#x003E;&#x003E; PINB7); // Change the LED state</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">flag = false; // Clear the flag</span><br />&#160;&#160;<span class="FontName2">}</span><br /><span class="FontName2">}</span><br /><span class="FontName2">void initSPI() { // Sets idle state of connection</span><br />&#160;&#160;<span class="FontName2">DDRB |= 0b00000001; // LED Output</span><br />&#160;&#160;<span class="FontName2">DDRB &#x0026;= 0b11000011; // MOSI MISO SCK SS Input</span><br />&#160;&#160;<span class="FontName2">PORTB |= 0b00000100; // Set slave select HIGH</span><br />&#160;&#160;<span class="FontName2">PORTB &#x0026;= 0b11000111; // MISO MOSI SCK LOW</span><br />&#160;&#160;<span class="FontName2">SPCR = 0b11000000; // SPIE, SPE, SLAVE, MODE0, CLOCK DIV_4</span><br />&#160;&#160;<span class="FontName2">sei(); // Global interrupt enabled</span><br /><span class="FontName2">}</span><br /><span class="FontName2">int printBuffer(int nBytes) { // Display data tx and rx when master</span><br />&#160;&#160;<span class="FontName2">Serial.println();</span><br />&#160;&#160;<span class="FontName2">Serial.write (txBuffer, nBytes);</span><br />&#160;&#160;<span class="FontName2">Serial.println();</span><br />&#160;&#160;<span class="FontName2">Serial.write (rxBuffer, nBytes);</span><br />&#160;&#160;<span class="FontName2">Serial.println();</span><br /><span class="FontName2">}</span><br /><span class="FontName2">int transferSPI(int txBytes) {</span><br />&#160;&#160;<span class="FontName2">cli(); // Turn global interrupts off</span><br />&#160;&#160;<span class="FontName2">SPCR |= 0b00010000; // Set SPI master</span><br />&#160;&#160;<span class="FontName2">DDRB |= 0b00101100; // MOSI SCK SS output</span><br />&#160;&#160;<span class="FontName2">DDRB &#x0026;= 0b11101111; // MISO Input</span><br />&#160;&#160;<span class="FontName2">PORTB &#x0026;= 0b11111011; // Turn the slave select on</span><br />&#160;&#160;<span class="FontName2">int count = 0;</span><br />&#160;&#160;<span class="FontName2">delay(50); // Wait for connected devices to enter interrupt; 50 is a very safe number</span><br />&#160;&#160;<span class="FontName2">while (count &#x003C; txBytes) { // Loop until all data has transferred</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">SPDR = txBuffer[count]; // Begin byte transfer by writing SPDR</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">while (!(SPSR &#x0026; (1 &#x003C;&#x003C; SPIF))); // Wait for transfer to complete</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">rxBuffer[count] = SPDR; // Read incoming byte</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">count++;</span><br />&#160;&#160;<span class="FontName2">}</span><br />&#160;&#160;<span class="FontName2">PORTB |= 0b00000100; // Set SS HIGH</span><br /><span class="FontName2">}</span><br /><span class="FontName2">ISR(SPI_STC_vect) { // SPI interrupt vector</span><br />&#160;&#160;<span class="FontName2">int count = 0;</span><br />&#160;&#160;<span class="FontName2">if (!(PINB &#x0026; 0b00000100)) { // Enter if SS is LOW</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">while (!(PINB &#x0026; 0b00000100)) { // While SS is LOW</span><br />&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">while (!(SPSR &#x0026; (1 &#x003C;&#x003C; SPIF))); // Wait till data transfer complete</span><br />&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">rxBufferSlave[count] = SPDR; // Read SPDR</span><br />&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">if (rxBufferSlave[0] == myAddress) {DDRB |= 0b00010000;} // If address matches set MISO to Output</span><br />&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">SPDR = rxBufferSlave[count]; // Write data to send to SPDR</span><br />&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">count++;</span><br />&#160;&#160;&#160;&#160;<span class="FontName2">}</span><br />&#160;&#160;<span class="FontName2">if (rxBufferSlave[0] == myAddress) {flag = true;} // If address matched set LED change flag</span><br />&#160;&#160;<span class="FontName2">initSPI(); // Return to idle connection</span><br />&#160;&#160;<span class="FontName2">}</span><br /><span class="FontName2">}</span></pre>
+</div>
+<div>
+<p id="Sec14" class="Heading2">Verifying the Code</p>
+<p class="noindent">For <a href="#list4">Listing 10-4</a>, you&#x2019;ll need to connect at least two Arduinos together, as per <a href="#Fig4" id="_Fig4">Figure 10-4</a>. Many more Arduinos may be used; when more Arduinos are used, the advantage of SABB over SPI becomes apparent. Each connected device needs a unique address that is set in the code before the sketch is compiled and uploaded. Electrically, the connections between boards are nearly the same as a standard configuration of SPI. A pull-down resistor is needed for the data lines to prevent cross talk. An external pull-up resistor may also be added to the chip-select line, though this is not required. <a href="#Fig4">Figure 10-4</a> shows the specific connections<a id="cXXX.428" /> and resistor values.</p>
+<div class="Figure" id="Fig4">
+<p class="img"><img src="images/9781430239390_Fig10-04.jpg" alt="9781430239390_Fig11-04.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig4">Figure 10-4</a> </span>.&#160;&#160;SABB connection diagram (note the pull-down resistors) </p>
+</div>
+<p class="indent">When loading the code to each board, be sure to assign a unique address to each. No other changes need to be made to the code. Finally, connect to at least one of the boards through a serial terminal. From this point, you can send a string to the board. This string will be sent to any devices connected on the bus. The first byte will be examined for a matching address, and if a match occurs, that device will echo the data it receives. Both the data sent and the data received will be displayed from the sending device. Also, the code is set to change the state of an LED whenever it is addressed in a communication sequence. This provides two ways to demonstrate a successful transfer.</p>
+<p class="indent">After the code is verified, add another Arduino if possible; you can do this on the fly, as functionality for hot-swap is included in this code example.</p>
+</div>
+<div>
+<p id="Sec15" class="Heading2">Connecting SABB to SPI<a id="cXXX.429" /><a id="cXXX.430" /></p>
+<p class="noindent">While this example does not demonstrate communicating to a conventional SPI device, this is possible, and one can be added. Since the SPI block will remain idle when not activated by the chip-select line going low, conventional SPI devices can share the same bus lanes as SABB. You can make a device running SABB a master in an SPI network by following proper procedure. <a href="#Fig5" id="_Fig5">Figure 10-5</a> shows a block diagram demonstrating one connection possibility of SPI sharing a SABB data bus. This relation between SABB and standard SPI allows for every SABB-enabled device to share standard SPI devices if the SS lines are connected to each SABB device that requires the resource.</p>
+<div class="Figure" id="Fig5">
+<p class="img"><img src="images/9781430239390_Fig10-05.jpg" alt="9781430239390_Fig11-05.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig5">Figure 10-5</a> </span>.&#160;&#160;Connection methods; SPI sharing with SABB </p>
+</div>
+<p class="indent">The first step is to drop the chip-select line low between SABB devices. A null byte is sent to all devices on the bus instead of a matching address or broadcast. Now, as long as this common chip-select line remains low, none of the devices sharing the SABB device will attempt to hold the data lines. After this step, an SPI device may be used in slave mode. While SABB does not require additional chip-select lines between devices, SPI does. A chip-select line per slave to be connected should be used. Connect the SPI device to the MISO, MOSI, and SCK of the SABB device and the dedicated chip-select line as well. When this unique chip-select line is pulled low, SPI communication can take place. To release the lines, raise the chip-select lines.</p>
+<p id="Sec16" class="Heading1">Conversion to Mega</p>
+<p class="noindent">Consistent with other chapters, the code for this chapter was written to support the Arduino Uno. Should the need arise, you can convert from Uno code to Mega relatively simply. The Mega, having more I/O pins and more program space, could be replaced by multiprocessing smaller boards. While this is certainly a viable option, the Mega uses a chip set with more features than the Uno. The Mega<a id="cXXX.431" /> may also be an attractive solution because of its density of I/O pins per device.</p>
+<p class="indent">The first step is to identify the pins and ports that will be used on both devices. When using the SPI core<a id="cXXX.432" />, we are locked into using specific but unique pins from one board to another. Both devices use PORTB for SPI, but the bit position in the register is unique, as is the order. This confusion stems from design considerations on the part of Atmel in assigning PORT definitions. It is then abstracted again by Arduino, in the mapping of the pins on the board to the chip set. Once the pins and ports are identified, it is a good idea to create a cross-reference chart, as shown in <a href="#Tab11" id="_Tab11">Tables 10-11</a> and <a href="#Tab12" id="_Tab12">10-12</a>.</p>
+<div class="Table">
+<p class="TabCapt"><span class="CaptNr"><a id="Tab11" href="#_Tab11">Table 10-11</a>. </span>PORTB Register<a id="cXXX.433" /> with SPI Pins </p>
+<p class="img"><img src="images/Table10-11.jpg" alt="image" /></p>
+</div>
+<div class="Table">
+<p class="TabCapt"><span class="CaptNr"><a id="Tab12" href="#_Tab12">Table 10-12</a>. </span>Arduino SPI Pin Reference<a id="cXXX.434" /> </p>
+<p class="img"><img src="images/Table10-12.jpg" alt="image" /></p>
+</div>
+<p class="indent">The final step is to find all references to the PORT, PIN, and DDR registers in the Arduino code. When addressing the entire register, be mindful of the pins not used for SPI. These values should be left unchanged and should be masked accordingly. Commonly used values may be simpler to declare globally as a constant so that only one value needs to be changed when converting code. It is also a good idea to adopt code conventions that include thorough commenting. This is especially important when writing registers and using bitwise operations as it can greatly simplify debugging.</p>
+<p id="Sec17" class="Heading1">Physical Best Practices</p>
+<p class="noindent">These are just a few design considerations when designing the physical layer. When working within an electrically noisy environment, interference on the transmission lines may cause corrupted data. Wire lengths and PCB connection tracks should be kept to a minimum; this reduces the &#x201C;electrical size&#x201D; of the transmission lines, limiting the amount of interference induced into the system. This will also prevent high impedance and capacitance on the lines from causing problems, though on a high-quality line, it is possible to get as much as 6 feet out of a transmission line. Remember that all SPI lines that are electrically connected should have lengths totaled.</p>
+<p class="indent">Shielding is the next consideration and especially simple to implement when using external transmission lines. Since connected SPI devices should use a common ground, adding shielding to a transmission line<a id="cXXX.435" /> is as simple as using a shielded cable and connectors, and then running the ground through the shielding. On a board, a grounded metal shield or ground plane can be used to keep electromagnetic radiation out. This is likely only a concern when placing a board near large radiation sources. In less noisy environments, ribbon cable is a great choice. In most circumstances this will be adequate and has several advantages. Ribbon cable is cheaper than shielded cable. It also gives you the ability to add crimp connectors anywhere along the cable with no special tools.</p>
+<p class="indent">Branches of a transmission line may be different lengths; however, the line lengths should be the same or at least kept close. This means the MISO line should be the same length as the SCK line, which should be the same as the MOSI line. A difference of a couple inches won&#x2019;t significantly impact a transmission line, even at the highest speed available on the Arduino.</p>
+<p id="Sec18" class="Heading1">Summary</p>
+<p class="noindent">There are many was to connect chips together, and this chapter only focused on a small area of multiprocessing communication methods. It introduced SPI and SABB, which utilize the fastest communication available on the Arduino, allowing you to create more complex projects and devices.</p>
+</div>
+</body>
+</html>

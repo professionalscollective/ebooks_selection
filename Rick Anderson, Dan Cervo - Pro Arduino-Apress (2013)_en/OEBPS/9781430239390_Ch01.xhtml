@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"[]>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>CHAPTER 1 Arduino 1.0.4 Core Changes</title>
+<link href="9781430239390.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<p class="ChapterNumber"><a id="Chap1" />CHAPTER 1</p>
+<p class="chapimage"><img src="images/frontdot.jpg" alt="image"/></p>
+<p class="ChapterTitle">Arduino 1.0.4 Core Changes</p>
+<div>
+<p class="noindent">If you are writing sketches, creating your own libraries, or making your own Arduino-compatible boards, the Arduino 1.0.4 changes will affect you. Many of the changes optimize the Arduino IDE for improved workflow and customization. Changes to the IDE include the removal of unused buttons, and the placement of the Compile and Upload buttons next to each other. The Arduino IDE is now multilingual; you can pick a custom language for the editor. These changes are only the visible portions&#x2014;with these updates, the Arduino team took the opportunity to make significant and code-breaking changes in order to deliver a more consistent and complete Arduino API. The core libraries of the Arduino Core API have been overhauled as well. Additional improvements include better support for making your own Arduino variations and the ability to integrate programmable USB devices with Arduino. This chapter will go through these changes, what they mean, and how they will affect your code.</p>
+<p class="indent">The changes break down into the following categories:</p>
+<ul class="bulleted">
+<li>Arduino IDE</li>
+<li>Sketches</li>
+<li>API Core</li>
+<li>Core libraries</li>
+<li>Variant support for Arduino-derived boards</li>
+</ul>
+</div>
+<p id="Sec1" class="Heading1">Changes to the Arduino IDE<a id="cXXX.1" /></p>
+<p class="noindent">The original file extension for Arduino was <span class="FontName2">.pde</span>. This is the Processing application file extension. If you had both programs installed, Arduino files would be opened in the Processing program. Now, after the updates, Arduino sketches have their own extension: <span class="FontName2">.ino</span>. Therefore, <span class="FontName2">mysketch.pde</span> is now named <span class="FontName2">mysketch.ino</span>. Double-click the file name, and Arduino launches. You can change the preferences to support the older PDE extension, but by default, PDE files simply open. Files will not be renamed to <span class="FontName2">.ino</span> unless you change the setting in the preferences.</p>
+<p class="indent">The Arduino IDE editor now has line numbers in the lower-left corner, as shown in <a href="#Fig1" id="_Fig1">Figure 1-1</a>. Compile is the first button, and the second button is Upload. The lower-right corner shows the selected board and what port it is connected to. These changes make it possible to quickly debug simple errors by identifying the line of code, verifying the correct serial port, and establishing whether the board is connected.</p>
+<div class="Figure" id="Fig1">
+<p class="img"><img src="images/9781430239390_Fig01-01.jpg" alt="9781430239390_Fig01-01.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig1">Figure 1-1</a></span>. Updated main window for the Arduino 1.0.x environment </p>
+</div>
+<p class="indent">Look now at the Preferences panel (File <img src="images/arrow.jpg" alt="image" /> Preferences), shown in <a href="#Fig2" id="_Fig2">Figure 1-2</a>. I always use verbose output when I&#x2019;m looking for errors in the compile process. The verbose-output feature has been moved to the Preferences panel, whereas before it could be triggered by pressing Shift plus the Compile button. The Preferences panel now enables you to resize the compile output for easier reading.</p>
+<div class="Figure" id="Fig2">
+<p class="img"><img src="images/9781430239390_Fig01-02.jpg" alt="9781430239390_Fig01-02.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig2">Figure 1-2</a></span>. Updated Preferences panel for the Arduino 1.0.x environment </p>
+</div>
+<p class="indent">The location of the <span class="FontName2">preferences.txt</span> file is listed in the Preferences dialog box. It is good to know this because you may need to edit this file.</p>
+<p id="Sec2" class="Heading1">Changes to Sketches<a id="cXXX.2" /></p>
+<p class="noindent">Whenever you write an Arduino sketch, you are using the core functions and collection of objects that are always accessible, without needing to include external libraries in your sketch. For instance, <span class="FontName2">Serial</span> can be used without having to declare it. The Arduino IDE<a id="cXXX.3a" /> preprocesses the Arduino sketch before compiling. This process includes the <span class="FontName2">Arduino.h</span> file from core. Some of the files from core have to be included manually, as the <span class="FontName2">Ethernet</span> core does. The <span class="FontName2">Ethernet</span> core features are needed for the Arduino Ethernet board, but because not all Arduino boards have Ethernet, the files are available but not automatically included.</p>
+<p class="indent">Arduino achieves its simplicity by preprocessing the sketch and automatically generating a basic functional set. So, you never have to worry about including <span class="FontName2">Arduino.h</span> and creating header files for sketches, unless you create your own Arduino libraries. Arduino libraries have to be written in standard C/C++; I will cover their creation later, in Chapter 14.</p>
+<p class="indent">Here, you will examine how the default core functionality has changed. Then the chapter will cover how these changes have affected the default libraries that come with Arduino.</p>
+<p class="indent">These default libraries have been replaced by new variants with new features. Also, <span class="FontName2">WProgram.h</span> has been change to <span class="FontName2">Arduino.h</span>.</p>
+<p id="Sec3" class="Heading1">API Updates<a id="cXXX.36x" /></p>
+<p class="noindent">This section will discuss the changes to the API.</p>
+<div>
+<p id="Sec4" class="Heading2">pinMode<a id="cXXX.3" /></p>
+<p class="noindent"><span class="FontName2">pinMode</span> has been updated to support <span class="FontName2">INPUT_PULLUP</span>. This adds clean support for creating buttons and switches that are active high by default, and when activated pulled low. <a href="#list1" id="_list1">Listing 1-1</a> shows an example.</p>
+<p class="noindent2"><i><b><a href="#_list1" id="list1">Listing 1-1.</a></b></i>&#160;&#160;pinMode INPUT_PULLUP Resistor Feature</p>
+<pre><span class="FontName2">setup()</span><br /><span class="FontName2">{</span><br />&#160;&#160;<span class="FontName2">Serial.begin(9600);</span><br />&#160;&#160;<span class="FontName2">pinMode(10, INPUT);</span><br />&#160;&#160;<span class="FontName2">digitalWrite(10, HIGH);</span><br />&#160;&#160;<span class="FontName2">int&#160;&#160;val = digitalRead(10);</span><br />&#160;&#160;<span class="FontName2">Serial.print(val);</span><br /><span class="FontName2">}</span><br /><br /><span class="FontName2">In Arduino 1.0.x you can do it this way:</span><br /><span class="FontName2">setup()</span><br /><span class="FontName2">{</span><br />&#160;&#160;<span class="FontName2">Serial.begin(9600);</span><br />&#160;&#160;<span class="FontName2">pinMode(10, INPUT_PULLUP);</span><br />&#160;&#160;<span class="FontName2">int val = digitalRead(10);</span><br />&#160;&#160;<span class="FontName2">Serial.print(val);</span><br /><span class="FontName2">}</span></pre>
+<p class="indent">This approach has the benefit of making the <span class="FontName2">pinMode</span> set the default value as needed. Also, using the internal pull-up resistors removes the need to use external pull-up resistors, allowing you to remove parts from your project.</p>
+</div>
+<div>
+<p id="Sec5" class="Heading2">Return Types</p>
+<p class="noindent">Return types<a id="cXXX.4" /><a id="cXXX.5" /> have been updated to return the size of data using <span class="FontName2">size_t</span>, which is an unsigned integer that is platform dependent. <span class="FontName2">size_t</span> is included from <span class="FontName2">stdio.h</span> in the <span class="FontName2">Print.h</span> header. This returns a size type for the data printed. You can use this to check the quantity of data returned for iterating. When writing your own libraries that print custom data, you would use <span class="FontName2">size_t</span> as the return value.</p>
+</div>
+<div>
+<p id="Sec6" class="Heading2">uint_8<a id="cXXX.6" /></p>
+<p class="noindent">Several functions now take and return <span class="FontName2">uint_8</span>, which is a universal 8-bit integer that allows for cross-platform compatibility.</p>
+</div>
+<p id="Sec7" class="Heading1">Arduino API Core 1.0.4<a id="cXXX.4a" /><a id="cXXX.7" /></p>
+<p class="noindent">Now let&#x2019;s look at the changes in the Arduino API Core.</p>
+<div>
+<p id="Sec8" class="Heading2">Arduino.h<a id="cXXX.8" /></p>
+<p class="noindent">If you are using standard AVR GCC system libraries or writing your own library, it&#x2019;s important to know the Arduino library. <span class="FontName2">Arduino.h</span> now includes all the values from <span class="FontName2">wiring.h</span>. If you are already programming with C/C++, it&#x2019;s good to know which functions are already available, so that you don&#x2019;t include the libraries twice.</p>
+<p class="indent"><span class="FontName2">Arduino.h</span> includes the libraries shown in <a href="#list2" id="_list2">Listing 1-2</a>, so you don&#x2019;t need to include them in your own sketches.</p>
+<p class="noindent2"><i><b><a href="#_list2" id="list2">Listing 1-2.</a></b></i>&#160;&#160;New Headers Automatically Included in Arduino.h</p>
+<pre><span class="FontName2">#include &#x003C;stdlib.h&#x003E;</span><br /><span class="FontName2">#include &#x003C;string.h&#x003E;</span><br /><span class="FontName2">#include &#x003C;math.h&#x003E;</span><br /><span class="FontName2">#include &#x003C;avr/pgmspace.h&#x003E;</span><br /><span class="FontName2">#include &#x003C;avr/io.h&#x003E;</span><br /><span class="FontName2">#include &#x003C;avr/interrupt.h&#x003E;</span><br /><span class="FontName2">#include &quot;binary.h&quot;</span><br /><span class="FontName2">#include &quot;WCharacter.h&quot;</span><br /><span class="FontName2">#include &quot;WString.h&quot;</span><br /><span class="FontName2">#include &quot;HardwareSerial.h&quot;</span><br /><span class="FontName2">#include &quot;pins_arduino.h&quot;</span></pre>
+<p class="indent">You never have to duplicate the libraries in your own sketches. They are automatically included for your use.</p>
+<p class="indent">The preprocessing compiles <span class="FontName2">Arduino.h</span>, and then combines the sketch with a file called <span class="FontName2">main.cpp</span>. This file contains the implementation for <span class="FontName2">void setup()</span> and <span class="FontName2">void loop()</span>. In fact, it&#x2019;s short enough to show in <a href="#list3" id="_list3">Listing 1-3</a>.</p>
+<p class="noindent2"><i><b><a href="#_list3" id="list3">Listing 1-3.</a></b></i>&#160;&#160;The New Version of main.cpp</p>
+<pre><span class="FontName2">#include &#x003C;Arduino.h&#x003E;</span><br /><span class="FontName2">int main(void)</span><br /><span class="FontName2">{</span><br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">init();</span><br /><span class="FontName2">#if defined(USBCON)</span><br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">USBDevice.attach();</span><br /><span class="FontName2">#endif</span><br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">setup();</span><br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">for (;;) {</span><br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">loop();</span><br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">if (serialEventRun) serialEventRun();</span><br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">}</span><br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;  <br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="FontName2">return 0;</span><br /><span class="FontName2">}</span></pre>
+<p class="indent">Looking at the source, there are two interesting items to note. First, <span class="FontName2">main.cpp</span> now looks to see if a USB connection is defined and attached. Second, the <span class="FontName2">void loop()</span> code runs, and then a serial event is checked for. If the event is found, then the code runs it.</p>
+</div>
+<div>
+<p id="Sec9" class="Heading2">Updated Serial Object<a id="cXXX.9" /></p>
+<p class="noindent">Sending data from serial is now asynchronous. The <span class="FontName2">serial</span> object depends on a parent object called <span class="FontName2">stream</span>, so it is included automatically with <span class="FontName2">HardwareSerial.h</span> in your main sketch.</p>
+</div>
+<div>
+<p id="Sec10" class="Heading2">Updated Stream Class<a id="cXXX.10" /></p>
+<p class="noindent">The <span class="FontName2">Stream</span> class has been updated. This is part of the serial object and provides the search, find, and parse value functions that the <span class="FontName2">HardwareSerial</span> object<a id="cXXX.11" /> uses.</p>
+<div>
+<p id="Sec11" class="Heading3">Constructor</p>
+<p class="noindent">The constructor simply sets the timeout for the serial port to a default of 1000 ms.</p>
+<pre><span class="FontName2">Stream() {_timeout=1000;}</span></pre>
+</div>
+<div>
+<p id="Sec12" class="Heading3">Member Functions</p>
+<p class="noindent">The member functions are shown in <a href="#Tab1" id="_Tab1">Table 1-1</a>.</p>
+<div class="Table" id="Tab1">
+<p class="TabCapt"><span class="CaptNr"><a href="#_Tab1">Table 1-1</a>. </span>Stream Member Functions<a id="cXXX.12" /> </p>
+<table>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="FontName2">void setTimeout(unsigned long timeout);</span></td>
+<td>Sets the timeout value for stream functions. If the process takes too long, it returns. The default is configured for 1000 ms, which is 1 second. The constructor sets this value.</td>
+</tr>
+<tr>
+<td><span class="FontName2">bool find(char *target);</span></td>
+<td>Searches the stream for the target string. Returns <span class="FontName2">true</span> if found, otherwise <span class="FontName2">false</span>. Also, will return as <span class="FontName2">false</span> if a timeout occurs.</td>
+</tr>
+<tr>
+<td><span class="FontName2">bool find(char *target, size_t length);</span></td>
+<td>Reads the stream until a target string of a specific length is found.</td>
+</tr>
+<tr>
+<td><span class="FontName2">bool findUntil(char *target, char *terminator);</span></td>
+<td>Works according to the same logic as <span class="FontName2">find()</span>, but returns <span class="FontName2">true</span> when a terminator string is found.</td>
+</tr>
+<tr>
+<td><span class="FontName2">bool findUntil(char *target, size_t targetLen, char *terminate, size_t termLen);</span></td>
+<td>Within a particular buffer and length, returns <span class="FontName2">true</span> if a termination string is found or the length reached.</td>
+</tr>
+<tr>
+<td><span class="FontName2">long parseInt();</span></td>
+<td>Searches for the first valid (<span class="FontName2">long</span>) integer from the current position. Initial characters that are not digits (0 through 9) or the minus sign are skipped; once a non-digit is found, the value is returned.</td>
+</tr>
+<tr>
+<td><span class="FontName2">float parseFloat();</span></td>
+<td>Searches for the first valid <span class="FontName2">float</span> from the current position, ignoring characters that are not digits or the minus sign. Once a non-digit is found that is not a period (.), the value is returned.</td>
+</tr>
+<tr>
+<td><span class="FontName2">size_t readBytes(char *buffer, size_t length);</span></td>
+<td>Reads characters from the stream into the buffer. If a length or timeout is reached, the function returns either 0 (for no data found) or the number of characters in the buffer.</td>
+</tr>
+<tr>
+<td><span class="FontName2">size_t readBytesUntil(char terminator, char *buffer, size_t length);</span></td>
+<td>Reads characters from the stream into the buffer. If a terminator character, length, or timeout is reached, the function returns 0 (for no data found) or the number of characters in the buffer.</td>
+</tr>
+<tr>
+<td><span class="FontName2">long parseInt(char skipChar);</span></td>
+<td>Allows for the parsing of integers and for a character (e.g., a comma) to be skipped.</td>
+</tr>
+<tr>
+<td><span class="FontName2">float parseFloat(char skipChar);</span></td>
+<td>Works similarly to <span class="FontName2">parseFloat()</span>, but ignores the skip character.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div>
+<p id="Sec13" class="Heading2">Print<a id="cXXX.13" /></p>
+<p class="noindent">The <span class="FontName2">Print</span> class has been updated. This affects the <span class="FontName2">Client</span> and <span class="FontName2">Stream</span> classes directly. The classes that include them are affected as well. The <span class="FontName2">HardwareSerial</span> and <span class="FontName2">UDP</span> classes use <span class="FontName2">Stream</span>. Therefore, you do not specifically have to include <span class="FontName2">Print</span> in your main Arduino sketch. <a href="#Tab2" id="_Tab2">Table 1-2</a> shows some of the more important updates to the public methods.</p>
+<div class="Table" id="Tab2">
+<p class="TabCapt"><span class="CaptNr"><a href="#_Tab2">Table 1-2.</a> </span>Updated Print Public Methods<a id="cXXX.14" /> </p>
+<table>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="FontName2">size_t write(const char *str) { return write((const uint8_t *)str, strlen(str)); }</span></td>
+<td>Prints the character string at the pointer location. This function automatically finds the length of the character string. It returns number of characters printed.</td>
+</tr>
+<tr>
+<td><span class="FontName2">virtual size_t write(const uint8_t *buffer, size_t size);</span></td>
+<td>Writes a constant <span class="FontName2">unit8_t</span> pointer to a buffer of size <span class="FontName2">size_t</span>. Prints the bytes of a certain length, and returns the number of characters printed.</td>
+</tr>
+<tr>
+<td><span class="FontName2">size_t print(const __FlashStringHelper *);</span></td>
+<td>Prints a constant string stored in flash. Returns the number of character printed.</td>
+</tr>
+<tr>
+<td><span class="FontName2">size_t print(const String &#x0026;);</span></td>
+<td>Prints a constant string object passed as reference. Returns the number of characters printed.</td>
+</tr>
+<tr>
+<td><span class="FontName2">size_t print(const char[]);</span></td>
+<td>Prints a constant character array. Returns the number of characters printed.</td>
+</tr>
+<tr>
+<td><span class="FontName2">size_t print(char);</span></td>
+<td>Prints a character. Returns the number of characters printed.</td>
+</tr>
+<tr>
+<td><span class="FontName2">size_t print(unsigned char, int = DEC);</span></td>
+<td>Prints an unsigned character in decimal format. Returns the number of characters printed.</td>
+</tr>
+<tr>
+<td><span class="FontName2">size_t print(int, int = DEC);</span></td>
+<td>Prints an integer with the default decimal format. Returns the number of characters printed.</td>
+</tr>
+<tr>
+<td><span class="FontName2">size_t print(unsigned int, int = DEC);</span></td>
+<td>Prints an unsigned integer with the default decimal format. Returns the number of characters printed.</td>
+</tr>
+<tr>
+<td><span class="FontName2">size_t print(long, int = DEC);</span></td>
+<td>Prints a <span class="FontName2">long</span> with the default decimal format. Returns the number of characters printed.</td>
+</tr>
+<tr>
+<td><span class="FontName2">size_t print(unsigned long, int = DEC);</span></td>
+<td>Prints an unsigned long with the default decimal format. Returns the number of characters printed.</td>
+</tr>
+<tr>
+<td><span class="FontName2">size_t print(double, int = 2);</span></td>
+<td>Prints a <span class="FontName2">double</span> with two decimal places. Returns the number of characters printed.</td>
+</tr>
+<tr>
+<td><span class="FontName2">size_t print(const Printable&#x0026;);</span></td>
+<td>Prints a printable object passed as reference. Returns the number of characters printed.</td>
+</tr>
+<tr>
+<td><span class="FontName2">size_t println(const __FlashStringHelper *);</span></td>
+<td>Prints a constant string held in flash with a newline character. Returns the number of characters printed.</td>
+</tr>
+<tr>
+<td><span class="FontName2">size_t println(const String &#x0026;s);</span></td>
+<td>Prints a <span class="FontName2">const String</span> passed as reference with a newline character. Returns the number of characters printed.</td>
+</tr>
+<tr>
+<td><span class="FontName2">size_t println(const char[]);</span></td>
+<td>Prints a constant character array with a newline character. Returns the number of characters printed.</td>
+</tr>
+<tr>
+<td><span class="FontName2">size_t println(char);</span></td>
+<td>Prints a char with a newline. Returns the number of characters printed.</td>
+</tr>
+<tr>
+<td><span class="FontName2">size_t println(unsigned char, int = DEC);</span></td>
+<td>Print an unsigned char with the default decimal format with newline. Returns the number of characters printed.</td>
+</tr>
+<tr>
+<td><span class="FontName2">size_t println(int, int = DEC);</span></td>
+<td>Prints an integer with a newline with the default decimal format. Returns the number of characters printed.</td>
+</tr>
+<tr>
+<td><span class="FontName2">size_t println(unsigned int, int = DEC);</span></td>
+<td>Prints an unsigned integer with the default decimal format with a newline. Returns the number of characters printed.</td>
+</tr>
+<tr>
+<td><span class="FontName2">size_t println(long, int = DEC);</span></td>
+<td>Prints a <span class="FontName2">long</span> as a decimal with a new line. Returns the number of characters printed.</td>
+</tr>
+<tr>
+<td><span class="FontName2">size_t println(unsigned long, int = DEC);</span></td>
+<td>Prints an unsigned <span class="FontName2">long</span> as a decimal with a new line. Returns the number of characters printed.</td>
+</tr>
+<tr>
+<td><span class="FontName2">size_t println(double, int = 2);</span></td>
+<td>Prints a <span class="FontName2">double</span> with two decimal places with a newline. Returns the number of characters printed.</td>
+</tr>
+<tr>
+<td><span class="FontName2">size_t println(const Printable&#x0026;);</span></td>
+<td>Given a printable object, prints it with a newline. Returns the number of characters printed.</td>
+</tr>
+<tr>
+<td><span class="FontName2">size_t println(void);</span></td>
+<td>Prints a new line character. Returns the number of characters printed.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div>
+<p id="Sec14" class="Heading2">New Printable Class<a id="cXXX.1z" /></p>
+<p class="noindent">A new <span class="FontName2">Printable</span> class<a id="cXXX.15" /> was created to define how new objects would be printed. <a href="#list4" id="_list4">Listing 1-4</a> shows an example.</p>
+<p class="noindent2"><i><b><a href="#_list4" id="list4">Listing 1-4</a>.</b></i>&#160;&#160;Example of Writing Bytes</p>
+<pre><span class="FontName2">void setup()</span><br /><span class="FontName2">{</span><br />&#160;&#160;<span class="FontName2">Serial.begin(9600);</span><br /><span class="FontName2">}</span><br /><br /><span class="FontName2">void loop()</span><br /><span class="FontName2">{</span><br />&#160;&#160;<span class="FontName2">byte bb = B101101;</span><br />&#160;&#160;<span class="FontName2">int bytesSent = Serial.print(&quot;byte: println: &quot;);</span><br />&#160;&#160;<span class="FontName2">Serial.print(bytesSent);</span><br />&#160;&#160;<span class="FontName2">Serial.print(&quot; : &quot;);</span><br />&#160;&#160;<span class="FontName2">Serial.print(bb);</span><br />&#160;&#160;<span class="FontName2">Serial.print(&quot; write: &quot;);</span><br />&#160;&#160;<span class="FontName2">Serial.write(bb);</span><br />&#160;&#160;<span class="FontName2">Serial.print(&quot;&quot;);</span><br />&#160;&#160;<span class="FontName2">Serial.write(45); // send a byte with the value 45</span><br />&#160;&#160;<span class="FontName2">Serial.println(&quot;&quot;);</span><br />&#160;&#160;<span class="FontName2">bytesSent = Serial.write(&quot;A&quot;);</span><br /><span class="FontName2">}</span></pre>
+</div>
+<div>
+<p id="Sec15" class="Heading2">Updated String Library<a id="cXXX.16" /></p>
+<p class="noindent">Storing strings into flash for printing has been made easier by the <span class="FontName2">F()</span> command. Whatever string is placed between quotation marks will be stored in flash, and will reduce the amount of RAM used.</p>
+<pre><span class="FontName2">Serial.println(F(&quot;store in Flash&quot;));</span></pre>
+</div>
+<div>
+<p id="Sec16" class="Heading2">Wire Library Updates</p>
+<p class="noindent">The <span class="FontName2">Wire</span> library<a id="cXXX.17" /><a id="cXXX.18" /> also uses <span class="FontName2">Stream</span>, so it has the same features as <span class="FontName2">Serial</span>. The function <span class="FontName2">Wire.send()</span> has been replaced by <span class="FontName2">Wire.write()</span>. <span class="FontName2">Wire.receive()</span> has changed to <span class="FontName2">Wire.read()</span>.</p>
+</div>
+<div>
+<p id="Sec17" class="Heading2">HardwareSerial Updates</p>
+<p class="noindent"><span class="FontName2">HardwareSerial</span><a id="cXXX.19" /> now supports USB by default.</p>
+<ul class="bulleted">
+<li><span class="FontName2">Serial.begin()</span> supports unsigned <span class="FontName2">long</span> declaration.</li>
+<li><span class="FontName2">Serial.write()</span> now returns <span class="FontName2">size_t</span>.</li>
+<li><span class="FontName2">Serial.SerialEvent()</span> has changed.</li>
+<li><span class="FontName2">Serial.SerialEventRun()</span> is implemented to check for up to four defined serial ports (<span class="FontName2">Serial</span>, <span class="FontName2">Serial1</span>, <span class="FontName2">Serial2</span>, and <span class="FontName2">Serial3</span>) and look for available serial data on each.</li>
+</ul>
+</div>
+<p id="Sec18" class="Heading1">Physical Board Updates and USB<a id="cXXX.89u" /> Compatibility</p>
+<p class="noindent">All the new Arduino boards come with 16u2 chips for USB or have USB support built in, as is the case with the Arduino Leonardo 32u4. The core now includes USB serial, keyboard, and joystick. The Arduino Leonardo has the advantage that the USB libraries are accessible in your Arduino sketch, and you can use the new USB libraries to program Arduino Leonardo behaviors. However, the 16u2 chips do not use the same library, and since they are separate chips, they have to be programmed separately. Currently, the most widely developed USB support libraries are from Paul Stoffregen for the Teensy and Teensy++ boards.</p>
+<div>
+<p id="Sec19" class="Heading2">Avrdude Update<a id="cXXX.20" /><a id="cXXX.21" /></p>
+<p class="noindent">Avrdude is the uploader that Arduino uses to load program images onto the Arduino boards. The version of Avrdude that comes with Arduino has been updated to 5.11, which supports the <span class="FontName2">arduino</span> upload type. This used to be the <span class="FontName2">stk500</span> upload type. All the official boards are now programmable by this <span class="FontName2">arduino</span> upload type from the 5.11 version. Additionally, custom bootloaders and firmware can be loaded onto Arduino using Avrdude.</p>
+<p class="indent">You can use this feature to program microcontrollers with the Arduino bootloader, so that they can run Arduino sketches. Programmable microcontrollers include ATtiny85, ATtiny45, chipKIT Uno32, chipKIT Fubarino SD, and user-created and designed Arduino-compatible microcontrollers.</p>
+</div>
+<div>
+<p id="Sec20" class="Heading2">The New Arduino Leonardo Board<a id="cXXX.22" /><a id="cXXX.23" /></p>
+<p class="noindent">Arduino revision 3 boards are already configured and updated. The variant types are defined, and the upload types are configured for &#x201C;Arduino.&#x201D;</p>
+<p class="indent">The Arduino Leonardo is based on the Atmel ATmega32u4 chip<a id="cXXX.24" />. The Leonardo board has the following features:</p>
+<ul class="bulleted">
+<li>MCU ATmega32u4</li>
+<li>Operating voltage: 5V</li>
+<li>Recommended input voltage range: 7&#x2013;12V</li>
+<li>Twenty digital pins</li>
+<li>Seven pulse-width modulation (PWM) pins</li>
+<li>Twelve analog input channels</li>
+<li>Flash memory: 32 KB (but 4 KB is used for the bootloader)</li>
+<li>SRAM: 2.5 KB</li>
+<li>EEPROM: 1 KB</li>
+<li>Clock speed: 16 MHz</li>
+</ul>
+</div>
+<p class="indent">A unique feature of the Leonardo is that serial data is normally handled and programmed over USB, but the Leonardo also has pins 0 and 1, which are configured as additional serial pins. These can be used for serial communication, in addition to USB. For instance, you can program and communicate using serial over USB, while a device like a GPS shield can use the onboard serial pins as hardware serial, without the need to use <span class="FontName2">SoftwareSerial</span><a id="cXXX.25" />. Avoid the conflict generated between <span class="FontName2">SoftwareSerial</span> and the Servo library when they are used at the same time.</p>
+<p class="indent">The firmware updates allow for the programming of the devices over USB serial. They implement an improved reset feature that allows for a software reset, triggered by the Arduino uploader at programming time. If the Arduino is emulating a keyboard, joystick, or mouse, you need to be able to reset the device so you can reprogram it.</p>
+<p class="indent">In the new system SPI, however, pins are not broken out into digital pins, and are only available in the 6-pin ICSP header. For example, the Adafruit 32u4 breakout board and the Pro Mini from SparkFun Electronics both use the ATmega32u4 chip, and can be configured to act like an Arduino Leonardo. However, the physical pin mappings might be different, and this is where using a variants file is really helpful.</p>
+<p class="indent">There are also two sets of I2C pins, but they are connected to the same pins on the ATMEga32u4 chip. They do not have internal pull-up resistors. You will have to confirm whether your shield has onboard pull-up resistors, and if not, you will have to add them. For instance, the Adafruit RFID shield will require that external pull-up resistors be added to the board.</p>
+<p class="indent"><a href="#Fig3" id="_Fig3">Figure 1-3</a> is a chart stowing how the pins of the ATmega32u4 chip are mapped to the pins on the Arduino Leonardo.</p>
+<div class="Figure" id="Fig3">
+<p class="img"><img src="images/9781430239390_Fig01-03.jpg" alt="9781430239390_Fig01-03.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr"><a href="#_Fig3">Figure 1-3</a></span>. ATmega32u4 pin numbering </p>
+</div>
+<div class="Figure" id="Fig4">
+<p class="img"><img src="images/9781430239390_Fig01-04.jpg" alt="9781430239390_Fig01-04.jpg" /></p>
+<p class="FigCapt"><span class="CaptNr">Figure 1-4. </span>Arduino Leonardo pin and feature layout </p>
+</div>
+<p class="indent">In order to add the Leonard board to the Arduino IDE, they needed to define the <span class="FontName2">boards.txt</span> file, which contains the complete definition of the board. The <span class="FontName2">boards.txt</span> file includes the board name, platform, and upload protocol. Most importantly, the <span class="FontName2">boards.txt</span> file indicates the location of the bootloader file and the variants file to be used. If you make your own board based on this chip, these are the critical files to update. The SparkFun Pro Mini, the Adafruit ATmega32u4 board, and the paper Leonardo are all defined similarly; however, the <span class="FontName2">Leonardo</span> header and the <span class="FontName2">name</span> field need to be changed in the <span class="FontName2">boards.txt</span> file to match each board (see <a href="#list5" id="_list5">Listing 1-5</a>). If there were a different pin configuration on your custom board, you would need to create your own <span class="FontName2">build.variant</span> file.</p>
+<p class="noindent2"><i><b><a href="#_list5" id="list5">Listing 1-5.</a></b></i>&#160;&#160;boards.txt Definition for the Arduino Leonardo</p>
+<pre><span class="FontName2">leonardo.name=Arduino Leonardo</span><br /><span class="FontName2">leonardo.platform=avr</span><br /><span class="FontName2">leonardo.upload.protocol=arduino</span><br /><span class="FontName2">leonardo.upload.maximum_size=28672</span><br /><span class="FontName2">leonardo.upload.speed=1200</span><br /><span class="FontName2">leonardo.bootloader.low_fuses=0xde</span><br /><span class="FontName2">leonardo.bootloader.high_fuses=0xd8</span><br /><span class="FontName2">leonardo.bootloader.extended_fuses=0xcb</span><br /><span class="FontName2">leonardo.bootloader.path=diskloader</span><br /><span class="FontName2">leonardo.bootloader.file=DiskLoader-Leonardo.hex</span><br /><span class="FontName2">leonardo.bootloader.unlock_bits=0x3F</span><br /><span class="FontName2">leonardo.bootloader.lock_bits=0x2F</span><br /><span class="FontName2">leonardo.build.mcu=atmega32u4</span><br /><span class="FontName2">leonardo.build.f_cpu=16000000L</span><br /><span class="FontName2">leonardo.build.core=arduino</span><br /><span class="FontName2">leonardo.build.variant=leonardo</span></pre>
+<div>
+<p id="Sec21" class="Heading2">Board Variants</p>
+<p class="noindent">Board variants allow the defining of custom pin mappings for new and custom boards. Originally, all of these features were maintained in a <span class="FontName2">pins_arduino.h</span> file in the core. Now the pin maps have been moved into their own folder, called <span class="FontName2">variants</span>.</p>
+<div>
+<p id="Sec22" class="Heading3">Variants Files<a id="cXXX.26" /></p>
+<p class="noindent">The Arduino Leonardo is a good example. The Teensy from Paul Stoffregen and the ATmega32u4 breakout board from Adafruit both contain the same chip as the Leonardo, but have different form factors. The number of pins and locations don&#x2019;t match, so creating a board variants file helps map the pins to the common locations more easily. Like pin 13 used for blink. Pin 7 maps to an LED on the ATmega32u4 breakout board. Adding a variant file causes those mappings to be the same. The variants file makes it much easier to create a custom board that is Arduino compatible.</p>
+<p class="indent">These variants files are placed into a folder named after the board or the pin layout. Then, inside <span class="FontName2">boards.txt</span>, the variants entry needs to be added to:</p>
+<pre><span class="FontName2">boardname.build.variant=myboardpins</span></pre>
+<p class="indent">The files can be placed either into the application <span class="FontName2">hardware/arduino/variants</span> folder or in <span class="FontName2">sketches/hardware/myat32u4/variants</span>.</p>
+<p class="indent">Arduino comes with several predefined variants that support the existing Arduino boards, but this chapter will examine the section specific to the Leonardo variants. Among the other variant folders (mega, micro, standard), there is a new one called <span class="FontName2">Leonardo</span>. That folder contains <span class="FontName2">pins_arduino.h</span>. This is used at compile time as a reference for the pin mappings and board-specific features.</p>
+</div>
+<div>
+<p id="Sec23" class="Heading3">Variant Types and Naming<a id="cXXX.27" /></p>
+<p class="noindent">The Arduino Leonardo has 12 analog inputs, but only 5 are mapped on the silk screen. However, all 12 are defined in the variants file. This means you can use the features&#x2014;even though they are not labeled&#x2014;by reading the variants. The SPI pins are not labeled, but can be accessed via the ICSP header. Here is the section where these capabilities are defined:</p>
+<p class="indent">I2C is defined as pins 2 and 3 on the ATmega32u4 chip, as shown in <a href="#list6" id="_list6">Listing 1-6</a>.</p>
+<p class="noindent2"><i><b><a href="#_list6" id="list6">Listing 1-6</a>.</b></i>&#160;&#160;Variant File i2C Mappings</p>
+<pre><span class="FontName2">static const uint8_t SDA = 2;</span><br /><span class="FontName2">static const uint8_t SCL = 3;</span></pre>
+<p class="indent">SPI is defined as pins 17, 16, 14, and 15 on the ICSP header, as shown in <a href="#list7" id="_list7">Listing 1-7</a>.</p>
+<p class="noindent2"><i><b><a href="#_list7" id="list7">Listing 1-7.</a></b></i>&#160;&#160;SPI Pin Mappings</p>
+<pre><span class="FontName2">// Map SPI port to &#x0027;new&#x0027; pins D14..D17</span><br /><span class="FontName2">static const uint8_t SS&#160;&#160; = 17;</span><br /><span class="FontName2">static const uint8_t MOSI = 16;</span><br /><span class="FontName2">static const uint8_t MISO = 14;</span><br /><span class="FontName2">static const uint8_t SCK&#160;&#160;= 15;</span></pre>
+<p class="indent">The analog pins are defined and mapped on the ATmega32u4 to the pins shown in <a href="#list8" id="_list8">Listing 1-8</a>.</p>
+<p class="noindent2"><i><b><a href="#_list8" id="list8">Listing 1-8.</a></b></i>&#160;&#160;Analog Pin Mappings</p>
+<pre><span class="FontName2">// Mapping of analog pins as digital I/O</span><br /><span class="FontName2">// A6-A11 share with digital pins</span><br /><span class="FontName2">static const uint8_t A0 = 18;</span><br /><span class="FontName2">static const uint8_t A1 = 19;</span><br /><span class="FontName2">static const uint8_t A2 = 20;</span><br /><span class="FontName2">static const uint8_t A3 = 21;</span><br /><span class="FontName2">static const uint8_t A4 = 22;</span><br /><span class="FontName2">static const uint8_t A5 = 23;</span><br /><span class="FontName2">static const uint8_t A6 = 24;&#160;&#160;&#160;&#160;&#160;// D4</span><br /><span class="FontName2">static const uint8_t A7 = 25;&#160;&#160;&#160;&#160;&#160;// D6</span><br /><span class="FontName2">static const uint8_t A8 = 26;&#160;&#160;&#160;&#160;&#160;// D8</span><br /><span class="FontName2">static const uint8_t A9 = 27;&#160;&#160;&#160;&#160;&#160;// D9</span><br /><span class="FontName2">static const uint8_t A10 = 28;&#160;&#160;&#160;&#160;&#160;// D10</span><br /><span class="FontName2">static const uint8_t A11 = 29;&#160;&#160;&#160;&#160;&#160;// D12</span></pre>
+<p class="indent">The rest of the file configures the ports and other features to support these constants.<a id="cXXX.28" /></p>
+</div>
+</div>
+<div>
+<p id="Sec24" class="Heading2">Uploader Options Renamed to Programmers</p>
+<p class="noindent">There are several programmers supported in the list. The supported programmers are</p>
+<ul class="bulleted">
+<li>AVR ISP<a id="cXXX.29" /></li>
+<li>AVRISP mkII<a id="cXXX.30" /></li>
+<li>USBtinyISP<a id="cXXX.31" /></li>
+<li>USBasp<a id="cXXX.32" /></li>
+<li>Parallel programmer<a id="cXXX.33" /></li>
+<li>Arduino as ISP</li>
+</ul>
+<p class="indent">These options make it easier to program devices that don&#x2019;t have serial or USB serial ports. The smaller chips, like the ATtiny 4313, 2313, 85, and 45, can only be programmed via one of these programmers. These programmers can also be used to put new bootloaders onto Arduino boards. Additionally, they set the chip configuration and speed.</p>
+</div>
+<div>
+<p id="Sec25" class="Heading2">New Bootloaders<a id="cXXX.34" /></p>
+<p class="noindent">A bootloader<a id="cXXX.35" /> is the software on the Arduino board that loads the sketch into memory. The sketch is compiled into a HEX file. The bootloader receives the HEX file from a programmer called Avrdude, and then loads it as the active program on the device. Several new bootloaders come with Arduino 1.0.4:</p>
+<ul class="bulleted">
+<li><i>Optiboot</i>: The bootloader for the Arduino Uno rv3.</li>
+<li><i>Diskloader</i>: The bootloader for the Leonardo and 32u4-based boards.</li>
+<li><i>Stk500v2</i>: The bootloader for the Arduino Mega 2560.</li>
+</ul>
+</div>
+<div>
+<p id="Sec26" class="Heading2">USB Firmware for 16u2</p>
+<p class="noindent">The firmware<a id="cXXX.36" /> is for the USB support and VID information for official Arduino boards. The USB firmware for 16u2 also contains the LUFA library, which Arduino licensed for official USB support. This firmware is burnable into the Atmega16u2, the Atmega8u2 for the Arduino Uno, and the Arduino Mega 2560. These are now updated for all the revision 3 boards. Revision 3 also removes the FTDI USB support and replaces it with the Atmega16u2.</p>
+<p class="indent">You need to use the DFU programmer to program this firmware into those chips. The DFU programmer is available here: <span class="FontName2"><a href="http://dfu-programmer.sourceforge.net/">http://dfu-programmer.sourceforge.net/</a></span>.</p>
+<p class="indent">Additionally, a modification to board needs to be enabled to allow the programmer to communicate with the chip.</p>
+<p class="indent">To enable programming via the DFU, you need to populate the second ICSP programmer, and in some cases perform a hardware modification described here in order to start working with the 16u2.</p>
+<p class="indent">This ultimately allows for Arduino to have an onboard USB device separate from the main microcontroller. You will have to work out the communication protocol between the two devices. However, this will add USB device support to the latest family of Arduino boards. I think the Arduino Leonardo offers the best of both worlds, because instead of requiring you to program it separately, it allows you to program it using the Arduino USB API.</p>
+</div>
+<p id="Sec27" class="Heading1">Summary</p>
+<p class="noindent">The Arduino 1.0.4 core changes<a id="cXXX.874h" /> update the built-in command structure for Arduino significantly. The changes to the object hierarchy affect the behavior of the objects that inherit from the parent objects, allowing for a more regular and cleaner API to program. A lot of work has also gone into supporting more boards, and updated boards, from Arduino. The changes to the bootloaders, particularly the addition of board variants, is a significant step toward supporting more Arduino variations. Now, your own Arduino-compatible board is much easier to create and distribute. For example, you can use an Atemga32u4 chip on your own custom board, or even make a Leonardo-derived board like the SparkFun Pro Mini, Adafruit Flora, or Adafruit 32u4 breakout board.</p>
+</body>
+</html>
